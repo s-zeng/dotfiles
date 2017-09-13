@@ -17,6 +17,8 @@ Plugin 'Shougo/vimshell.vim'
 Plugin 's-zeng/repl.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -42,3 +44,4 @@ set mouse=a
 
 set pastetoggle=<F2>
 nmap <F8> :TagbarToggle<CR>
+nmap <F9> :NERDTreeToggle<CR>
