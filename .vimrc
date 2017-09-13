@@ -15,6 +15,8 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'Shougo/vimshell.vim'
 Plugin 's-zeng/repl.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'Valloric/YouCompleteMe'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -39,3 +41,4 @@ set nowrap
 set mouse=a
 
 set pastetoggle=<F2>
+nmap <F8> :TagbarToggle<CR>
