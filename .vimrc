@@ -42,6 +42,9 @@ if dein#load_state(expand('~/.vim/bundle'))
   call dein#add('scrooloose/nerdtree')
   call dein#add('scrooloose/nerdcommenter')
   call dein#add('jiangmiao/auto-pairs')
+  call dein#add('w0rp/ale')
+  call dein#add('vim-airline/vim-airline')
+  call dein#add('vim-airline/vim-airline-themes')
 
   call dein#end()
   call dein#save_state()
@@ -50,14 +53,16 @@ endif
 filetype plugin indent on
 syntax enable
 
-python3 from powerline.vim import setup as powerline_setup
-python3 powerline_setup()
-python3 del powerline_setup
+"python3 from powerline.vim import setup as powerline_setup
+"python3 powerline_setup()
+"python3 del powerline_setup
 
 set number
 set backspace=2
 
 colorscheme monokai
+"hi CursorLine ctermfg=NONE ctermbg=234 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
+"hi LineNr ctermfg=102 ctermbg=234 cterm=NONE guifg=#90908a guibg=#3c3d37 gui=NONE
 
 set tabstop=4
 set shiftwidth=4
@@ -142,3 +147,8 @@ nmap <F10> :VimShellPop<CR><ESC><C-w>p:VimShellBufferDir<CR>
 "inoremap <F5> <ESC><C-p>YGpi<CR>
 
 set cursorline
+
+let g:ale_completion_enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline_theme='ravenpower'
+let g:airline#extensions#ale#enabled = 1
