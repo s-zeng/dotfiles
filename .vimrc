@@ -40,8 +40,8 @@ if dein#load_state(expand('~/.vim/bundle'))
   call dein#add('majutsushi/tagbar')
   "call dein#add('Shougo/vimfiler.vim')
   call dein#add('scrooloose/nerdtree')
-  call dein#add('Xuruanp/nerdtree-git-plugin')
-
+  call dein#add('scrooloose/nerdcommenter')
+  call dein#add('jiangmiao/auto-pairs')
 
   call dein#end()
   call dein#save_state()
@@ -106,7 +106,7 @@ if 1
         \'php',
         \'[^. \t]->\h\w*\|\h\w*::\w*')
 
-  " disable for Python
+  " enable for Python
   call neocomplete#util#set_default_dictionary(
         \'g:neocomplete#sources#omni#input_patterns',
         \'python',
