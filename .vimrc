@@ -73,10 +73,10 @@ set hlsearch
 set nowrap
 set mouse=a
 
-let NERDTreeWinSize=24
+let g:NERDTreeWinSize=24
 let g:vimshell_popup_height=10
 let g:vimshell_popup_command=':split|:res 10|:wincmd r|:set nonumber'
-let g:vimshell_prompt="vimshell > "
+let g:vimshell_prompt='vimshell > '
 let g:vimshell_prompt_expr = 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
 let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
 let g:tagbar_width = 24
@@ -145,6 +145,9 @@ inoremap <F8> <ESC>:NERDTreeToggle<CR>
 inoremap <F10> <ESC>:VimShellPop<CR>
 nmap <F10> :VimShellPop<CR><ESC><C-w>p:VimShellBufferDir<CR>
 "inoremap <F5> <ESC><C-p>YGpi<CR>
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <F5> <Plug>(ale_toggle)
 
 set cursorline
 
@@ -152,3 +155,4 @@ let g:ale_completion_enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_theme='ravenpower'
 let g:airline#extensions#ale#enabled = 1
+let g:ale_enabled = 0
