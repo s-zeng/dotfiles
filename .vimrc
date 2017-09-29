@@ -36,9 +36,7 @@ if dein#load_state(expand('~/.vim/bundle'))
   call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
   call dein#add('Shougo/vimshell.vim')
   call dein#add('s-zeng/repl.vim')
-  call dein#add('Shougo/vimshell.vim')
   call dein#add('majutsushi/tagbar')
-  "call dein#add('Shougo/vimfiler.vim')
   call dein#add('scrooloose/nerdtree')
   call dein#add('scrooloose/nerdcommenter')
   call dein#add('jiangmiao/auto-pairs')
@@ -143,7 +141,7 @@ inoremap <F9> <ESC>:TagbarToggle<CR>
 nmap <F8> :NERDTreeToggle<CR>
 inoremap <F8> <ESC>:NERDTreeToggle<CR>
 inoremap <F10> <ESC>:VimShellPop<CR>
-nmap <F10> :VimShellPop<CR><ESC><C-w>p:VimShellBufferDir<CR>
+nmap <F10> :VimShellPop<CR>
 "inoremap <F5> <ESC><C-p>YGpi<CR>
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
@@ -156,3 +154,13 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme='ravenpower'
 let g:airline#extensions#ale#enabled = 1
 let g:ale_enabled = 0
+let g:airline_detect_modified=1
+let g:airline_detect_crypt=1
+let g:airline_detect_paste=1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_splits = 0
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#tab_nr_type = 1
+let g:airline#extensions#tabline#tab_min_count = 2
+set ttimeoutlen=10
+set noshowmode
