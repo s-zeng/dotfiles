@@ -1,5 +1,5 @@
 # vim-settings
-Dot files for my rice
+Dot files for my laptop
 
 [Screenshot 1](https://raw.githubusercontent.com/s-zeng/vim-settings/master/Pictures/Desktop1.png)
 
