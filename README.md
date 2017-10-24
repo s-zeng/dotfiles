@@ -1,10 +1,8 @@
 # vim-settings
-My personal vim profile and settings. Uses [dein.vim](https://github.com/Shougo/dein.vim) as a plugin manager.
+Dot files for my rice
 
-[Screenshot 1 (java)](https://raw.githubusercontent.com/s-zeng/vim-settings/master/screenshot-java.png)
+[Screenshot 1](https://raw.githubusercontent.com/s-zeng/vim-settings/master/Pictures/Desktop1.png)
 
-[Screenshot 2 (ruby)](https://raw.githubusercontent.com/s-zeng/vim-settings/master/screenshot-ruby.png)
+[Screenshot 2](https://raw.githubusercontent.com/s-zeng/vim-settings/master/Pictures/Desktop3.png)
 
-[Screenshot 3 (python)](https://raw.githubusercontent.com/s-zeng/vim-settings/master/screenshot-python.png)
-
-[Screenshot 4 (racket)](https://raw.githubusercontent.com/s-zeng/vim-settings/master/screenshot-racket.png)
+[Screenshot 3](https://raw.githubusercontent.com/s-zeng/vim-settings/master/Pictures/screenfetch.png)

@@ -1,37 +1,14 @@
-filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
-"set rtp+=~/.vim/bundle/Vundle.vim
-"call vundle#begin()
-
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-"Plugin 'gmarik/Vundle.vim'
-
-" Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
-"Plugin 'Shougo/vimproc.vim'
-"Plugin 'Shougo/vimshell.vim'
-"Plugin 's-zeng/repl.vim'
-"Plugin 'majutsushi/tagbar'
-"Plugin 'Valloric/YouCompleteMe'
-"Plugin 'scrooloose/nerdtree'
-"Plugin 'Xuyuanp/nerdtree-git-plugin'
-
-" All of your Plugins must be added before the following line
-"call vundle#end()            " required
-
+" Set incompatible
 if &compatible
   set nocompatible
 endif
-set runtimepath+=/home/kronicmage/.vim/bundle/repos/github.com/Shougo/dein.vim
 
+" dein stuff
+set runtimepath+=/home/kronicmage/.vim/bundle/repos/github.com/Shougo/dein.vim
 if dein#load_state(expand('~/.vim/bundle'))
   call dein#begin(expand('~/.vim/bundle'))
-
   call dein#add('Shougo/dein.vim')
-  call dein#add('Shougo/unite.vim')
+  call dein#add('Shougo/denite.nvim')
   call dein#add('Shougo/neocomplete.vim')
   call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
   call dein#add('Shougo/vimshell.vim')
@@ -43,41 +20,81 @@ if dein#load_state(expand('~/.vim/bundle'))
   call dein#add('w0rp/ale')
   call dein#add('vim-airline/vim-airline')
   call dein#add('vim-airline/vim-airline-themes')
-
+  call dein#add('dikiaap/minimalist')
+  call dein#add('dylanaraps/wal.vim')
+  call dein#add('cocopon/iceberg.vim')
   call dein#end()
   call dein#save_state()
 endif
 
+" colorscheme stuff
 filetype plugin indent on
 syntax enable
+set t_Co=256
+"colorscheme monokai
+"colorscheme wal
+colorscheme iceberg
+hi Normal ctermbg=NONE guibg=NONE
+hi NonText ctermbg=NONE guibg=NONE
+hi Comment ctermfg=243
+hi CursorLine ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
+hi VertSplit ctermbg=NONE ctermfg=236
+hi Visual ctermbg=240
+hi LineNr ctermfg=59 ctermbg=NONE
+hi EndOfBuffer ctermbg=NONE ctermfg=NONE
+hi CursorLineNr ctermfg=59 ctermbg=236
 
-"python3 from powerline.vim import setup as powerline_setup
-"python3 powerline_setup()
-"python3 del powerline_setup
+" plugin confs
+let g:NERDTreeWinSize=24
+let g:vimshell_popup_height=8
+let g:vimshell_popup_command=':split|:res 8|:wincmd r|:set nonumber'
+let g:vimshell_prompt='vimshell > '
+let g:vimshell_prompt_expr = 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
+let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
+let g:tagbar_width = 20
+let g:ale_completion_enabled = 1
+let g:airline_powerline_fonts = 1
+"let g:airline_theme='ravenpower'
+let g:airline_theme='iceberg'
+let g:airline#extensions#ale#enabled = 1
+let g:ale_enabled = 0
+let g:airline_detect_modified=1
+let g:airline_detect_crypt=1
+let g:airline_detect_paste=1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_splits = 0
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#tab_nr_type = 1
+let g:airline#extensions#tabline#tab_min_count = 2
+silent! call g:airline#extensions#whitespace#disable()
 
+" sets
 set number
 set backspace=2
-
-colorscheme monokai
-"hi CursorLine ctermfg=NONE ctermbg=234 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
-"hi LineNr ctermfg=102 ctermbg=234 cterm=NONE guifg=#90908a guibg=#3c3d37 gui=NONE
-
 set tabstop=4
 set shiftwidth=4
 set expandtab
 set autoindent
-
 set hlsearch
 set nowrap
 set mouse=a
+set pastetoggle=<F2>
+set cursorline
+set ttimeoutlen=10
+set laststatus=1
 
-let g:NERDTreeWinSize=24
-let g:vimshell_popup_height=10
-let g:vimshell_popup_command=':split|:res 10|:wincmd r|:set nonumber'
-let g:vimshell_prompt='vimshell > '
-let g:vimshell_prompt_expr = 'escape(fnamemodify(getcwd(), ":~").">", "\\[]()?! ")." "'
-let g:vimshell_prompt_pattern = '^\%(\f\|\\.\)\+> '
-let g:tagbar_width = 24
+" keymaps
+nmap <F9> :TagbarToggle<CR>
+inoremap <F9> <ESC>:TagbarToggle<CR>
+nmap <F8> :NERDTreeToggle<CR>
+inoremap <F8> <ESC>:NERDTreeToggle<CR>
+inoremap <F10> <ESC>:VimShellPop<CR>
+nmap <F10> :VimShellPop<CR>
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <F5> <Plug>(ale_toggle)
+map <F3> :set laststatus=0<CR>
+map <F4> :set laststatus=2<CR>
 
  " neocomplete {{{
 if 1
@@ -135,32 +152,6 @@ if 1
 endif
  " }}}
 
-set pastetoggle=<F2>
-nmap <F9> :TagbarToggle<CR>
-inoremap <F9> <ESC>:TagbarToggle<CR>
-nmap <F8> :NERDTreeToggle<CR>
-inoremap <F8> <ESC>:NERDTreeToggle<CR>
-inoremap <F10> <ESC>:VimShellPop<CR>
-nmap <F10> :VimShellPop<CR>
-"inoremap <F5> <ESC><C-p>YGpi<CR>
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-nmap <F5> <Plug>(ale_toggle)
-
-set cursorline
-
-let g:ale_completion_enabled = 1
-let g:airline_powerline_fonts = 1
-let g:airline_theme='ravenpower'
-let g:airline#extensions#ale#enabled = 1
-let g:ale_enabled = 0
-let g:airline_detect_modified=1
-let g:airline_detect_crypt=1
-let g:airline_detect_paste=1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_splits = 0
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#tab_nr_type = 1
-let g:airline#extensions#tabline#tab_min_count = 2
-set ttimeoutlen=10
-set noshowmode
+if &laststatus != 1
+    set laststatus=1
+endif
