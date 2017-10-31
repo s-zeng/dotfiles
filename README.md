@@ -5,7 +5,7 @@ Dot files for my desktop
 
 [Screenshot 2](https://raw.githubusercontent.com/s-zeng/vim-settings/master/Pictures/Desktop3.png)
 
-[Screenshot 2](https://raw.githubusercontent.com/s-zeng/vim-settings/master/Pictures/Desktop3alt.png)
+[Screenshot 3](https://raw.githubusercontent.com/s-zeng/vim-settings/master/Pictures/Desktop3alt.png)
 
 [Screenshot 4](https://raw.githubusercontent.com/s-zeng/vim-settings/master/Pictures/screenfetch.png)
 
