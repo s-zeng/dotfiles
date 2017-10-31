@@ -5,8 +5,8 @@ endif
 
 " dein stuff
 set runtimepath+=/home/kronicmage/.vim/bundle/repos/github.com/Shougo/dein.vim
-if dein#load_state(expand('~/.vim/bundle'))
-  call dein#begin(expand('~/.vim/bundle'))
+if dein#load_state(expand('/home/kronicmage/.vim/bundle'))
+  call dein#begin(expand('/home/kronicmage/.vim/bundle'))
   call dein#add('Shougo/dein.vim')
   call dein#add('Shougo/denite.nvim')
   call dein#add('Shougo/neocomplete.vim')

@@ -12,12 +12,12 @@
 # 'autosens' will attempt to decrease sensitivity if the bars peak. 1 = on, 0 = off
 # new as of 0.6.0 autosens of low values (dynamic range)
 # 'overshoot' allows bars to overshoot (in % of terminal height) without initiating autosens. DEPRECATED as of 0.6.0
-; autosens = 1
-; overshoot = 20
+autosens = 1
+overshoot = 0
 
 # Manual sensitivity in %. Autosens must be turned off for this to take effect.
 # 200 means double height. Accepts only non-negative values.
-sensitivity = 100
+; sensitivity = 10
 
 # The number of bars (0-200). 0 sets it to auto (fill up console).
 # Bars' width and space between bars in number of characters.
@@ -48,14 +48,14 @@ sensitivity = 100
 # 
 # For alsa 'source' will be the capture device.
 # For fifo 'source' will be the path to fifo-file.
-; method = pulse
-; source = auto
+method = pulse
+source = auto
 
 ; method = alsa
 ; source = hw:Loopback,1
 
-method = fifo
-source = /tmp/mpd.fifo
+; method = fifo
+; source = /tmp/mpd.fifo
 
 
 

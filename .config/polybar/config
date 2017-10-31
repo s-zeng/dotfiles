@@ -9,7 +9,7 @@
 
 [colors]
 ;background = ${xrdb:color0:#222}
-background = #db01060d
+background = #ea01060d
 background-alt = #db444444
 ;foreground = ${xrdb:color7:#222}
 foreground = #dbdfdfdf
@@ -49,11 +49,11 @@ module-margin-right = 2
 ;font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-0 = monaco:pixelsize=10;0
 font-1 = FontAwesome:pixelsize=10;1
-font-2 = siji:pixelsize=10;2
+font-2 = WunconSiji:pixelsize=10;2
 
 modules-left = i3 
 modules-center = xwindow
-modules-right = mpd wlan battery date powermenu
+modules-right = mpd volume eth date powermenu
 
 tray-position = right
 tray-padding = 2
@@ -230,13 +230,13 @@ ramp-signal-foreground = ${colors.foreground-alt}
 
 [module/eth]
 type = internal/network
-interface = net0
+interface = enp3s0
 interval = 3.0
 
 format-connected-underline = #55aa55
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
-label-connected = %local_ip%
+label-connected = " : %downspeed%  : %upspeed%"
 
 format-disconnected =
 ;format-disconnected = <label-disconnected>

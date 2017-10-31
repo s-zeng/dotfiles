@@ -11,10 +11,10 @@ no-dock-shadow = false;		# Avoid drawing shadows on dock/panel windows.
 no-dnd-shadow = false;		# Don't draw shadows on DND windows.
 clear-shadow = true;		# Zero the part of the shadow's mask behind the window (experimental).
 shadow-radius = 20;		# The blur radius for shadows. (default 12)
-shadow-offset-x = -15;		# The left offset for shadows. (default -15)
-shadow-offset-y = -15;		# The top offset for shadows. (default -15)
+shadow-offset-x = 0;		# The left offset for shadows. (default -15)
+shadow-offset-y = 0;		# The top offset for shadows. (default -15)
 shadow-opacity = 0.5;
-menu-opacity = 1;
+menu-opacity = 0.92;
 #shadow-exclude = [
 # #"! name~=''",
 # "n:e:Notification",
@@ -43,8 +43,8 @@ blur-background-exclude = [
 
 #opacity-rule = ["85:class_g = 'gnome-terminal'"];
 opacity-rule = [
-	"50:class_g = 'Bspwm' && class_i = 'presel_feedback'",
-	"75:class_g = 'URxvt'"
+#	"50:class_g = 'Bspwm' && class_i = 'presel_feedback'",
+	"90:class_g = 'Gnome-terminal'"
 ];
 
 # The shadow exclude options are helpful if you have shadows enabled. Due to the way compton draws its shadows, certain applications will have visual glitches 
@@ -53,19 +53,23 @@ opacity-rule = [
 
 # Fading
 fading = true; # Fade windows during opacity changes.
-fade-delta = 4; # The time between steps in a fade in milliseconds. (default 10).
-fade-in-step = 0.03; # Opacity change between steps while fading in. (default 0.028).
-fade-out-step = 0.03; # Opacity change between steps while fading out. (default 0.03).
+fade-delta = 1; # The time between steps in a fade in milliseconds. (default 10).
+#fade-in-step = 0.03; # Opacity change between steps while fading in. (default 0.028).
+#fade-out-step = 0.03; # Opacity change between steps while fading out. (default 0.03).
 no-fading-openclose = false; # Fade windows in/out when opening/closing
 
 detect-client-opacity = true; # This prevents opacity being ignored for some apps. For example without this enabled my xfce4-notifyd is 100% opacity no matter what.
 
 #Window type settings
-wintypes:
-{
-  tooltip = { fade = true; shadow = false; };
-  menu = { shadow = false; };
-  dropdown_menu = { shadow = false; };
-  popup_menu =  { shadow = false; };
-};
+#wintypes:
+#{
+#  tooltip = { fade = true; shadow = false; };
+#  menu = { shadow = false; };
+#  dropdown_menu = { shadow = false; };
+#  popup_menu =  { shadow = false; };
+#};
 
+#inactive-opacity=0.80;
+inactive-dim=0.1;
+#inactive-opacity-override = true;
+mark-wmwin-focused = true;

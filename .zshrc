@@ -2,8 +2,9 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 #(wal -t -r &)
 export TERM="xterm-256color"
+
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/kronicmage/.oh-my-zsh
+export ZSH=/usr/share/oh-my-zsh/
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -53,7 +54,9 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-autosuggestions)
+source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+plugins=(archlinux git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -87,12 +90,10 @@ export EDITOR='vim'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-source /home/kronicmage/repos/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export DEFAULT_USER="$(whoami)"
 alias man="man -P most"
 alias :q=exit
 alias :q!=exit
-alias python='python3.6 -i'
 alias pls='sudo $(!!)'
 alias fix='echo -e "\e<"; reset; stty sane; tput rs1; clear; echo -e "\033c"'
 alias hack=cmatrix
