@@ -67,6 +67,7 @@ let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline#extensions#tabline#tab_min_count = 2
 silent! call g:airline#extensions#whitespace#disable()
+let NERDTreeMinimalUI = 1
 
 " sets
 set number
@@ -152,6 +153,9 @@ if 1
 endif
  " }}}
 
-if &laststatus != 1
-    set laststatus=1
-endif
+let g:vimpager = {}
+let g:less     = {}
+
+let g:less.number = 0
+
+set laststatus=1

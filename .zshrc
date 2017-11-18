@@ -9,7 +9,8 @@ export ZSH=/usr/share/oh-my-zsh/
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-#ZSH_THEME="powerlevel9k/powerlevel9k"
+#source /usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
+#ZSH_THEME="powerlevel9k"
 ZSH_THEME="agnoster"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -90,8 +91,10 @@ export EDITOR='vim'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-export DEFAULT_USER="$(whoami)"
-alias man="man -P most"
+export DEFAULT_USER="kronicmage"
+export PAGER=most
+export PATH=$PATH:$HOME/bin
+#alias man="man -P vimpager"
 alias :q=exit
 alias :q!=exit
 alias pls='sudo $(!!)'
