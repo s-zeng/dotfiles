@@ -16,6 +16,7 @@ if dein#load_state(expand('/home/kronicmage/.vim/bundle'))
   call dein#add('majutsushi/tagbar')
   call dein#add('scrooloose/nerdtree')
   call dein#add('scrooloose/nerdcommenter')
+  call dein#add('jistr/vim-nerdtree-tabs')
   call dein#add('jiangmiao/auto-pairs')
   call dein#add('w0rp/ale')
   call dein#add('vim-airline/vim-airline')
@@ -23,6 +24,7 @@ if dein#load_state(expand('/home/kronicmage/.vim/bundle'))
   call dein#add('dikiaap/minimalist')
   call dein#add('dylanaraps/wal.vim')
   call dein#add('cocopon/iceberg.vim')
+  call dein#add('donRaphaco/neotex')
   call dein#end()
   call dein#save_state()
 endif
@@ -37,12 +39,12 @@ colorscheme iceberg
 hi Normal ctermbg=NONE guibg=NONE
 hi NonText ctermbg=NONE guibg=NONE
 hi Comment ctermfg=243
-hi CursorLine ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
-hi VertSplit ctermbg=NONE ctermfg=236
+hi CursorLine ctermfg=NONE ctermbg=234 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
+hi VertSplit ctermbg=NONE ctermfg=234
 hi Visual ctermbg=240
 hi LineNr ctermfg=59 ctermbg=NONE
 hi EndOfBuffer ctermbg=NONE ctermfg=NONE
-hi CursorLineNr ctermfg=59 ctermbg=236
+hi CursorLineNr ctermfg=59 ctermbg=234
 
 " plugin confs
 let g:NERDTreeWinSize=24
@@ -55,7 +57,8 @@ let g:tagbar_width = 20
 let g:ale_completion_enabled = 1
 let g:airline_powerline_fonts = 1
 "let g:airline_theme='ravenpower'
-let g:airline_theme='iceberg'
+"let g:airline_theme='iceberg'
+let g:airline_theme='serene'
 let g:airline#extensions#ale#enabled = 1
 let g:ale_enabled = 0
 let g:airline_detect_modified=1
@@ -68,6 +71,9 @@ let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline#extensions#tabline#tab_min_count = 2
 silent! call g:airline#extensions#whitespace#disable()
 let NERDTreeMinimalUI = 1
+let g:vimpager = {}
+let g:less     = {}
+let g:less.number = 0
 
 " sets
 set number
@@ -82,20 +88,23 @@ set mouse=a
 set pastetoggle=<F2>
 set cursorline
 set ttimeoutlen=10
-set laststatus=1
+set laststatus=2
+set foldmethod=indent
+set foldlevel=99
 
 " keymaps
 nmap <F9> :TagbarToggle<CR>
 inoremap <F9> <ESC>:TagbarToggle<CR>
-nmap <F8> :NERDTreeToggle<CR>
-inoremap <F8> <ESC>:NERDTreeToggle<CR>
+nmap <F8> :NERDTreeTabsToggle<CR>
+inoremap <F8> <ESC>:NERDTreeTabsToggle<CR>
 inoremap <F10> <ESC>:VimShellPop<CR>
 nmap <F10> :VimShellPop<CR>
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 nmap <F5> <Plug>(ale_toggle)
-map <F3> :set laststatus=0<CR>
-map <F4> :set laststatus=2<CR>
+map <F3> :set laststatus=0<CR>:set showmode<CR><CR>
+map <F4> :set laststatus=2<CR>:set noshowmode<CR><CR>
+map <F12> :make<CR>
 
  " neocomplete {{{
 if 1
@@ -153,9 +162,4 @@ if 1
 endif
  " }}}
 
-let g:vimpager = {}
-let g:less     = {}
 
-let g:less.number = 0
-
-set laststatus=1
