@@ -1,0 +1,8 @@
+[user]
+	email = simon.zeng.68@gmail.com
+	name = Simon Zeng
+	signingkey = D72AB5B88B2C4ECD
+[credential]
+	helper = store
+[commit]
+	gpgsign = true
