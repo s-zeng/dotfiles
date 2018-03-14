@@ -36,7 +36,7 @@ ZSH_THEME="agnoster"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -99,7 +99,7 @@ alias :q=exit
 alias :q!=exit
 alias pls='sudo $(!!)'
 alias fix='echo -e "\e<"; reset; stty sane; tput rs1; clear; echo -e "\033c"'
-alias hack=cmatrix
+alias hack='unimatrix -s 96'
 alias clock='tty-clock -s -c -b -t -C 4'
-alias matrix='cmatrix -C blue'
+alias matrix='unimatrix -n -s 96'
 alias vtop='vtop --theme brew'
