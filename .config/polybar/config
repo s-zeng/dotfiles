@@ -53,7 +53,7 @@ font-2 = WunconSiji:pixelsize=10;2
 
 modules-left = i3 
 modules-center = xwindow
-modules-right = mpd volume eth date powermenu
+modules-right = mpd eth date powermenu
 
 tray-position = right
 tray-padding = 2
