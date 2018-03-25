@@ -9,4 +9,3 @@ while pgrep -x feh >/dev/null; do sleep 1; done
 # Launch polybar
 feh --bg-scale ~/Downloads/aesthetic.jpg
 
-wal -i -t -n ~/Downloads/aesthetic.jpg
