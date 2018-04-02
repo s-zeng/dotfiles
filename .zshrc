@@ -75,7 +75,7 @@ source $ZSH/oh-my-zsh.sh
 #   export EDITOR='mvim'
 # fi
 
-export EDITOR='vim'
+export EDITOR='nvim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -103,3 +103,5 @@ alias hack='unimatrix -s 96'
 alias clock='tty-clock -s -c -b -t -C 4'
 alias matrix='unimatrix -n -s 96'
 alias vtop='vtop --theme brew'
+alias vim=nvim
+alias pypy=pypy3
