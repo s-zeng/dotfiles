@@ -13,11 +13,16 @@ set mouse=a
 set pastetoggle=<F2>
 set cursorline
 set ttimeoutlen=10
-set laststatus=0
+set laststatus=2
 set foldmethod=indent
 set foldlevel=99
 set smarttab
 set scrolloff=3
+set statusline=                                        " Override default
+set statusline+=%2*\ %{mode()}\ %f\ %m\ %r%*                      " Show filename/path
+set statusline+=%3*%=%*                                " Set right-side status info after this line
+set statusline+=%4*%y\ %l/%L:%v%*                          " Set <line number>/<total lines>:<column>
+set statusline+=%5*\ %*                                " Set ending space
 " aus 
 au Filetype c set shiftwidth=8 tabstop=8
 au TermClose * exe "bd! " . expand('<abuf>')
@@ -48,6 +53,11 @@ hi Visual ctermbg=240
 hi LineNr ctermfg=59 ctermbg=NONE
 hi EndOfBuffer ctermbg=NONE ctermfg=NONE
 hi CursorLineNr ctermfg=59 ctermbg=234
+hi TabLineFill ctermfg=NONE ctermbg=NONE
+hi TabLine ctermfg=NONE ctermbg=NONE
+hi TabLineSel ctermfg=NONE ctermbg=NONE
+hi StatusLine ctermfg=NONE ctermbg=234
+hi StatusLineNC ctermfg=NONE ctermbg=234
 
 " plugin confs
 let g:deoplete#enable_at_startup = 1
@@ -74,6 +84,8 @@ inoremap <F9> <ESC>:TagbarToggle<CR>
 nmap <F8> :Lex<CR>
 inoremap <F8> <ESC>:Lex<CR>
 map <F12> :make<CR>
+map <F3> :set laststatus=0<CR>:set showmode<CR><CR>
+map <F4> :set laststatus=2<CR>:set noshowmode<CR><CR>
 nnoremap <F10> :call OpenTerminal()<cr>
 nnoremap <F5> :call OpenTerminal()<cr>
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
