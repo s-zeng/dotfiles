@@ -1,5 +1,5 @@
 # Dotfiles
-Dot files for my desktop
+Dot files for my linux setup
 
 [Screenshot 1](https://raw.githubusercontent.com/s-zeng/vim-settings/master/Pictures/Desktop1.png)
 
