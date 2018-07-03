@@ -29,6 +29,7 @@ fu! OpenTerminal()
     botright split
     resize 10
     set nonumber
+    set norelativenumber
     terminal
     startinsert
 endf
@@ -93,7 +94,7 @@ set statusline+=%3*%=%*                                " Set right-side status i
 set statusline+=%4*%y\ %l/%L:%v%*                      " Set [filetype] <line number>/<total lines>:<column>
 set statusline+=%5*\ %*                                " Set ending space
 " aus
-
+au Filetype tex set tw=80 formatoptions+=w spell
 au Filetype c set shiftwidth=8 tabstop=8
 if has('nvim')
     au TermClose * exe "bd! " . expand('<abuf>')
