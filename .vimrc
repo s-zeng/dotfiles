@@ -1,6 +1,5 @@
 " speed set at top
 set guioptions=M
-set nornu
 
 " plugins via dein
 set runtimepath+=~/.vim/bundle/repos/github.com/Shougo/dein.vim
@@ -28,8 +27,6 @@ endif
 fu! OpenTerminal()
     botright split
     resize 10
-    set nonumber
-    set norelativenumber
     terminal
     startinsert
 endf
@@ -37,8 +34,8 @@ fu! ColorFix()
     hi Normal ctermbg=NONE guibg=NONE
     hi NonText ctermbg=NONE guibg=NONE
     hi Comment ctermfg=243
-    " hi CursorLine ctermfg=NONE ctermbg=234 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
-    hi CursorLine ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
+    hi CursorLine ctermfg=NONE ctermbg=234 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
+    " hi CursorLine ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
     hi VertSplit ctermbg=NONE ctermfg=234
     hi Visual ctermbg=240
     hi LineNr ctermfg=59 ctermbg=NONE
@@ -47,8 +44,8 @@ fu! ColorFix()
     hi TabLineFill term=bold cterm=bold ctermfg=NONE ctermbg=NONE
     hi TabLine ctermfg=NONE ctermbg=NONE
     hi TabLineSel ctermfg=NONE ctermbg=NONE
-    hi StatusLine ctermfg=NONE ctermbg=NONE
-    hi StatusLineNC ctermfg=NONE ctermbg=NONE
+    " hi StatusLine ctermfg=NONE ctermbg=NONE
+    " hi StatusLineNC ctermfg=NONE ctermbg=NONE
 endfunction
 fu! s:goyo_enter()
     Limelight
@@ -81,21 +78,44 @@ set foldmethod=indent
 set foldlevel=99
 set showmatch
 set smarttab
-set scrolloff=9999
+" set scrolloff=9999
 " set splitbelow
 set splitright
 set guicursor=
 set background=dark
 
 " statusline
-set statusline=                                        " Override default
-set statusline+=%2*\ %f\ %m\ %r%*                      " Show filename/path
-set statusline+=%3*%=%*                                " Set right-side status info after this line
-set statusline+=%4*%y\ %l/%L:%v%*                      " Set [filetype] <line number>/<total lines>:<column>
-set statusline+=%5*\ %*                                " Set ending space
+set statusline=
+set statusline+=%#DiffAdd#%{(mode()=='n')?'\ \ NORMAL\ ':''}
+set statusline+=%#DiffAdd#%{(mode()=='c')?'\ \ NORMAL\ ':''}
+set statusline+=%#DiffText#%{(mode()=='i')?'\ \ INSERT\ ':''}
+set statusline+=%#DiffText#%{(mode()=='t')?'\ \ \ TERM\ \ ':''}
+set statusline+=%#DiffDelete#%{(mode()=='R')?'\ \ RPLACE\ ':''}
+set statusline+=%#Search#%{(mode()=='v')?'\ \ VISUAL\ ':''}
+set statusline+=%#Search#%{(mode()=='V')?'\ \ V-LINE\ ':''}
+set statusline+=%#Search#%{(mode()=='\<C-V>')?'\ \ VBLOCK\ ':''}
+set statusline+=%#Visual#       " colour
+set statusline+=%{&paste?'\ PASTE\ ':''}
+set statusline+=%{&spell?'\ SPELL\ ':''}
+set statusline+=%#CursorIM#     " colour
+set statusline+=%r                        " readonly flag
+set statusline+=%m                        " modified [+] flag
+set statusline+=%#Cursor#               " colour
+set statusline+=%#CursorLine#     " colour
+set statusline+=\ %t\                   " short file name
+set statusline+=%=                          " right align
+set statusline+=%#CursorLine#   " colour
+set statusline+=\ %y\                   " file type
+set statusline+=%#CursorIM#     " colour
+set statusline+=\ %3l:%-2c\         " line + column
+set statusline+=%#Cursor#       " colour
+set statusline+=\ %3p%%\                " percentage
+
 " aus
 au Filetype tex set tw=80 formatoptions+=w spell
+au Filetype markdown set tw=80 formatoptions+=w spell
 au Filetype c set shiftwidth=8 tabstop=8
+au TermOpen * set nonumber norelativenumber
 if has('nvim')
     au TermClose * exe "bd! " . expand('<abuf>')
 endif
@@ -126,6 +146,8 @@ let g:limelight_conceal_ctermfg = 243
 let mapleader = " "
 
 " keymaps
+imap kj <Esc>
+tmap kj <Esc>
 nmap <F9> :TagbarToggle<CR>
 inoremap <F9> <ESC>:TagbarToggle<CR>
 nmap <F8> :Lex<CR>
@@ -150,18 +172,18 @@ nnoremap <C-h> <c-w>h
 nnoremap <C-j> <c-w>j
 nnoremap <C-k> <c-w>k
 nnoremap <C-l> <c-w>l
-" tnoremap <C-Left> <c-\><c-n><C-w>h
-" tnoremap <C-Down> <c-\><c-n><C-w>j
-" tnoremap <C-Up> <c-\><c-n><C-w>k
-" tnoremap <C-Right> <c-\><c-n><C-w>l
-" inoremap <C-Left> <c-\><c-n><C-w>h
-" inoremap <C-Down> <c-\><c-n><C-w>j
-" inoremap <C-Up> <c-\><c-n><C-w>k
-" inoremap <C-Right> <c-\><c-n><C-w>l
-" nnoremap <C-Left> <c-w>h
-" nnoremap <C-Down> <c-w>j
-" nnoremap <C-Up> <c-w>k
-" nnoremap <C-Right> <c-w>l
+tnoremap <C-Left> <c-\><c-n><C-w>h
+tnoremap <C-Down> <c-\><c-n><C-w>j
+tnoremap <C-Up> <c-\><c-n><C-w>k
+tnoremap <C-Right> <c-\><c-n><C-w>l
+inoremap <C-Left> <c-\><c-n><C-w>h
+inoremap <C-Down> <c-\><c-n><C-w>j
+inoremap <C-Up> <c-\><c-n><C-w>k
+inoremap <C-Right> <c-\><c-n><C-w>l
+nnoremap <C-Left> <c-w>h
+nnoremap <C-Down> <c-w>j
+nnoremap <C-Up> <c-w>k
+nnoremap <C-Right> <c-w>l
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
