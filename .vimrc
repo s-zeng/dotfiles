@@ -6,18 +6,23 @@ set runtimepath+=~/.vim/bundle/repos/github.com/Shougo/dein.vim
 if dein#load_state(expand('~/.vim/bundle'))
     call dein#begin(expand('~/.vim/bundle'))
     call dein#add('cohama/lexima.vim', {'lazy': 1, 'on_i': 1}) " autopairs
-    call dein#add('junegunn/goyo.vim', {'lazy': 1, 'on_cmd': 'Goyo'}) " focus mode
-    call dein#add('junegunn/limelight.vim', {'lazy': 1, 'on_cmd': 'Goyo'}) " focus mode
-    call dein#add('ludovicchabant/vim-gutentags')
+    " call dein#add('junegunn/goyo.vim', {'lazy': 1, 'on_cmd': 'Goyo'}) " focus mode
+    " call dein#add('junegunn/limelight.vim', {'lazy': 1, 'on_cmd': 'Goyo'}) " focus mode
+    " call dein#add('ludovicchabant/vim-gutentags')
     call dein#add('majutsushi/tagbar', {'lazy': 1, 'on_cmd': 'TagbarToggle'}) " ctags gui
     call dein#add('Shougo/dein.vim') " plugin manager
     call dein#add('tpope/vim-commentary') " commenter
+    call dein#add('the-lambda-church/coquille') " coq
+    call dein#add('let-def/vimbufsync')
+    call dein#add('Konfekt/Fastfold')
+    call dein#add('sheerun/vim-polyglot')
     if has('nvim')
         call dein#add('Shougo/deoplete.nvim', {'lazy': 1, 'on_i': 1}) " autocompleter
         call dein#add('Shougo/neco-syntax', {'lazy': 1, 'on_i': 1})
         call dein#add('Shougo/neosnippet.vim', {'lazy': 1, 'on_i': 1})
         call dein#add('Shougo/neosnippet-snippets', {'lazy': 1, 'on_i': 1})
         call dein#add('zchee/deoplete-jedi', {'lazy': 1, 'on_ft': 'python', 'on_i': 1})
+        call dein#add('Rip-Rip/clang_complete', {'lazy': 1, 'on_ft': '[c, cpp]', 'on_i': 1})
     endif
     call dein#end()
     call dein#save_state()
@@ -50,15 +55,15 @@ endfunction
 fu! s:goyo_enter()
     Limelight
     set wrap
-    call ColorFix()
+    " call ColorFix()
 endfunction
 fu! s:goyo_leave()
     Limelight!
     set nowrap
-    call ColorFix()
+    " call ColorFix()
 endfunction
 
-" sets
+" sets 
 set clipboard+=unnamedplus
 set number
 set relativenumber
@@ -115,7 +120,8 @@ set statusline+=\ %3p%%\                " percentage
 au Filetype tex set tw=80 formatoptions+=w spell
 au Filetype markdown set tw=80 formatoptions+=w spell
 au Filetype c set shiftwidth=8 tabstop=8
-au TermOpen * set nonumber norelativenumber
+au FileType coq set scrolloff=9999
+au TermOpen * set nonumber norelativenumber nospell
 if has('nvim')
     au TermClose * exe "bd! " . expand('<abuf>')
 endif
@@ -128,7 +134,9 @@ filetype plugin indent on
 syntax enable
 set t_Co=256
 colorscheme monokai
-call ColorFix()
+hi CheckedByCoq ctermbg=24 
+hi SentToCoq ctermbg=24 
+" call ColorFix()
 
 " plugin confs
 let g:deoplete#enable_at_startup = 1
@@ -144,6 +152,7 @@ let g:netrw_liststyle = 3
 let g:tagbar_width = 20
 let g:limelight_conceal_ctermfg = 243
 let mapleader = " "
+let g:coquille_auto_move='true'
 
 " keymaps
 imap kj <Esc>
@@ -172,18 +181,18 @@ nnoremap <C-h> <c-w>h
 nnoremap <C-j> <c-w>j
 nnoremap <C-k> <c-w>k
 nnoremap <C-l> <c-w>l
-tnoremap <C-Left> <c-\><c-n><C-w>h
-tnoremap <C-Down> <c-\><c-n><C-w>j
-tnoremap <C-Up> <c-\><c-n><C-w>k
-tnoremap <C-Right> <c-\><c-n><C-w>l
-inoremap <C-Left> <c-\><c-n><C-w>h
-inoremap <C-Down> <c-\><c-n><C-w>j
-inoremap <C-Up> <c-\><c-n><C-w>k
-inoremap <C-Right> <c-\><c-n><C-w>l
-nnoremap <C-Left> <c-w>h
-nnoremap <C-Down> <c-w>j
-nnoremap <C-Up> <c-w>k
-nnoremap <C-Right> <c-w>l
+" tnoremap <C-Left> <c-\><c-n><C-w>h
+" tnoremap <C-Down> <c-\><c-n><C-w>j
+" tnoremap <C-Up> <c-\><c-n><C-w>k
+" tnoremap <C-Right> <c-\><c-n><C-w>l
+" inoremap <C-Left> <c-\><c-n><C-w>h
+" inoremap <C-Down> <c-\><c-n><C-w>j
+" inoremap <C-Up> <c-\><c-n><C-w>k
+" inoremap <C-Right> <c-\><c-n><C-w>l
+" nnoremap <C-Left> <c-w>h
+" nnoremap <C-Down> <c-w>j
+" nnoremap <C-Up> <c-w>k
+" nnoremap <C-Right> <c-w>l
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
@@ -197,3 +206,5 @@ imap <expr><CR>
 \ (pumvisible() && neosnippet#expandable()) ?
 \ "\<Plug>(neosnippet_expand)" : "\<CR>"
 
+
+au FileType coq call coquille#FNMapping()
