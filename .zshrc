@@ -10,8 +10,9 @@ export ZSH=/usr/share/oh-my-zsh/
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #source /usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
-#ZSH_THEME="powerlevel9k"
-ZSH_THEME="agnoster"
+# ZSH_THEME="powerlevel9k"
+ZSH_THEME="lambda"
+# ZSH_THEME="lambda"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -55,9 +56,9 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+# source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
-plugins=(archlinux git)
+plugins=(fast-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -103,5 +104,7 @@ alias hack='unimatrix -s 96'
 alias clock='tty-clock -s -c -b -t -C 4'
 alias matrix='unimatrix -n -s 96'
 alias vtop='vtop --theme brew'
-alias vim=nvim
+# alias vim=nvim
 alias pypy=pypy3
+stty -ixon
+# set -o vi

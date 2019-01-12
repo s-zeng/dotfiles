@@ -65,6 +65,7 @@ function fish_prompt
         set arrow_color "$red"
     end
 
+    # set -l arrow "$arrow_color➜ "
     set -l arrow "$arrow_color> "
     if test "$USER" = 'root'
         set arrow "$arrow_color# "

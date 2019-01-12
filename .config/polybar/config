@@ -9,7 +9,8 @@
 
 [colors]
 ;background = ${xrdb:color0:#222}
-background = #c1010101
+background = #ea010101
+; background = #8001060d
 background-alt = #db444444
 ;foreground = ${xrdb:color7:#222}
 foreground = #dbdfdfdf
@@ -47,13 +48,13 @@ module-margin-right = 2
 
 ;font-0 = fixed:pixelsize=10;1
 ;font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-0 = monaco:pixelsize=10;0
+font-0 = DejaVuSans:pixelsize=10;0
 font-1 = FontAwesome:pixelsize=10;1
 font-2 = WunconSiji:pixelsize=10;2
 
 modules-left = i3 
 modules-center = xwindow
-modules-right = mpd eth date powermenu
+modules-right = mpd volume backlight-acpi wlan battery date powermenu
 
 tray-position = right
 tray-padding = 2
@@ -157,16 +158,23 @@ label-urgent-padding = ${module/bspwm.label-urgent-padding}
 
 [module/mpd]
 type = internal/mpd
-format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+format-online = <label-song> <label-time> <icon-prev> <icon-stop> <toggle> <icon-next>
 
 icon-prev = 
 icon-stop = 
 icon-play = 
 icon-pause = 
 icon-next = 
+label-song = %title% - %artist%
 
 label-song-maxlen = 25
 label-song-ellipsis = true
+label-offline = 🎜 mpd is offline
+
+bar-progress-width = 10
+bar-progress-indicator = |
+bar-progress-fill = ─
+bar-progress-empty = ─
 
 [module/xbacklight]
 type = internal/xbacklight
@@ -230,7 +238,7 @@ ramp-signal-foreground = ${colors.foreground-alt}
 
 [module/eth]
 type = internal/network
-interface = enp3s0
+interface = enp0s31f6
 interval = 3.0
 
 format-connected-underline = #55aa55
@@ -291,8 +299,12 @@ bar-volume-empty-foreground = ${colors.foreground-alt}
 [module/battery]
 type = internal/battery
 battery = BAT0
-adapter = AC0
-full-at = 98
+; adapter = AC0
+adapter = AC
+full-at = 100
+
+label-discharging = %percentage%% %consumption%W
+label-charging = %percentage%% %consumption%W
 
 format-charging = <animation-charging> <label-charging>
 format-charging-underline = #ffb52a

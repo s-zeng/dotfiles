@@ -8,4 +8,4 @@
 #fi
 
 killall redshift
-redshift
+redshift -l manual -l 45.3088:75.8987

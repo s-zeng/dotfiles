@@ -95,6 +95,18 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
+# media keys
+bindsym XF86MonBrightnessUp exec "light -A 5"
+bindsym XF86MonBrightnessDown exec "light -U 5"
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86AudioMicMute exec --no-startup-id amixer sset Capture toggle
+bindsym XF86AudioPlay exec --no-startup-id mpc toggle
+bindsym XF86AudioPause exec --no-startup-id mpc toggle
+bindsym XF86AudioNext exec --no-startup-id mpc next
+bindsym XF86AudioPrev exec --no-startup-id mpc prev
+
 # switch to workspace
 bindsym $mod+1 workspace $ws1 
 bindsym $mod+2 workspace $ws2 
@@ -121,7 +133,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+# restart i3 inplace (preserves you[<64;40;25Mr layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
@@ -152,15 +164,17 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-exec_always --no-startup-id ~/.config/i3/polybar.sh &
-exec_always --no-startup-id ~/.config/i3/compton.sh &
-exec_always --no-startup-id ~/.config/i3/feh.sh &
-exec_always --no-startup-id ~/.config/i3/dropbox.sh &
-exec_always --no-startup-id ~/.config/i3/nm-applet.sh &
-exec_always --no-startup-id ~/.config/i3/blueberry.sh &
-exec_always --no-startup-id ~/.config/i3/mopidy.sh &
-exec_always --no-startup-id ~/.config/i3/gnome-settings.sh &
-exec_always --no-startup-id ~/.config/i3/redshift.sh 
+exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent
+exec_always --no-startup-id ~/bin/polybar.sh &
+# exec --no-startup-id ~/bin/compton.sh &
+exec --no-startup-id ~/bin/feh.sh &
+exec --no-startup-id ~/bin/dropbox.sh &
+exec --no-startup-id ~/bin/nm-applet.sh &
+exec --no-startup-id ~/bin/blueberry.sh &
+# exec --no-startup-id ~/bin/mopidy.sh &
+exec --no-startup-id ~/bin/gnome-settings.sh &
+exec --no-startup-id ~/bin/redshift.sh 
+# exec xinput set-prop 11 277 1
 
 # i3-gaps
 for_window [class="^.*"]                border pixel 0
@@ -183,16 +197,16 @@ set $ws1 "1:"
 set $ws2 "2:"
 set $ws3 "3:"
 set $ws4 "4:"
-set $ws5 "5:"
-set $ws6 "6:"
-set $ws7 "7:"
-set $ws8 "8:"
-set $ws9 "9:"
-set $ws10 "10:"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10:"
 
-smart_gaps on
-gaps inner 15
-gaps outer 0
+# smart_gaps on
+# gaps inner 15
+# gaps outer 0
 
 set $mode_gaps Gaps: (o) outer, (i) inner
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
@@ -234,3 +248,4 @@ mode "$mode_gaps_outer" {
 # browser pop-ups
 for_window [window_role="pop-up"] floating enable
 for_window [class="Discord"] floating enable
+
