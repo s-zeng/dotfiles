@@ -12,10 +12,11 @@ if dein#load_state(expand('~/.vim/bundle'))
     call dein#add('majutsushi/tagbar', {'lazy': 1, 'on_cmd': 'TagbarToggle'}) " ctags gui
     call dein#add('Shougo/dein.vim') " plugin manager
     call dein#add('tpope/vim-commentary') " commenter
-    call dein#add('the-lambda-church/coquille') " coq
-    call dein#add('let-def/vimbufsync')
+    " call dein#add('the-lambda-church/coquille') " coq
+    " call dein#add('let-def/vimbufsync')
     call dein#add('Konfekt/Fastfold')
     call dein#add('sheerun/vim-polyglot')
+    call dein#add('easymotion/vim-easymotion')
     if has('nvim')
         call dein#add('Shougo/deoplete.nvim', {'lazy': 1, 'on_i': 1}) " autocompleter
         call dein#add('Shougo/neco-syntax', {'lazy': 1, 'on_i': 1})
@@ -43,7 +44,8 @@ fu! ColorFix()
     " hi CursorLine ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
     hi VertSplit ctermbg=NONE ctermfg=234
     hi Visual ctermbg=240
-    hi LineNr ctermfg=59 ctermbg=NONE
+    " hi LineNr ctermfg=59 ctermbg=NONE
+    hi LineNr ctermfg=NONE ctermbg=NONE
     hi EndOfBuffer ctermbg=NONE ctermfg=NONE
     hi CursorLineNr ctermfg=59 ctermbg=234
     hi TabLineFill term=bold cterm=bold ctermfg=NONE ctermbg=NONE
@@ -64,6 +66,7 @@ fu! s:goyo_leave()
 endfunction
 
 " sets 
+set termguicolors
 set clipboard+=unnamedplus
 set number
 set relativenumber
@@ -121,7 +124,7 @@ set statusline+=\ %3p%%\                " percentage
 au Filetype tex set tw=80 formatoptions+=w spell
 au Filetype markdown set tw=80 formatoptions+=w spell shiftwidth=2 tabstop=2
 " au Filetype markdown nnoremap <F12> :!pandoc -o math136.pdf math136.md<CR>
-" au Filetype c set shiftwidth=8 tabstop=8
+au Filetype ruby set shiftwidth=2 tabstop=2
 au FileType coq set scrolloff=9999
 if has('nvim')
     au TermOpen * set nonumber norelativenumber nospell
@@ -155,6 +158,8 @@ let g:tagbar_width = 20
 let g:limelight_conceal_ctermfg = 243
 let mapleader = " "
 let g:coquille_auto_move='true'
+let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_smartcase = 1
 
 " keymaps
 imap kj <Esc>
@@ -208,5 +213,8 @@ imap <expr><CR>
 \ (pumvisible() && neosnippet#expandable()) ?
 \ "\<Plug>(neosnippet_expand)" : "\<CR>"
 
+nmap <Leader>f <Plug>(easymotion-overwin-f2)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 au FileType coq call coquille#FNMapping()
+
