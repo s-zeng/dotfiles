@@ -51,6 +51,7 @@ fu! ColorFix()
     hi TabLineFill term=bold cterm=bold ctermfg=NONE ctermbg=NONE
     hi TabLine ctermfg=NONE ctermbg=NONE
     hi TabLineSel ctermfg=NONE ctermbg=NONE
+    set colorcolumn=0
     " hi StatusLine ctermfg=NONE ctermbg=NONE
     " hi StatusLineNC ctermfg=NONE ctermbg=NONE
 endfunction
@@ -88,10 +89,13 @@ set showmatch
 set smarttab
 set scrolloff=10
 " set scrolloff=9999
-" set splitbelow
+set splitbelow
 set splitright
 set guicursor=
 set background=dark
+set tw=80
+set colorcolumn=0
+set formatoptions=tcrqj
 
 " statusline
 set statusline=
@@ -103,26 +107,26 @@ set statusline+=%#DiffDelete#%{(mode()=='R')?'\ \ RPLACE\ ':''}
 set statusline+=%#Search#%{(mode()=='v')?'\ \ VISUAL\ ':''}
 set statusline+=%#Search#%{(mode()=='V')?'\ \ V-LINE\ ':''}
 set statusline+=%#Search#%{(mode()=='\<C-V>')?'\ \ VBLOCK\ ':''}
-set statusline+=%#Visual#       " colour
+set statusline+=%#Visual#                 " colour
 set statusline+=%{&paste?'\ PASTE\ ':''}
 set statusline+=%{&spell?'\ SPELL\ ':''}
-set statusline+=%#CursorIM#     " colour
+set statusline+=%#CursorIM#               " colour
 set statusline+=%r                        " readonly flag
 set statusline+=%m                        " modified [+] flag
-set statusline+=%#Cursor#               " colour
-set statusline+=%#CursorLine#     " colour
-set statusline+=\ %t\                   " short file name
-set statusline+=%=                          " right align
-set statusline+=%#CursorLine#   " colour
-set statusline+=\ %y\                   " file type
-set statusline+=%#CursorIM#     " colour
-set statusline+=\ %3l:%-2c\         " line + column
-set statusline+=%#Cursor#       " colour
-set statusline+=\ %3p%%\                " percentage
+set statusline+=%#Cursor#                 " colour
+set statusline+=%#CursorLine#             " colour
+set statusline+=\ %t\                     " short file name
+set statusline+=%=                        " right align
+set statusline+=%#CursorLine#             " colour
+set statusline+=\ %y\                     " file type
+set statusline+=%#CursorIM#               " colour
+set statusline+=\ %3l:%-2c\               " line + column
+set statusline+=%#Cursor#                 " colour
+set statusline+=\ %3p%%\                  " percentage
 
 " aus
-au Filetype tex set tw=80 formatoptions+=w spell
-au Filetype markdown set tw=80 formatoptions+=w spell shiftwidth=2 tabstop=2
+au Filetype tex set tw=80 formatoptions+=wn2 spell
+au Filetype markdown set tw=80 formatoptions+=wn2 spell shiftwidth=2 tabstop=2
 " au Filetype markdown nnoremap <F12> :!pandoc -o math136.pdf math136.md<CR>
 au Filetype ruby set shiftwidth=2 tabstop=2
 au FileType coq set scrolloff=9999
@@ -171,6 +175,8 @@ inoremap <F8> <ESC>:Lex<CR>
 map <F12> :make<CR>
 map <F3> :set laststatus=0<CR>
 map <F4> :set laststatus=2<CR>
+map <F6> :set colorcolumn=0<CR>
+map <F7> :set colorcolumn=80<CR>
 nnoremap <F10> :call OpenTerminal()<cr>
 nnoremap <F5> :Goyo<cr>
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -204,14 +210,14 @@ imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 imap <expr><TAB>
- \ pumvisible() ? "\<C-n>" :
- \ neosnippet#expandable_or_jumpable() ?
- \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+            \ pumvisible() ? "\<C-n>" :
+            \ neosnippet#expandable_or_jumpable() ?
+            \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+            \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 imap <expr><CR>
-\ (pumvisible() && neosnippet#expandable()) ?
-\ "\<Plug>(neosnippet_expand)" : "\<CR>"
+            \ (pumvisible() && neosnippet#expandable()) ?
+            \ "\<Plug>(neosnippet_expand)" : "\<CR>"
 
 nmap <Leader>f <Plug>(easymotion-overwin-f2)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
