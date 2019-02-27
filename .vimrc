@@ -8,7 +8,7 @@ if dein#load_state(expand('~/.vim/bundle'))
     call dein#add('cohama/lexima.vim', {'lazy': 1, 'on_i': 1}) " autopairs
     call dein#add('junegunn/goyo.vim', {'lazy': 1, 'on_cmd': 'Goyo'}) " focus mode
     call dein#add('junegunn/limelight.vim', {'lazy': 1, 'on_cmd': 'Goyo'}) " focus mode
-    " call dein#add('ludovicchabant/vim-gutentags')
+    call dein#add('ludovicchabant/vim-gutentags')
     call dein#add('majutsushi/tagbar', {'lazy': 1, 'on_cmd': 'TagbarToggle'}) " ctags gui
     call dein#add('Shougo/dein.vim') " plugin manager
     call dein#add('tpope/vim-commentary') " commenter
@@ -81,21 +81,25 @@ set nowrap
 set mouse=a
 set pastetoggle=<F2>
 set cursorline
-set ttimeoutlen=10
+set ttimeout
+set ttimeoutlen=100
 set laststatus=2
 set foldmethod=indent
 set foldlevel=99
 set showmatch
 set smarttab
 set scrolloff=10
+set sidescrolloff=5
 " set scrolloff=9999
 set splitbelow
 set splitright
 set guicursor=
 set background=dark
-set tw=80
+" set tw=80
 set colorcolumn=0
 set formatoptions=tcrqj
+set wildmenu
+set autoread
 
 " statusline
 set statusline=
@@ -130,6 +134,7 @@ au Filetype markdown set tw=80 formatoptions+=wn2 spell shiftwidth=2 tabstop=2
 " au Filetype markdown nnoremap <F12> :!pandoc -o math136.pdf math136.md<CR>
 au Filetype ruby set shiftwidth=2 tabstop=2
 au FileType coq set scrolloff=9999
+au FileType coq call coquille#FNMapping()
 if has('nvim')
     au TermOpen * set nonumber norelativenumber nospell
     au TermClose * exe "bd! " . expand('<abuf>')
@@ -168,17 +173,18 @@ let g:EasyMotion_smartcase = 1
 " keymaps
 imap kj <Esc>
 tmap kj <Esc>
-nmap <F9> :TagbarToggle<CR>
-inoremap <F9> <ESC>:TagbarToggle<CR>
-nmap <F8> :Lex<CR>
-inoremap <F8> <ESC>:Lex<CR>
-map <F12> :make<CR>
-map <F3> :set laststatus=0<CR>
-map <F4> :set laststatus=2<CR>
-map <F6> :set colorcolumn=0<CR>
-map <F7> :set colorcolumn=80<CR>
-nnoremap <F10> :call OpenTerminal()<cr>
+map      <F3> :set laststatus=0<CR>
+map      <F4> :set laststatus=2<CR>
 nnoremap <F5> :Goyo<cr>
+map      <F6> :set colorcolumn=0<CR>:set tw=0<CR>
+map      <F7> :set colorcolumn=81<CR>:set tw=80<CR>
+inoremap <F8> <ESC>:Lex<CR>
+nmap     <F8> :Lex<CR>
+nmap     <F9> :TagbarToggle<CR>
+inoremap <F9> <ESC>:TagbarToggle<CR>
+nnoremap <F10> :call OpenTerminal()<cr>
+map      <F12> :make<CR>
+
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " split movement binds
 tnoremap <Esc> <C-\><C-n>
@@ -194,21 +200,21 @@ nnoremap <C-h> <c-w>h
 nnoremap <C-j> <c-w>j
 nnoremap <C-k> <c-w>k
 nnoremap <C-l> <c-w>l
-" tnoremap <C-Left> <c-\><c-n><C-w>h
-" tnoremap <C-Down> <c-\><c-n><C-w>j
-" tnoremap <C-Up> <c-\><c-n><C-w>k
-" tnoremap <C-Right> <c-\><c-n><C-w>l
-" inoremap <C-Left> <c-\><c-n><C-w>h
-" inoremap <C-Down> <c-\><c-n><C-w>j
-" inoremap <C-Up> <c-\><c-n><C-w>k
-" inoremap <C-Right> <c-\><c-n><C-w>l
-" nnoremap <C-Left> <c-w>h
-" nnoremap <C-Down> <c-w>j
-" nnoremap <C-Up> <c-w>k
-" nnoremap <C-Right> <c-w>l
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+tnoremap <C-Left> <c-\><c-n><C-w>h
+tnoremap <C-Down> <c-\><c-n><C-w>j
+tnoremap <C-Up> <c-\><c-n><C-w>k
+tnoremap <C-Right> <c-\><c-n><C-w>l
+inoremap <C-Left> <c-\><c-n><C-w>h
+inoremap <C-Down> <c-\><c-n><C-w>j
+inoremap <C-Up> <c-\><c-n><C-w>k
+inoremap <C-Right> <c-\><c-n><C-w>l
+nnoremap <C-Left> <c-w>h
+nnoremap <C-Down> <c-w>j
+nnoremap <C-Up> <c-w>k
+nnoremap <C-Right> <c-w>l
+imap     <C-k> <Plug>(neosnippet_expand_or_jump)
+smap     <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap     <C-k> <Plug>(neosnippet_expand_target)
 imap <expr><TAB>
             \ pumvisible() ? "\<C-n>" :
             \ neosnippet#expandable_or_jumpable() ?
@@ -221,6 +227,10 @@ imap <expr><CR>
 
 nmap <Leader>f <Plug>(easymotion-overwin-f2)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
+map  <Leader>c :noh<CR>
 
-au FileType coq call coquille#FNMapping()
+" if maparg('<C-L>', 'n') ==# ''
+"   nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+" endif
+
 
