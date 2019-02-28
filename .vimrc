@@ -12,6 +12,7 @@ if dein#load_state(expand('~/.vim/bundle'))
     call dein#add('majutsushi/tagbar', {'lazy': 1, 'on_cmd': 'TagbarToggle'}) " ctags gui
     call dein#add('Shougo/dein.vim') " plugin manager
     call dein#add('tpope/vim-commentary') " commenter
+    call dein#add('tpope/vim-surround')
     " call dein#add('the-lambda-church/coquille') " coq
     " call dein#add('let-def/vimbufsync')
     call dein#add('Konfekt/Fastfold')
