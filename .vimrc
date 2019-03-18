@@ -13,11 +13,12 @@ if dein#load_state(expand('~/.vim/bundle'))
     call dein#add('Shougo/dein.vim') " plugin manager
     call dein#add('tpope/vim-commentary') " commenter
     call dein#add('tpope/vim-surround')
-    " call dein#add('the-lambda-church/coquille') " coq
-    " call dein#add('let-def/vimbufsync')
+    call dein#add('the-lambda-church/coquille') " coq
+    call dein#add('let-def/vimbufsync')
     call dein#add('Konfekt/Fastfold')
     call dein#add('sheerun/vim-polyglot')
     call dein#add('easymotion/vim-easymotion')
+    call dein#add('w0rp/ale')
     if has('nvim')
         call dein#add('Shougo/deoplete.nvim', {'lazy': 1, 'on_i': 1}) " autocompleter
         call dein#add('Shougo/neco-syntax', {'lazy': 1, 'on_i': 1})
@@ -55,7 +56,15 @@ fu! ColorFix()
     set colorcolumn=0
     " hi StatusLine ctermfg=NONE ctermbg=NONE
     " hi StatusLineNC ctermfg=NONE ctermbg=NONE
+    hi TabLine gui=none
+    " hi TabLineSel guibg=240
+    hi TabLineFill gui=none
 endfunction
+fu! TabFix()
+    hi TabLine gui=none
+    " hi TabLineSel guibg=240
+    hi TabLineFill gui=none
+endfu
 fu! s:goyo_enter()
     Limelight
     set wrap
@@ -151,6 +160,9 @@ set t_Co=256
 colorscheme monokai
 hi CheckedByCoq ctermbg=24 
 hi SentToCoq ctermbg=24 
+hi TabLine gui=none
+" hi TabLineSel guibg=240
+hi TabLineFill gui=none
 " call ColorFix()
 
 " plugin confs
@@ -170,6 +182,7 @@ let mapleader = " "
 let g:coquille_auto_move='true'
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
+let g:ale_set_balloons = 1
 
 " keymaps
 imap kj <Esc>
@@ -184,6 +197,7 @@ nmap     <F8> :Lex<CR>
 nmap     <F9> :TagbarToggle<CR>
 inoremap <F9> <ESC>:TagbarToggle<CR>
 nnoremap <F10> :call OpenTerminal()<cr>
+map      <F11> <Plug>(ale_toggle_buffer)
 map      <F12> :make<CR>
 
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -201,18 +215,18 @@ nnoremap <C-h> <c-w>h
 nnoremap <C-j> <c-w>j
 nnoremap <C-k> <c-w>k
 nnoremap <C-l> <c-w>l
-tnoremap <C-Left> <c-\><c-n><C-w>h
-tnoremap <C-Down> <c-\><c-n><C-w>j
-tnoremap <C-Up> <c-\><c-n><C-w>k
-tnoremap <C-Right> <c-\><c-n><C-w>l
-inoremap <C-Left> <c-\><c-n><C-w>h
-inoremap <C-Down> <c-\><c-n><C-w>j
-inoremap <C-Up> <c-\><c-n><C-w>k
-inoremap <C-Right> <c-\><c-n><C-w>l
-nnoremap <C-Left> <c-w>h
-nnoremap <C-Down> <c-w>j
-nnoremap <C-Up> <c-w>k
-nnoremap <C-Right> <c-w>l
+" tnoremap <C-Left> <c-\><c-n><C-w>h
+" tnoremap <C-Down> <c-\><c-n><C-w>j
+" tnoremap <C-Up> <c-\><c-n><C-w>k
+" tnoremap <C-Right> <c-\><c-n><C-w>l
+" inoremap <C-Left> <c-\><c-n><C-w>h
+" inoremap <C-Down> <c-\><c-n><C-w>j
+" inoremap <C-Up> <c-\><c-n><C-w>k
+" inoremap <C-Right> <c-\><c-n><C-w>l
+" nnoremap <C-Left> <c-w>h
+" nnoremap <C-Down> <c-w>j
+" nnoremap <C-Up> <c-w>k
+" nnoremap <C-Right> <c-w>l
 imap     <C-k> <Plug>(neosnippet_expand_or_jump)
 smap     <C-k> <Plug>(neosnippet_expand_or_jump)
 xmap     <C-k> <Plug>(neosnippet_expand_target)
@@ -228,10 +242,13 @@ imap <expr><CR>
 
 nmap <Leader>f <Plug>(easymotion-overwin-f2)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
-map  <Leader>c :noh<CR>
+nmap <Leader>c :noh<CR>
+nmap <Leader>r :checktime<CR>
+nmap <Leader>b :bN<CR>
+" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+" nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " if maparg('<C-L>', 'n') ==# ''
 "   nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 " endif
-
 
