@@ -240,6 +240,8 @@ imap <expr><CR>
             \ (pumvisible() && neosnippet#expandable()) ?
             \ "\<Plug>(neosnippet_expand)" : "\<CR>"
 
+nnoremap H 0
+nnoremap L $
 nmap <Leader>f <Plug>(easymotion-overwin-f2)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
 nmap <Leader>c :noh<CR>
