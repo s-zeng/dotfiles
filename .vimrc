@@ -19,6 +19,7 @@ if dein#load_state(expand('~/.vim/bundle'))
     call dein#add('sheerun/vim-polyglot')
     call dein#add('easymotion/vim-easymotion')
     call dein#add('w0rp/ale')
+    call dein#add('dylanaraps/wal.vim')
     if has('nvim')
         call dein#add('Shougo/deoplete.nvim', {'lazy': 1, 'on_i': 1}) " autocompleter
         call dein#add('Shougo/neco-syntax', {'lazy': 1, 'on_i': 1})
@@ -77,7 +78,7 @@ fu! s:goyo_leave()
 endfunction
 
 " sets 
-set termguicolors
+" set termguicolors
 set clipboard+=unnamedplus
 set number
 set relativenumber
@@ -157,12 +158,14 @@ autocmd CompleteDone * silent! pclose!
 filetype plugin indent on
 syntax enable
 set t_Co=256
-colorscheme monokai
-hi CheckedByCoq ctermbg=24 
-hi SentToCoq ctermbg=24 
-hi TabLine gui=none
+" colorscheme monokai
+colorscheme wal
+hi CursorLine cterm=NONE ctermfg=NONE ctermbg=238
+" hi CheckedByCoq ctermbg=24 
+" hi SentToCoq ctermbg=24 
+" hi TabLine gui=none
 " hi TabLineSel guibg=240
-hi TabLineFill gui=none
+" hi TabLineFill gui=none
 " call ColorFix()
 
 " plugin confs
