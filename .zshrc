@@ -1,6 +1,7 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-#(wal -t -r &)
+(cat ~/.cache/wal/sequences &)
+source ~/.cache/wal/colors-tty.sh
 export TERM="xterm-256color"
 
 # Path to your oh-my-zsh installation.
@@ -104,7 +105,8 @@ alias hack='unimatrix -s 96'
 alias clock='tty-clock -s -c -b -t -C 4'
 alias matrix='unimatrix -n -s 96'
 alias vtop='vtop --theme brew'
-# alias vim=nvim
+alias vim=nvim
 alias pypy=pypy3
+alias cat='bat --paging never'
 stty -ixon
 # set -o vi
