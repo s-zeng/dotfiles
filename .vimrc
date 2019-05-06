@@ -20,6 +20,7 @@ if dein#load_state(expand('~/.vim/bundle'))
     call dein#add('easymotion/vim-easymotion')
     call dein#add('w0rp/ale')
     call dein#add('dylanaraps/wal.vim')
+    call dein#add('icymind/NeoSolarized')
     if has('nvim')
         call dein#add('Shougo/deoplete.nvim', {'lazy': 1, 'on_i': 1}) " autocompleter
         call dein#add('Shougo/neco-syntax', {'lazy': 1, 'on_i': 1})
@@ -39,7 +40,10 @@ fu! OpenTerminal()
     terminal
     startinsert
 endf
-fu! ColorFix()
+fu! ColorFix(n)
+    set termguicolors
+    set background=dark
+    exe "color ".a:n
     hi Normal ctermbg=NONE guibg=NONE
     hi NonText ctermbg=NONE guibg=NONE
     hi Comment ctermfg=243
@@ -61,6 +65,17 @@ fu! ColorFix()
     " hi TabLineSel guibg=240
     hi TabLineFill gui=none
 endfunction
+fu! NoColorFix()
+    set notermguicolors
+    set background=dark
+    colorscheme wal
+    hi CursorLine cterm=NONE ctermfg=NONE ctermbg=238
+endfunction
+fu! Light()
+    set background=light
+    set termguicolors
+    colorscheme NeoSolarized
+endfu
 fu! TabFix()
     hi TabLine gui=none
     " hi TabLineSel guibg=240
@@ -111,6 +126,7 @@ set colorcolumn=0
 set formatoptions=tcrqj
 set wildmenu
 set autoread
+set guicursor=n-v-c:ver100-iCursor
 
 " statusline
 set statusline=
@@ -158,15 +174,12 @@ autocmd CompleteDone * silent! pclose!
 filetype plugin indent on
 syntax enable
 set t_Co=256
-" colorscheme monokai
-colorscheme wal
-hi CursorLine cterm=NONE ctermfg=NONE ctermbg=238
+call NoColorFix()
 " hi CheckedByCoq ctermbg=24 
 " hi SentToCoq ctermbg=24 
 " hi TabLine gui=none
 " hi TabLineSel guibg=240
 " hi TabLineFill gui=none
-" call ColorFix()
 
 " plugin confs
 let g:deoplete#enable_at_startup = 1
@@ -186,6 +199,10 @@ let g:coquille_auto_move='true'
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
 let g:ale_set_balloons = 1
+let g:ale_echo_msg_error_str = 'Error'
+let g:ale_echo_msg_warning_str = 'Warning'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:neosolarized_contrast = "high"
 
 " keymaps
 imap kj <Esc>
