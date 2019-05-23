@@ -9,25 +9,27 @@ if dein#load_state(expand('~/.vim/bundle'))
     call dein#add('junegunn/goyo.vim', {'lazy': 1, 'on_cmd': 'Goyo'}) " focus mode
     call dein#add('junegunn/limelight.vim', {'lazy': 1, 'on_cmd': 'Goyo'}) " focus mode
     call dein#add('ludovicchabant/vim-gutentags')
-    call dein#add('majutsushi/tagbar', {'lazy': 1, 'on_cmd': 'TagbarToggle'}) " ctags gui
+    call dein#add('majutsushi/tagbar') " ctags gui
     call dein#add('Shougo/dein.vim') " plugin manager
     call dein#add('tpope/vim-commentary') " commenter
-    call dein#add('tpope/vim-surround')
-    call dein#add('the-lambda-church/coquille') " coq
-    call dein#add('let-def/vimbufsync')
-    call dein#add('Konfekt/Fastfold')
-    call dein#add('sheerun/vim-polyglot')
-    call dein#add('easymotion/vim-easymotion')
-    call dein#add('w0rp/ale')
-    call dein#add('dylanaraps/wal.vim')
-    call dein#add('icymind/NeoSolarized')
+    call dein#add('tpope/vim-surround') " bracket and quotes utils
+    " call dein#add('the-lambda-church/coquille') " coq
+    " call dein#add('let-def/vimbufsync')
+    call dein#add('Konfekt/Fastfold') " fold improvements
+    call dein#add('sheerun/vim-polyglot') " all in one language syntax packs
+    call dein#add('dylanaraps/wal.vim') " coloscheme
+    call dein#add('icymind/NeoSolarized') " colorscheme
+    call dein#add('morhetz/gruvbox') " colorscheme
+    call dein#add('kshenoy/vim-signature') " navigate marks
+    call dein#add('junegunn/rainbow_parentheses.vim') 
+    call dein#add('eraserhd/parinfer-rust', {'build': 'cargo build --release'})
+    call dein#add('tpope/vim-fireplace')
     if has('nvim')
-        call dein#add('Shougo/deoplete.nvim', {'lazy': 1, 'on_i': 1}) " autocompleter
-        call dein#add('Shougo/neco-syntax', {'lazy': 1, 'on_i': 1})
-        call dein#add('Shougo/neosnippet.vim', {'lazy': 1, 'on_i': 1})
-        call dein#add('Shougo/neosnippet-snippets', {'lazy': 1, 'on_i': 1})
-        call dein#add('zchee/deoplete-jedi', {'lazy': 1, 'on_ft': 'python', 'on_i': 1})
-        call dein#add('Rip-Rip/clang_complete', {'lazy': 1, 'on_ft': '[c, cpp]', 'on_i': 1})
+        call dein#add('Shougo/denite.nvim') " helm
+        call dein#add('Shougo/neco-vim')
+        call dein#add('honza/vim-snippets')
+        call dein#add('neoclide/coc-neco')
+        call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly'})
     endif
     call dein#end()
     call dein#save_state()
@@ -71,11 +73,6 @@ fu! NoColorFix()
     colorscheme wal
     hi CursorLine cterm=NONE ctermfg=NONE ctermbg=238
 endfunction
-fu! Light()
-    set background=light
-    set termguicolors
-    colorscheme NeoSolarized
-endfu
 fu! TabFix()
     hi TabLine gui=none
     " hi TabLineSel guibg=240
@@ -91,10 +88,22 @@ fu! s:goyo_leave()
     set nowrap
     " call ColorFix()
 endfunction
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
+endfunction
+
 
 " sets 
-" set termguicolors
-set clipboard+=unnamedplus
+set termguicolors
+" set clipboard+=unnamedplus
 set number
 set relativenumber
 set backspace=2
@@ -115,6 +124,8 @@ set foldlevel=99
 set showmatch
 set smarttab
 set scrolloff=10
+set updatetime=300
+set shortmess+=c
 set sidescrolloff=5
 " set scrolloff=9999
 set splitbelow
@@ -127,6 +138,8 @@ set formatoptions=tcrqj
 set wildmenu
 set autoread
 set guicursor=n-v-c:ver100-iCursor
+set ssop-=options
+set hidden
 
 " statusline
 set statusline=
@@ -152,16 +165,16 @@ set statusline+=%#CursorLine#             " colour
 set statusline+=\ %y\                     " file type
 set statusline+=%#CursorIM#               " colour
 set statusline+=\ %3l:%-2c\               " line + column
-set statusline+=%#Cursor#                 " colour
+set statusline+=%#Function#                 " colour
 set statusline+=\ %3p%%\                  " percentage
 
 " aus
 au Filetype tex set tw=80 formatoptions+=wn2 spell
 au Filetype markdown set tw=80 formatoptions+=wn2 spell shiftwidth=2 tabstop=2
-" au Filetype markdown nnoremap <F12> :!pandoc -o math136.pdf math136.md<CR>
 au Filetype ruby set shiftwidth=2 tabstop=2
 au FileType coq set scrolloff=9999
 au FileType coq call coquille#FNMapping()
+au FileType clojure let g:LanguageClient_diagnosticsEnable=0
 if has('nvim')
     au TermOpen * set nonumber norelativenumber nospell
     au TermClose * exe "bd! " . expand('<abuf>')
@@ -169,24 +182,21 @@ endif
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 autocmd CompleteDone * silent! pclose!
-
-" colorscheme stuff
-filetype plugin indent on
-syntax enable
-set t_Co=256
-call NoColorFix()
-" hi CheckedByCoq ctermbg=24 
-" hi SentToCoq ctermbg=24 
-" hi TabLine gui=none
-" hi TabLineSel guibg=240
-" hi TabLineFill gui=none
+autocmd FileType json syntax match Comment +\/\/.\+$+
+augroup rainbow_lisp
+    autocmd!
+    autocmd FileType lisp,clojure,scheme,racket RainbowParentheses
+augroup END
+autocmd CursorHold * silent call CocActionAsync('highlight')
+augroup mygroup
+    autocmd!
+    " Setup formatexpr specified filetype(s).
+    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    " Update signature help on jump placeholder
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
 
 " plugin confs
-let g:deoplete#enable_at_startup = 1
-" let g:deoplete#sources = {}
-" let g:deoplete#sources._ = ['buffer', 'tag']
-let g:deoplete#tag#cache_limit_size = 5000000
-let g:deoplete#sources#jedi#show_docstring = 1
 let g:netrw_browse_split = 2
 let g:netrw_winsize = 15
 let g:netrw_banner = 0
@@ -195,14 +205,33 @@ let g:netrw_liststyle = 3
 let g:tagbar_width = 20
 let g:limelight_conceal_ctermfg = 243
 let mapleader = " "
-let g:coquille_auto_move='true'
-let g:EasyMotion_do_mapping = 0
-let g:EasyMotion_smartcase = 1
-let g:ale_set_balloons = 1
-let g:ale_echo_msg_error_str = 'Error'
-let g:ale_echo_msg_warning_str = 'Warning'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:neosolarized_contrast = "high"
+" let g:coquille_auto_move='true'
+let g:neosolarized_contrast = "normal"
+let g:neosolarized_italic=1
+let g:gruvbox_contrast_dark="medium"
+let g:gruvbox_italic=1
+let g:coc_snippet_next = '<tab>'
+call denite#custom#var('grep', 'command', ['ag'])
+call denite#custom#var('grep', 'default_opts', ['-i', '--vimgrep'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'pattern_opt', [])
+call denite#custom#option('default', 'prompt', '>')
+call denite#custom#var('file/rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+call denite#custom#source('grep', 'converters', ['converter_abbr_word'])
+
+" colorscheme stuff
+filetype plugin indent on
+syntax enable
+set t_Co=256
+" set termguicolors
+color gruvbox
+" call TabFix()
+" call NoColorFix()
+" hi CheckedByCoq ctermbg=24 
+" hi SentToCoq ctermbg=24 
+" hi TabLine gui=none
+" hi TabLineSel guibg=240
+" hi TabLineFill gui=none
 
 " keymaps
 imap kj <Esc>
@@ -217,11 +246,9 @@ nmap     <F8> :Lex<CR>
 nmap     <F9> :TagbarToggle<CR>
 inoremap <F9> <ESC>:TagbarToggle<CR>
 nnoremap <F10> :call OpenTerminal()<cr>
-map      <F11> <Plug>(ale_toggle_buffer)
 map      <F12> :make<CR>
 
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" split movement binds
+" movement binds
 tnoremap <Esc> <C-\><C-n>
 tnoremap <C-h> <c-\><c-n><C-w>h
 tnoremap <C-j> <c-\><c-n><C-w>j
@@ -235,42 +262,56 @@ nnoremap <C-h> <c-w>h
 nnoremap <C-j> <c-w>j
 nnoremap <C-k> <c-w>k
 nnoremap <C-l> <c-w>l
-" tnoremap <C-Left> <c-\><c-n><C-w>h
-" tnoremap <C-Down> <c-\><c-n><C-w>j
-" tnoremap <C-Up> <c-\><c-n><C-w>k
-" tnoremap <C-Right> <c-\><c-n><C-w>l
-" inoremap <C-Left> <c-\><c-n><C-w>h
-" inoremap <C-Down> <c-\><c-n><C-w>j
-" inoremap <C-Up> <c-\><c-n><C-w>k
-" inoremap <C-Right> <c-\><c-n><C-w>l
-" nnoremap <C-Left> <c-w>h
-" nnoremap <C-Down> <c-w>j
-" nnoremap <C-Up> <c-w>k
-" nnoremap <C-Right> <c-w>l
-imap     <C-k> <Plug>(neosnippet_expand_or_jump)
-smap     <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap     <C-k> <Plug>(neosnippet_expand_target)
-imap <expr><TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ neosnippet#expandable_or_jumpable() ?
-            \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-            \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-imap <expr><CR>
-            \ (pumvisible() && neosnippet#expandable()) ?
-            \ "\<Plug>(neosnippet_expand)" : "\<CR>"
-
 nnoremap H 0
 nnoremap L $
-nmap <Leader>f <Plug>(easymotion-overwin-f2)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
-nmap <Leader>c :noh<CR>
-nmap <Leader>r :checktime<CR>
-nmap <Leader>b :bN<CR>
-" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-" nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
-" if maparg('<C-L>', 'n') ==# ''
-"   nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
-" endif
+" leader binds
+nnoremap <Leader>c :noh<CR>
+nnoremap <Leader>rr :checktime<CR>
+nnoremap <Leader>b :Denite buffer<CR>
+nnoremap <Leader>g :Denite grep<CR>
+nnoremap <Leader>m :Denite mark<CR>
+nnoremap <Leader>] :Denite contextMenu<CR>
+nnoremap <Leader>h :Denite help<CR>
+nnoremap <Leader>d :lcd %:p:h<CR>
+nnoremap <Leader>o :Denite file/rec<CR>
+nnoremap <Leader>O :tabnew<CR>:Denite file/rec<CR>
 
+" coc binds
+nnoremap <Leader>rn <Plug>(coc-rename)
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>ac  <Plug>(coc-codeaction)
+nmap <leader>qf  <Plug>(coc-fix-current)
+inoremap <silent><expr> <TAB>
+            \ pumvisible() ? coc#_select_confirm() :
+            \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"<Paste>
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)<Paste>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+command! -nargs=0 Format :call CocAction('format')
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+call denite#custom#map(
+            \ 'insert',
+            \ '<C-n>',
+            \ '<denite:move_to_next_line>',
+            \ 'noremap'
+            \)
+call denite#custom#map(
+            \ 'insert',
+            \ '<C-p>',
+            \ '<denite:move_to_previous_line>',
+            \ 'noremap'
+            \)
