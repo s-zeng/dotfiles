@@ -1,0 +1,7 @@
+{
+    "suggest.noselect": false,
+    "suggest.enablePreview": true,
+    "codeLens.enable": true,
+    "pairs.enableBackspace": true
+//    "list.source.grep.command": "ag"
+}
