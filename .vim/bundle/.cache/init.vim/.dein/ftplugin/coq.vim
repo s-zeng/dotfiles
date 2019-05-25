@@ -1,1 +1,0 @@
-call coquille#Register()
