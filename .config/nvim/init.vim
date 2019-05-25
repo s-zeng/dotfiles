@@ -1,27 +1,25 @@
 " speed set
 set guioptions=M
 
-set runtimepath+=~/.config/nvim/plugins/repos/github.com/Shougo/dein.vim
-if dein#load_state(expand('~/.config/nvim/plugins'))
-    call dein#begin(expand('~/.config/nvim/plugins'))
-    " language agnostic
-    call dein#add('cohama/lexima.vim', {'lazy': 1, 'on_i': 1})
-    call dein#add('honza/vim-snippets') " snippets pack
-    call dein#add('kshenoy/vim-signature') " navigate marks
-    call dein#add('ludovicchabant/vim-gutentags')
-    call dein#add('majutsushi/tagbar') " ctags gui
-    call dein#add('morhetz/gruvbox') " colorscheme
-    call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly'}) " lsp engine
-    call dein#add('tpope/vim-commentary') " commenter
-    call dein#add('tpope/vim-surround') " bracket and quotes utils
-    call dein#add('sheerun/vim-polyglot') " syntax highlighting packs
-    call dein#add('Shougo/dein.vim') " plugin manager
-    " language specific
-    call dein#add('eraserhd/parinfer-rust', {'build': 'cargo build --release'}) " smart parentheses for sexp langs
-    call dein#add('junegunn/rainbow_parentheses.vim') " rainbow parentheses for sexp langs
-    call dein#end()
-    call dein#save_state()
-endif
+set runtimepath+=~/.config/nvim/repos/github.com/Shougo/dein.vim
+call dein#begin(expand('~/.config/nvim'))
+" language agnostic
+call dein#add('cohama/lexima.vim', {'lazy': 1, 'on_i': 1})
+call dein#add('honza/vim-snippets') " snippets pack
+call dein#add('kshenoy/vim-signature') " navigate marks
+call dein#add('ludovicchabant/vim-gutentags')
+call dein#add('majutsushi/tagbar') " ctags gui
+call dein#add('morhetz/gruvbox') " colorscheme
+call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly'}) " lsp engine
+call dein#add('tpope/vim-commentary') " commenter
+call dein#add('tpope/vim-surround') " bracket and quotes utils
+call dein#add('sheerun/vim-polyglot') " syntax highlighting packs
+call dein#add('Shougo/dein.vim') " plugin manager
+" language specific
+call dein#add('eraserhd/parinfer-rust', {'build': 'cargo build --release'}) " smart parentheses for sexp langs
+call dein#add('junegunn/rainbow_parentheses.vim') " rainbow parentheses for sexp langs
+call dein#end()
+call dein#save_state()
 
 " sets
 set autoindent

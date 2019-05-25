@@ -1,0 +1,4 @@
+cache_nvim
+state_nvim.vim
+.cache
+.config/nvim/repos/
