@@ -1,23 +1,38 @@
+" neovim config
+" might work with regular vim, but probably not.
+
 " speed set
 set guioptions=M
 
 set runtimepath+=~/.config/nvim/repos/github.com/Shougo/dein.vim
 call dein#begin(expand('~/.config/nvim'))
+
 " language agnostic
-call dein#add('cohama/lexima.vim', {'lazy': 1, 'on_i': 1})
-call dein#add('honza/vim-snippets') " snippets pack
-call dein#add('kshenoy/vim-signature') " navigate marks
-call dein#add('ludovicchabant/vim-gutentags')
-call dein#add('majutsushi/tagbar') " ctags gui
-call dein#add('morhetz/gruvbox') " colorscheme
-call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly'}) " lsp engine
-call dein#add('tpope/vim-commentary') " commenter
-call dein#add('tpope/vim-surround') " bracket and quotes utils
-call dein#add('sheerun/vim-polyglot') " syntax highlighting packs
-call dein#add('Shougo/dein.vim') " plugin manager
+call dein#add('cohama/lexima.vim', {'lazy': 1, 'on_i': 1})                                                       " auto close brackets and quotes
+call dein#add('gruvbox-community/gruvbox')                                                                       " colorscheme
+call dein#add('honza/vim-snippets')                                                                              " snippets pack
+call dein#add('jreybert/vimagit')                                                                                " git client
+call dein#add('Konfekt/FastFold')                                                                                " speeds up insert mode
+call dein#add('liuchengxu/vista.vim')                                                                            " tagbar + language server integration
+call dein#add('ludovicchabant/vim-gutentags')                                                                    " generates ctags for you
+call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly'})                                 " language server engine, plus helm style lists. look at the coc documentation, this is a big one!
+call dein#add('tpope/vim-commentary')                                                                            " commenter
+call dein#add('tpope/vim-surround')                                                                              " bracket and quotes utils
+call dein#add('sheerun/vim-polyglot')                                                                            " syntax highlighting pack
+call dein#add('Shougo/dein.vim')                                                                                 " plugin manager
+
 " language specific
-call dein#add('eraserhd/parinfer-rust', {'build': 'cargo build --release'}) " smart parentheses for sexp langs
-call dein#add('junegunn/rainbow_parentheses.vim') " rainbow parentheses for sexp langs
+
+" latex
+call dein#add('lervag/vimtex')                                                                                   " grab bag latex plugin
+" all lisp languages
+call dein#add('eraserhd/parinfer-rust', {'build': 'cargo build --release'})                                      " really good smart parentheses for lisp languages like racket or clojure
+call dein#add('guns/vim-sexp')                                                                                   " movements and objects to navigate sexp/lisp language structures
+call dein#add('junegunn/rainbow_parentheses.vim', {'lazy': 1, 'on_ft': ['lisp', 'clojure', 'scheme', 'racket']}) " rainbow parentheses for sexp/lisp langs
+call dein#add('tpope/vim-sexp-mappings-for-regular-people')                                                      " actually good keybinds for vim-sexp
+" clojure
+call dein#add('tpope/vim-fireplace')                                                                             " navigation and repl plugin for clojure. not a huge fan, but there's no good language server w/ coc for clojure yet.
+
 call dein#end()
 call dein#save_state()
 
@@ -71,27 +86,35 @@ set statusline+=%#CursorLine#             " colour
 set statusline+=\ %t\                     " short file name
 set statusline+=%=                        " right align
 set statusline+=%#CursorLine#             " colour
+set statusline+=%{coc#status()}
 set statusline+=\ %y\                     " file type
 set statusline+=%#CursorIM#               " colour
+set statusline+=\ %{NearestMethodOrFunction()}
 set statusline+=\ %3l:%-2c\               " line + column
 set statusline+=%#Function#                 " colour
 set statusline+=\ %3p%%\                  " percentage
 
 " lets
-let g:coc_snippet_next       = '<tab>'
-let g:gruvbox_italic         = 1
-let g:netrw_browse_split     = 2
-let g:netrw_winsize          = 15
-let g:netrw_banner           = 0
-let g:netrw_browse_split     = 4
-let g:netrw_liststyle        = 3
-let g:tagbar_width           = 20
-let loaded_2html_plugin      = 0
-let loaded_man               = 0
-let loaded_tutor_mode_plugin = 0
-let mapleader                = " "
+let g:coc_snippet_next                = '<tab>'
+let g:fastfold_savehook               = 1
+let g:fastfold_fold_command_suffixes  = ['x','X','a','A','o','O','c','C']
+let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
+let g:gruvbox_italic                  = 1
+let g:gruvbox_contrast_dark           = "medium"
+let g:netrw_browse_split              = 2
+let g:netrw_winsize                   = 15
+let g:netrw_banner                    = 0
+let g:netrw_browse_split              = 4
+let g:netrw_liststyle                 = 3
+let g:polyglot_disabled               = ['python-indent', 'python-compiler']
+let g:tex_flavor                      = "latex"
+let loaded_2html_plugin               = 0
+let loaded_man                        = 0
+let loaded_tutor_mode_plugin          = 0
+let mapleader                         = " "
 "
 " color
+filetype plugin on
 syntax enable
 color gruvbox
 
@@ -103,6 +126,7 @@ au TermOpen * set nonumber norelativenumber nospell
 au TermClose * exe "bd! " . expand('<abuf>')
 autocmd CompleteDone * silent! pclose!
 autocmd FileType json syntax match Comment +\/\/.\+$+
+" autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 augroup rainbow_lisp
     autocmd!
     autocmd FileType lisp,clojure,scheme,racket RainbowParentheses
@@ -119,8 +143,8 @@ augroup end
 " keymaps
 inoremap kj <ESC>
 nnoremap <F8> :Lex<CR>
-nnoremap <F9> :TagbarToggle<CR>
-nnoremap <F10> :10sp term://zsh<CR>i
+nnoremap <F9> :Vista!!<CR>
+nnoremap <F10> :10sp term://fish<CR>i
 nnoremap <F12> :make<CR>
 tnoremap <Esc> <C-\><C-n>
 nnoremap <C-h> <c-w>h
@@ -135,8 +159,9 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+            " \ pumvisible() ? coc#_select_confirm() : 
 inoremap <silent><expr> <TAB>
-            \ pumvisible() ? coc#_select_confirm() : 
+            \ pumvisible() ? "\<C-n>" :
             \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
             \ <SID>check_back_space() ? "\<TAB>" :
             \ coc#refresh()
@@ -144,19 +169,19 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " leader maps
-nnoremap <Leader>? :CocList lists<CR>
-xnoremap <Leader>a <Plug>(coc-codeaction-selected)
+nnoremap <Leader><Leader> :CocListResume<CR>
 nnoremap <Leader>a <Plug>(coc-codeaction-selected)
+xnoremap <Leader>a <Plug>(coc-codeaction-selected)
 nnoremap <Leader>ac <Plug>(coc-codeaction)
 nnoremap <Leader>b :CocList buffers<CR>
 nnoremap <Leader>c :noh<CR>
 nnoremap <Leader>d :lcd %:p:h<CR>
-xnoremap <Leader>f <Plug>(coc-format-selected)
 nnoremap <Leader>f <Plug>(coc-format-selected)
+xnoremap <Leader>f <Plug>(coc-format-selected)
 nnoremap <Leader>g :CocList grep<CR>
 nnoremap <Leader>h :CocList helptags<CR>
 nnoremap <silent> <Leader>k :call <SID>show_documentation()<CR>
-nnoremap <leader>l <Plug>(coc-openlink)
+nnoremap <Leader>l <Plug>(coc-openlink)
 nnoremap <Leader>m :CocList marks<CR>
 nnoremap <Leader>o :CocList files<CR>
 nnoremap <Leader>O :tabnew<CR>:CocList files<CR>
@@ -164,6 +189,7 @@ nnoremap <Leader>qf <Plug>(coc-fix-current)
 nnoremap <Leader>rr :checktime<CR>
 nnoremap <Leader>rn <Plug>(coc-rename)
 nnoremap <Leader>v :vsp<CR>:CocList files<CR>
+nnoremap <Leader>/ :CocList lists<CR>
 
 " misc
 command! -nargs=0 Format :call CocAction('format')
@@ -180,4 +206,7 @@ function! s:show_documentation()
     else
         call CocAction('doHover')
     endif
+endfunction
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
 endfunction

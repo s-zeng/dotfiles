@@ -2,6 +2,11 @@
     "suggest.noselect": false,
     "suggest.enablePreview": true,
     "codeLens.enable": true,
-    "pairs.enableBackspace": true
-//    "list.source.grep.command": "ag"
+    "languageserver": {
+        "latex": {
+            "command": "java",
+            "args": ["-jar", "/usr/share/java/texlab/texlab.jar"],
+            "filetypes": ["tex", "bib", "plaintex", "context", "latex"]
+        }
+    }
 }
