@@ -122,14 +122,16 @@ color gruvbox
 au Filetype tex set tw=80 formatoptions+=wn2 spell
 au Filetype markdown set tw=80 formatoptions+=wn2 spell shiftwidth=2 tabstop=2
 au Filetype ruby set shiftwidth=2 tabstop=2
+au Filetype scheme set lispwords+=match lispwords-=if
 au TermOpen * set nonumber norelativenumber nospell
 au TermClose * exe "bd! " . expand('<abuf>')
+au TabLeave * let g:lasttab = tabpagenr()
 autocmd CompleteDone * silent! pclose!
 autocmd FileType json syntax match Comment +\/\/.\+$+
 " autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 augroup rainbow_lisp
     autocmd!
-    autocmd FileType lisp,clojure,scheme,racket RainbowParentheses
+    autocmd FileType lisp,clojure,scheme,racket RainbowParentheses set lisp
 augroup END
 autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup mygroup
@@ -151,6 +153,14 @@ nnoremap <C-h> <c-w>h
 nnoremap <C-j> <c-w>j
 nnoremap <C-k> <c-w>k
 nnoremap <C-l> <c-w>l
+inoremap <C-h> <c-w>h
+inoremap <C-j> <c-w>j
+inoremap <C-k> <c-w>k
+inoremap <C-l> <c-w>l
+tnoremap <C-h> <c-w>h
+tnoremap <C-j> <c-w>j
+tnoremap <C-k> <c-w>k
+tnoremap <C-l> <c-w>l
 nnoremap H 0
 nnoremap L $
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
@@ -190,6 +200,18 @@ nnoremap <Leader>rr :checktime<CR>
 nnoremap <Leader>rn <Plug>(coc-rename)
 nnoremap <Leader>v :vsp<CR>:CocList files<CR>
 nnoremap <Leader>/ :CocList lists<CR>
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<cr>
+nnoremap <silent> <Leader><Tab> :exe "tabn ".g:lasttab<cr>
+
 
 " misc
 command! -nargs=0 Format :call CocAction('format')
