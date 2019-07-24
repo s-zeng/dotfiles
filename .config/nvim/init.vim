@@ -198,6 +198,7 @@ nnoremap <Leader>O :tabnew<CR>:CocList files<CR>
 nnoremap <Leader>qf <Plug>(coc-fix-current)
 nnoremap <Leader>rr :checktime<CR>
 nnoremap <Leader>rn <Plug>(coc-rename)
+nnoremap <Leader>t :CocList windows<CR>
 nnoremap <Leader>v :vsp<CR>:CocList files<CR>
 nnoremap <Leader>/ :CocList lists<CR>
 noremap <leader>1 1gt
