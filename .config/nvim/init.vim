@@ -10,6 +10,7 @@ call dein#begin(expand('~/.config/nvim'))
 " language agnostic
 call dein#add('cohama/lexima.vim', {'lazy': 1, 'on_i': 1})                                                       " auto close brackets and quotes
 call dein#add('gruvbox-community/gruvbox')                                                                       " colorscheme
+call dein#add('sainnhe/gruvbox-material')
 call dein#add('honza/vim-snippets')                                                                              " snippets pack
 call dein#add('jreybert/vimagit')                                                                                " git client
 call dein#add('Konfekt/FastFold')                                                                                " speeds up insert mode
@@ -20,18 +21,21 @@ call dein#add('tpope/vim-commentary')                                           
 call dein#add('tpope/vim-surround')                                                                              " bracket and quotes utils
 call dein#add('sheerun/vim-polyglot')                                                                            " syntax highlighting pack
 call dein#add('Shougo/dein.vim')                                                                                 " plugin manager
+call dein#add('dylanaraps/wal.vim')
+call dein#add('chriskempson/base16-vim')
+call dein#add('neovimhaskell/haskell-vim')
 
 " language specific
 
 " latex
 call dein#add('lervag/vimtex')                                                                                   " grab bag latex plugin
 " all lisp languages
-call dein#add('eraserhd/parinfer-rust', {'build': 'cargo build --release'})                                      " really good smart parentheses for lisp languages like racket or clojure
+call dein#add('eraserhd/parinfer-rust', {'build': 'cargo build --release', 'lazy': 1, 'on_ft': ['lisp', 'clojure', 'scheme', 'racket']}) " really good smart parentheses for lisp languages like racket or clojure
 call dein#add('guns/vim-sexp')                                                                                   " movements and objects to navigate sexp/lisp language structures
 call dein#add('junegunn/rainbow_parentheses.vim', {'lazy': 1, 'on_ft': ['lisp', 'clojure', 'scheme', 'racket']}) " rainbow parentheses for sexp/lisp langs
 call dein#add('tpope/vim-sexp-mappings-for-regular-people')                                                      " actually good keybinds for vim-sexp
 " clojure
-call dein#add('tpope/vim-fireplace')                                                                             " navigation and repl plugin for clojure. not a huge fan, but there's no good language server w/ coc for clojure yet.
+" call dein#add('tpope/vim-fireplace', {'lazy': 1, 'on_ft': ['clojure']})                                                                             " navigation and repl plugin for clojure. not a huge fan, but there's no good language server w/ coc for clojure yet.
 
 call dein#end()
 call dein#save_state()
@@ -52,7 +56,7 @@ set nowrap
 set number
 set pastetoggle=<F2>
 set relativenumber
-set scrolloff=10
+set scrolloff=999999
 set shiftwidth=4
 set shortmess+=c
 set showmatch
@@ -60,21 +64,19 @@ set sidescrolloff=5
 set splitbelow
 set splitright
 set tabstop=4
-set termguicolors
 set timeout
 set timeoutlen=300
 set updatetime=300
 
 " statusline
 set statusline=
-set statusline+=%#DiffAdd#%{(mode()=='n')?'\ \ NORMAL\ ':''}
-set statusline+=%#DiffAdd#%{(mode()=='c')?'\ \ NORMAL\ ':''}
-set statusline+=%#DiffText#%{(mode()=='i')?'\ \ INSERT\ ':''}
-set statusline+=%#DiffText#%{(mode()=='t')?'\ \ \ TERM\ \ ':''}
-set statusline+=%#DiffDelete#%{(mode()=='R')?'\ \ RPLACE\ ':''}
-set statusline+=%#Search#%{(mode()=='v')?'\ \ VISUAL\ ':''}
-set statusline+=%#Search#%{(mode()=='V')?'\ \ V-LINE\ ':''}
-set statusline+=%#Search#%{(mode()=='\<C-V>')?'\ \ VBLOCK\ ':''}
+set statusline+=%#DiffAdd#%{(mode()[0]=='n')?'\ \ NORMAL\ ':''}
+set statusline+=%#DiffAdd#%{(mode()[0]=='c')?'\ \ NORMAL\ ':''}
+set statusline+=%#DiffText#%{(mode()[0]=='i')?'\ \ INSERT\ ':''}
+set statusline+=%#DiffText#%{(mode()[0]=='t')?'\ \ \ TERM\ \ ':''}
+set statusline+=%#DiffDelete#%{(mode()[0]=='R')?'\ \ RPLACE\ ':''}
+set statusline+=%#Search#%{(mode()[0]=='v')?'\ \ VISUAL\ ':''}
+set statusline+=%#Search#%{(mode()[0]=='V')?'\ \ V-LINE\ ':''}
 set statusline+=%#Visual#                 " colour
 set statusline+=%{&paste?'\ PASTE\ ':''}
 set statusline+=%{&spell?'\ SPELL\ ':''}
@@ -100,7 +102,13 @@ let g:fastfold_savehook               = 1
 let g:fastfold_fold_command_suffixes  = ['x','X','a','A','o','O','c','C']
 let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
 let g:gruvbox_italic                  = 1
+let g:gruvbox_bold                    = 1
 let g:gruvbox_contrast_dark           = "medium"
+let g:gruvbox_material_background     = 'medium'
+let g:gruvbox_material_enable_italic  = 1
+let g:gruvbox_material_enable_bold    = 1
+" let g:gruvbox_material_palette        = 'mix'
+let g:gruvbox_material_palette        = 'original'
 let g:netrw_browse_split              = 2
 let g:netrw_winsize                   = 15
 let g:netrw_banner                    = 0
@@ -114,17 +122,25 @@ let loaded_tutor_mode_plugin          = 0
 let mapleader                         = " "
 "
 " color
+set termguicolors
 filetype plugin on
 syntax enable
 color gruvbox
+" color base16-gruvbox-dark-pale
+" color wal
 
 " aus
+" au BufReadPost *.purs set syntax=haskell
 au Filetype tex set tw=80 formatoptions+=wn2 spell
 au Filetype markdown set tw=80 formatoptions+=wn2 spell shiftwidth=2 tabstop=2
 au Filetype ruby set shiftwidth=2 tabstop=2
 au Filetype scheme set lispwords+=match lispwords-=if
-au TermOpen * set nonumber norelativenumber nospell
+au BufNewFile,BufRead *.ghci set filetype=haskell
+au TermOpen * setlocal nonumber norelativenumber nospell
+au TermEnter * setlocal scrolloff=0
+au TermClose * setlocal number relativenumber
 au TermClose * exe "bd! " . expand('<abuf>')
+au TermLeave * setlocal scrolloff=999999
 au TabLeave * let g:lasttab = tabpagenr()
 autocmd CompleteDone * silent! pclose!
 autocmd FileType json syntax match Comment +\/\/.\+$+
@@ -161,6 +177,7 @@ tnoremap <C-h> <c-w>h
 tnoremap <C-j> <c-w>j
 tnoremap <C-k> <c-w>k
 tnoremap <C-l> <c-w>l
+nnoremap ` :call Float()<CR>
 nnoremap H 0
 nnoremap L $
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
@@ -188,9 +205,11 @@ nnoremap <Leader>c :noh<CR>
 nnoremap <Leader>d :lcd %:p:h<CR>
 nnoremap <Leader>f <Plug>(coc-format-selected)
 xnoremap <Leader>f <Plug>(coc-format-selected)
+nnoremap <Leader>= <Plug>(coc-format)
 nnoremap <Leader>g :CocList grep<CR>
 nnoremap <Leader>h :CocList helptags<CR>
-nnoremap <silent> <Leader>k :call <SID>show_documentation()<CR>
+" nnoremap <silent> <Leader>k :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 nnoremap <Leader>l <Plug>(coc-openlink)
 nnoremap <Leader>m :CocList marks<CR>
 nnoremap <Leader>o :CocList files<CR>
@@ -223,6 +242,7 @@ function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
 function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
         execute 'h '.expand('<cword>')
@@ -230,6 +250,56 @@ function! s:show_documentation()
         call CocAction('doHover')
     endif
 endfunction
+
 function! NearestMethodOrFunction() abort
   return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
+function! Float()
+  " Configuration
+  let height = float2nr((&lines - 2) * 0.6)
+  let row = float2nr((&lines - height) / 2)
+  let width = float2nr(&columns * 0.6)
+  let col = float2nr((&columns - width) / 2)
+  " Border Window
+  let border_opts = {
+        \ 'relative': 'editor',
+        \ 'row': row - 1,
+        \ 'col': col - 2,
+        \ 'width': width + 4,
+        \ 'height': height + 2,
+        \ 'style': 'minimal'
+        \ }
+  " Terminal Window
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': row,
+        \ 'col': col,
+        \ 'width': width,
+        \ 'height': height,
+        \ 'style': 'minimal'
+        \ }
+  let top = "╭" . repeat("─", width + 2) . "╮"
+  let mid = "│" . repeat(" ", width + 2) . "│"
+  let bot = "╰" . repeat("─", width + 2) . "╯"
+  let lines = [top] + repeat([mid], height) + [bot]
+  let bbuf = nvim_create_buf(v:false, v:true)
+  call nvim_buf_set_lines(bbuf, 0, -1, v:true, lines)
+  let s:float_term_border_win = nvim_open_win(bbuf, v:true, border_opts)
+  let buf = nvim_create_buf(v:false, v:true)
+  let s:float_term_win = nvim_open_win(buf, v:true, opts)
+  " Styling
+  call setwinvar(s:float_term_border_win, '&winhl', 'Normal:Normal')
+  call setwinvar(s:float_term_win, '&winhl', 'Normal:Normal')
+
+  if a:0 == 0
+    terminal
+  else
+    call termopen(a:1)
+  endif
+  
+  startinsert
+  " Close border window when terminal window close
+  " autocmd BufLeave * ++once :call nvim_win_close(s:float_term_border_win, v:true)
+  autocmd TermClose * ++once :call nvim_win_close(s:float_term_border_win, v:true)
 endfunction

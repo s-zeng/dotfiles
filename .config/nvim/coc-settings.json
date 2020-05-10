@@ -1,12 +1,51 @@
 {
     "suggest.noselect": false,
     "suggest.enablePreview": true,
-    "codeLens.enable": true,
+    //    "codeLens.enable": true,
     "languageserver": {
         "latex": {
             "command": "java",
             "args": ["-jar", "/usr/share/java/texlab/texlab.jar"],
             "filetypes": ["tex", "bib", "plaintex", "context", "latex"]
+        },
+        "metals": {
+            "command": "metals-vim",
+            "rootPatterns": ["build.sbt"],
+            "filetypes": ["scala", "sbt"]
+        },
+        "ccls": {
+            "command": "ccls",
+            "filetypes": ["c", "cpp", "objc", "objcpp"],
+            "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+            "initializationOptions": {
+                "cache": {
+                    "directory": "/tmp/ccls"
+                }
+            }
+        },
+        "purescript": {
+            "command": "purescript-language-server",
+            "args": ["--stdio"],
+            "filetypes": ["purescript"],
+            "rootPatterns": ["bower.json", "psc-package.json", "spago.dhall"]
         }
+        //,
+        // "haskell": {
+        //     "command": "hie-wrapper",
+        //     "rootPatterns": [
+        //         ".stack.yaml",
+        //         "cabal.config",
+        //         "package.yaml"
+        //     ],
+        //     "filetypes": [
+        //         "hs",
+        //         "lhs",
+        //         "haskell"
+        //     ],
+        //     "initializationOptions": {
+        //         "languageServerHaskell": {
+        //         }
+        //     }
+        // }
     }
 }
