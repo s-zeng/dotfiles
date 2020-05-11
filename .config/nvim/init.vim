@@ -122,12 +122,17 @@ let loaded_tutor_mode_plugin          = 0
 let mapleader                         = " "
 "
 " color
-set termguicolors
+set notermguicolors
 filetype plugin on
 syntax enable
-color gruvbox
+" color gruvbox
 " color base16-gruvbox-dark-pale
-" color wal
+" color dracula
+" color base16-dracula
+color wal
+highlight CursorLine ctermfg=None ctermbg=235 cterm=None guifg=None guibg=None gui=None
+" highlight CursorLine ctermfg=None ctermbg=253 cterm=None guifg=None guibg=None gui=None
+
 
 " aus
 " au BufReadPost *.purs set syntax=haskell
