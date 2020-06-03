@@ -3,4 +3,7 @@ state_nvim.vim
 .cache
 .config/nvim/repos/
 .config/coc/extensions/
+.config/coc/history.json
+.config/coc/mru
+.config/coc/snippets-mru
 tags
