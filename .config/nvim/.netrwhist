@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/home/kronicmage/Dropbox/Personal/Programming/ws-debug-tool'
+let g:netrw_dirhist_6='/home/kronicmage/repos/editDistanceTypingTest/src'
+let g:netrw_dirhist_5='/home/kronicmage/repos/editDistanceTypingTest'
+let g:netrw_dirhist_4='/home/kronicmage'
+let g:netrw_dirhist_3='/home/kronicmage/repos/qmk_firmware/keyboards/dztech/dz60rgb_ansi/keymaps/kronicmage'
+let g:netrw_dirhist_2='/home/kronicmage/Dropbox/School/2A/cs245e'
+let g:netrw_dirhist_1='/home/kronicmage/Downloads'

@@ -142,15 +142,6 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
-
         # same bindings, but for the arrow keys
         bindsym h resize shrink width 10 px or 10 ppt
         bindsym j resize grow height 10 px or 10 ppt
@@ -165,7 +156,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent
-exec_always --no-startup-id ~/bin/polybar.sh &
+# exec_always --no-startup-id ~/bin/polybar.sh &
 # exec --no-startup-id ~/bin/compton.sh &
 exec --no-startup-id ~/bin/feh.sh &
 exec --no-startup-id ~/bin/dropbox.sh &
@@ -173,7 +164,7 @@ exec --no-startup-id ~/bin/nm-applet.sh &
 exec --no-startup-id ~/bin/blueberry.sh &
 # exec --no-startup-id ~/bin/mopidy.sh &
 exec --no-startup-id ~/bin/gnome-settings.sh &
-exec --no-startup-id ~/bin/redshift.sh 
+# exec --no-startup-id ~/bin/redshift.sh 
 # exec xinput set-prop 11 277 1
 
 # i3-gaps
@@ -249,3 +240,9 @@ mode "$mode_gaps_outer" {
 for_window [window_role="pop-up"] floating enable
 for_window [class="Discord"] floating enable
 
+
+bar {
+    # swaybar_command waybar
+    position top
+    status_command i3status
+}

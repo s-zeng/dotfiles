@@ -165,7 +165,7 @@ icon-stop = 
 icon-play = 
 icon-pause = 
 icon-next = 
-label-song = %title% - %artist%
+label-song = %title% - %album%
 
 label-song-maxlen = 25
 label-song-ellipsis = true
