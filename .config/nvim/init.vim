@@ -8,19 +8,19 @@ set runtimepath+=~/.config/nvim/repos/github.com/Shougo/dein.vim
 call dein#begin(expand('~/.config/nvim'))
 
 " language agnostic
-call dein#add('cohama/lexima.vim', {'lazy': 1, 'on_i': 1})                                                       " auto close brackets and quotes
-call dein#add('gruvbox-community/gruvbox')                                                                       " colorscheme
+call dein#add('cohama/lexima.vim', {'lazy': 1, 'on_i': 1}) " auto close brackets and quotes
+call dein#add('gruvbox-community/gruvbox')                 " colorscheme
 call dein#add('sainnhe/gruvbox-material')
-call dein#add('honza/vim-snippets')                                                                              " snippets pack
-call dein#add('jreybert/vimagit')                                                                                " git client
-call dein#add('Konfekt/FastFold')                                                                                " speeds up insert mode
-call dein#add('liuchengxu/vista.vim')                                                                            " tagbar + language server integration
-call dein#add('ludovicchabant/vim-gutentags')                                                                    " generates ctags for you
-call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly'})                                 " language server engine, plus helm style lists. look at the coc documentation, this is a big one!
-call dein#add('tpope/vim-commentary')                                                                            " commenter
-call dein#add('tpope/vim-surround')                                                                              " bracket and quotes utils
-call dein#add('sheerun/vim-polyglot')                                                                            " syntax highlighting pack
-call dein#add('Shougo/dein.vim')                                                                                 " plugin manager
+call dein#add('honza/vim-snippets')                        " snippets pack
+call dein#add('jreybert/vimagit')                          " git client
+call dein#add('Konfekt/FastFold')                          " speeds up insert mode
+call dein#add('liuchengxu/vista.vim')                      " tagbar + language server integration
+call dein#add('ludovicchabant/vim-gutentags')              " generates ctags for you
+call dein#add('neoclide/coc.nvim', {'rev': 'release'})     " language server engine, plus helm style lists. look at the coc documentation, this is a big one!
+call dein#add('tpope/vim-commentary')                      " commenter
+call dein#add('tpope/vim-surround')                        " bracket and quotes utils
+call dein#add('sheerun/vim-polyglot')                      " syntax highlighting pack
+call dein#add('Shougo/dein.vim')                           " plugin manager
 call dein#add('dylanaraps/wal.vim')
 call dein#add('chriskempson/base16-vim')
 call dein#add('neovimhaskell/haskell-vim')
@@ -107,8 +107,9 @@ let g:gruvbox_contrast_dark           = "medium"
 let g:gruvbox_material_background     = 'medium'
 let g:gruvbox_material_enable_italic  = 1
 let g:gruvbox_material_enable_bold    = 1
+" let g:gruvbox_material_palette        = 'original'
 " let g:gruvbox_material_palette        = 'mix'
-let g:gruvbox_material_palette        = 'original'
+let g:gruvbox_material_palette        = 'material'
 let g:netrw_browse_split              = 2
 let g:netrw_winsize                   = 15
 let g:netrw_banner                    = 0

@@ -7,3 +7,5 @@ state_nvim.vim
 .config/coc/mru
 .config/coc/snippets-mru
 tags
+.config/coc/extensions/package.json
+.metals/

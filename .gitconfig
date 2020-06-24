@@ -1,8 +1,27 @@
 [user]
-	email = simon.zeng.68@gmail.com
-	name = Simon Zeng
-	signingkey = D72AB5B88B2C4ECD
+    email = contact@simonzeng.com
+    name = Simon Zeng
+    signingkey = 973C9963CA528797 
 [credential]
-	helper = store
+    helper = store
+[core]
+    page = nvim -R
+[color]
+    pager = no
 [commit]
-	gpgsign = true
+    gpgsign = true
+[tool]
+    tool = vimdiff
+[merge]
+    tool = vimdiff
+    # conflictstyle = diff3
+[mergetool]
+    prompt = true
+[mergetool "vimdiff"]
+    cmd = nvim -d $LOCAL $REMOTE
+[filesystem "Oracle Corporation|11.0.6|/dev/mapper/cryptAntergos"]
+    timestampResolution = 9000 nanoseconds
+    minRacyThreshold = 4365 microseconds
+[filesystem "Oracle Corporation|11.0.7|/dev/mapper/cryptAntergos"]
+    timestampResolution = 10000 nanoseconds
+    minRacyThreshold = 6059 microseconds
