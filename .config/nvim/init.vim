@@ -17,6 +17,8 @@ call dein#add('Konfekt/FastFold')                          " speeds up insert mo
 call dein#add('liuchengxu/vista.vim')                      " tagbar + language server integration
 call dein#add('ludovicchabant/vim-gutentags')              " generates ctags for you
 call dein#add('neoclide/coc.nvim', {'rev': 'release'})     " language server engine, plus helm style lists. look at the coc documentation, this is a big one!
+call dein#add('liuchengxu/vim-clap')                       " fzf/coc-list replacement
+call dein#add('vn-ki/coc-clap')                            " adds support for coc lists to vim clap
 call dein#add('tpope/vim-commentary')                      " commenter
 call dein#add('tpope/vim-surround')                        " bracket and quotes utils
 call dein#add('sheerun/vim-polyglot')                      " syntax highlighting pack
@@ -48,6 +50,7 @@ set expandtab
 set foldlevel=99
 set foldmethod=indent
 set formatoptions+=t
+set guifont=JetBrains\ Mono:h14
 set hidden
 set hlsearch
 set inccommand=split
@@ -97,6 +100,7 @@ set statusline+=%#Function#                 " colour
 set statusline+=\ %3p%%\                  " percentage
 
 " lets
+let g:clap_layout = { 'relative': 'editor' }
 let g:coc_snippet_next                = '<tab>'
 let g:fastfold_savehook               = 1
 let g:fastfold_fold_command_suffixes  = ['x','X','a','A','o','O','c','C']
@@ -115,6 +119,7 @@ let g:netrw_winsize                   = 15
 let g:netrw_banner                    = 0
 let g:netrw_browse_split              = 4
 let g:netrw_liststyle                 = 3
+let g:neovide_cursor_vfx_mode         = "sonicboom"
 let g:polyglot_disabled               = ['python-indent', 'python-compiler']
 let g:tex_flavor                      = "latex"
 let loaded_2html_plugin               = 0
@@ -127,7 +132,7 @@ set termguicolors
 filetype plugin on
 syntax enable
 color gruvbox-material
-" color base16-gruvbox-dark-medium
+" color base16-gruvbox-dark-pale
 " color dracula
 " color base16-dracula
 " color wal
@@ -202,30 +207,30 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " leader maps
-nnoremap <Leader><Leader> :CocListResume<CR>
+nnoremap <Leader><Leader> :Clap quickfix<CR>
 nnoremap <Leader>a <Plug>(coc-codeaction-selected)
 xnoremap <Leader>a <Plug>(coc-codeaction-selected)
 nnoremap <Leader>ac <Plug>(coc-codeaction)
-nnoremap <Leader>b :CocList buffers<CR>
+nnoremap <Leader>b :Clap buffers<CR>
 nnoremap <Leader>c :noh<CR>
 nnoremap <Leader>d :lcd %:p:h<CR>
 nnoremap <Leader>f <Plug>(coc-format-selected)
 xnoremap <Leader>f <Plug>(coc-format-selected)
 nnoremap <Leader>= <Plug>(coc-format)
-nnoremap <Leader>g :CocList grep<CR>
-nnoremap <Leader>h :CocList helptags<CR>
+nnoremap <Leader>g :Clap grep2<CR>
+nnoremap <Leader>h :Clap help_tags<CR>
 " nnoremap <silent> <Leader>k :call <SID>show_documentation()<CR>
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 nnoremap <Leader>l <Plug>(coc-openlink)
-nnoremap <Leader>m :CocList marks<CR>
-nnoremap <Leader>o :CocList files<CR>
-nnoremap <Leader>O :tabnew<CR>:CocList files<CR>
+nnoremap <Leader>m :Clap marks<CR>
+nnoremap <Leader>o :Clap filer<CR>
+nnoremap <Leader>O :tabnew<CR>:Clap filer<CR>
 nnoremap <Leader>qf <Plug>(coc-fix-current)
 nnoremap <Leader>rr :checktime<CR>
 nnoremap <Leader>rn <Plug>(coc-rename)
-nnoremap <Leader>t :CocList windows<CR>
-nnoremap <Leader>v :vsp<CR>:CocList files<CR>
-nnoremap <Leader>/ :CocList lists<CR>
+nnoremap <Leader>t :Clap windows<CR>
+nnoremap <Leader>v :vsp<CR>:Clap filer<CR>
+nnoremap <Leader>/ :Clap providers<CR>
 noremap <leader>1 1gt
 noremap <leader>2 2gt
 noremap <leader>3 3gt
