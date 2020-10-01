@@ -5,7 +5,9 @@ set -gx EDITOR nvim
 set -gx PAGER nvim -R
 set -gx MANPAGER "nvim -R -c 'set ft=man' -"
 set -gx PROJECT_PATHS ~/repos ~/Dropbox/School/2B
+set -gx XDG_CURRENT_DESKTOP sway
 alias g++14 "g++ -std=c++14 -Wall -g"
+alias alpha-client "tezos-client -A rpcalpha.tzbeta.net -P 443 -S"
 source ~/.cache/wal/colors.fish
 # theme_gruvbox dark hard
 

@@ -1,7 +1,7 @@
 # exec wal -R -l
 include "$HOME/.cache/wal/colors-sway"
 
-set $wallpaper "/home/kronicmage/Pictures/Wallpapers/outrun.jpg"
+set $wallpaper "/home/kronicmage/Pictures/Wallpapers/forest.png"
 output "*" background $wallpaper fill
 client.focused $color0 $foreground $foreground $foreground $foreground
 # client.focused_inactive $color0 $background $foreground $color7 $background
@@ -266,7 +266,8 @@ for_window [class="Discord"] floating enable
 
 # output DP-2 transform 270
 output eDP-1 pos 0,0
-# output DP-2 pos 1920,0
+output DP-2 transform 90 position 3840,-300
+output DP-1 pos 1920,0
 
 input "2:10:TPPS/2_Elan_TrackPoint" {
     tap enabled
