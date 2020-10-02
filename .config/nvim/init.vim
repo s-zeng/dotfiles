@@ -7,25 +7,19 @@ set guioptions=M
 call plug#begin(stdpath('data') . '/plugged')
 
 " general
-Plug 'hrsh7th/vim-vsnip'
-" Plug 'hrsh7th/vim-vsnip-integ'
-" Plug 'honza/vim-snippets'              " snippets pack
-Plug 'jreybert/vimagit', {'on': 'Magit'} " git client
-Plug 'Konfekt/FastFold'                  " speeds up insert mode
-Plug 'liuchengxu/vim-clap', {'on': 'Clap'}             " fzf replacement
-Plug 'liuchengxu/vista.vim', {'on': 'Vista'} " tagbar + language server integration
-Plug 'ludovicchabant/vim-gutentags'    " generates ctags for you
-Plug 'nvim-treesitter/nvim-treesitter' " treesitter = nvim 0.5+ good syntax highlighting
-Plug 'neovim/nvim-lspconfig'           " nvim lsp
-Plug 'nvim-lua/completion-nvim'        " better lsp completions
-Plug 'nvim-lua/diagnostic-nvim'        " better lsp diagnostics
-Plug 'nvim-lua/lsp-status.nvim'        " lsp statusline
-Plug 'nvim-lua/popup.nvim'             " lua popup library
-Plug 'nvim-lua/plenary.nvim'           " lua helper functions
-Plug 'nvim-lua/telescope.nvim'         " lua fzf
-Plug 'rstacruz/vim-closer'             " auto pairs only on enter
-Plug 'tpope/vim-commentary'            " commenter
-Plug 'tpope/vim-surround'              " bracket and quotes utils
+Plug 'Konfekt/FastFold'                      " speeds up insert mode
+Plug 'jreybert/vimagit', {'on': 'Magit'}     " git client
+Plug 'junegunn/rainbow_parentheses.vim'      " gives different colors to nested parentheses
+Plug 'liuchengxu/vim-clap', {'on': 'Clap'}   " fzf with floating windows
+Plug 'liuchengxu/vista.vim', {'on': 'Vista'} " tagbar + lsp integration
+Plug 'neovim/nvim-lspconfig'                 " nvim lsp
+Plug 'nvim-lua/completion-nvim'              " better lsp completions
+Plug 'nvim-lua/diagnostic-nvim'              " better lsp diagnostics
+Plug 'nvim-lua/lsp-status.nvim'              " lsp statusline
+Plug 'nvim-treesitter/nvim-treesitter'       " good syntax highlighting (better than polyglot)
+Plug 'tmsvg/pear-tree'                       " autopairs
+Plug 'tpope/vim-commentary'                  " commenter
+Plug 'tpope/vim-surround'                    " bracket and quotes utils
 
 " colorschemes
 Plug 'lifepillar/vim-gruvbox8'
@@ -40,7 +34,6 @@ Plug 'lervag/vimtex'
 Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release', 'for': ['clojure', 'scheme', 'racket', 'lisp']}
 Plug 'guns/vim-sexp', {'for': ['clojure', 'scheme', 'racket', 'lisp']}
 Plug 'tpope/vim-sexp-mappings-for-regular-people', {'for': ['clojure', 'scheme', 'racket', 'lisp']}
-Plug 'junegunn/rainbow_parentheses.vim'
 
 call plug#end()
 
@@ -51,14 +44,12 @@ luafile ~/.config/nvim/scripts.lua
 " sets
 set autoindent
 set backspace=2
+set completeopt=menuone,noinsert,noselect
 set cursorline
 set expandtab
+set foldexpr=nvim_treesitter#foldexpr()
 set foldlevel=99
 set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
-" set foldmethod=indent
-" set formatoptions+=t
-" set guifont=JetBrains\ Mono:h14
 set hidden
 set hlsearch
 set inccommand=split
@@ -68,20 +59,18 @@ set number
 set pastetoggle=<F2>
 set relativenumber
 set scrolloff=999999
+set shada='20,<50,s10
 set shiftwidth=4
+set shortmess+=c
 set shortmess+=c
 set showmatch
 set sidescrolloff=5
 set splitbelow
 set splitright
-set shada='20,<50,s10
 set tabstop=4
 set timeout
 set timeoutlen=300
 set updatetime=300
-set omnifunc=v:lua.vim.lsp.omnifunc
-set completeopt=menuone,noinsert,noselect
-set shortmess+=c
 
 " statusline
 set statusline=
@@ -106,59 +95,64 @@ set statusline+=%#CursorLine#             " colour
 set statusline+=%{LspStatus()}
 set statusline+=\ %y\                     " file type
 set statusline+=%#CursorIM#               " colour
-set statusline+=\ %{nvim_treesitter#statusline(30)}
-" set statusline+=\ %{NearestMethodOrFunction()}
+" set statusline+=\ %{nvim_treesitter#statusline(30)}
 set statusline+=\ %3l:%-2c\               " line + column
 set statusline+=%#Function#                 " colour
 set statusline+=\ %3p%%\                  " percentage
 
 " lets
-let g:clap_layout                     = { 'relative': 'editor' }
 let g:clap_disable_run_rooter         = v:true
+let g:clap_layout                     = { 'relative': 'editor' }
 let g:clap_project_root_markers       = []
-let g:completion_enable_snippet       = 'vim-vsnip'
-let g:fastfold_savehook               = 1
 let g:fastfold_fold_command_suffixes  = ['x','X','a','A','o','O','c','C']
 let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
-let g:netrw_browse_split              = 2
-let g:netrw_winsize                   = 15
+let g:fastfold_savehook               = 1
 let g:netrw_banner                    = 0
+let g:netrw_browse_split              = 2
 let g:netrw_browse_split              = 4
 let g:netrw_liststyle                 = 3
+let g:netrw_winsize                   = 15
+let g:pear_tree_smart_backspace       = 1
+let g:pear_tree_smart_closers         = 1
+let g:pear_tree_smart_openers         = 1
 let g:tex_flavor                      = "latex"
-let loaded_2html_plugin               = 0
-let loaded_man                        = 0
-let loaded_tutor_mode_plugin          = 0
-let mapleader                         = " "
+let g:vista_default_executive         = 'nvim_lsp'
+let g:vista_executive_for = {
+  \ 'vimwiki': 'markdown',
+  \ 'pandoc': 'markdown',
+  \ 'markdown': 'toc',
+\ }
+
+let loaded_2html_plugin      = 0
+let loaded_man               = 0
+let loaded_pkgbuild_plugin   = 0
+let loaded_tutor_mode_plugin = 0
+let mapleader                = " "
 "
 " color
-" filetype plugin on
-" syntax enable
 set termguicolors
 color gruvbox8
 
 " aus
-" au BufReadPost *.purs set syntax=haskell
-au Filetype tex set tw=80 formatoptions+=wn2 spell
+au BufNewFile,BufRead *.ghci set filetype=haskell
 au Filetype markdown set tw=80 formatoptions+=wn2 spell shiftwidth=2 tabstop=2
 au Filetype ruby set shiftwidth=2 tabstop=2
-autocmd FileType lisp,clojure,scheme,racket set lisp
 au Filetype scheme set lispwords+=match lispwords-=if
-au BufNewFile,BufRead *.ghci set filetype=haskell
-au TermOpen * setlocal nonumber norelativenumber nospell
-au TermEnter * setlocal scrolloff=0
-au TermClose * setlocal number relativenumber
-au TermClose * exe "bd! " . expand('<abuf>')
-au TermLeave * setlocal scrolloff=999999
+au Filetype tex set tw=80 formatoptions+=wn2 spell
 au TabLeave * let g:lasttab = tabpagenr()
+au TermClose * exe "bd! " . expand('<abuf>')
+au TermClose * setlocal number relativenumber
+au TermEnter * setlocal scrolloff=0
+au TermLeave * setlocal scrolloff=999999
+au TermOpen * setlocal nonumber norelativenumber nospell
 autocmd CompleteDone * silent! pclose!
 autocmd FileType json syntax match Comment +\/\/.\+$+
-autocmd VimEnter * RainbowParentheses
+autocmd FileType lisp,clojure,scheme,racket set lisp
+autocmd FileType lisp,clojure,scheme,racket RainbowParentheses
 
 " keymaps
 inoremap kj <ESC>
 nnoremap <F8> :Lex<CR>
-" nnoremap <F8> :CocCommand explorer<CR>
 nnoremap <F9> :Vista!!<CR>
 nnoremap <F10> :10sp term://fish<CR>i
 nnoremap <F12> :make<CR>
@@ -181,26 +175,17 @@ nnoremap L $
 
 " leader maps
 nnoremap <Leader><Leader> :Clap quickfix<CR>
-" nnoremap <Leader>a <Plug>(coc-codeaction-selected)
-" xnoremap <Leader>a <Plug>(coc-codeaction-selected)
-" nnoremap <Leader>ac <Plug>(coc-codeaction)
 nnoremap <Leader>b :Clap buffers<CR>
 nnoremap <Leader>c :noh<CR>
 nnoremap <Leader>d :lcd %:p:h<CR>
-" nnoremap <Leader>f <Plug>(coc-format-selected)
-" xnoremap <Leader>f <Plug>(coc-format-selected)
-" nnoremap <Leader>= <Plug>(coc-format)
-nnoremap <Leader>g :Clap grep<CR>
+nnoremap <Leader>g :Clap grep2<CR>
 nnoremap <Leader>h :Clap help_tags<CR>
-" nnoremap <Leader>l <Plug>(coc-openlink)
 nnoremap <Leader>m :Clap marks<CR>
 nnoremap <Leader>o :Clap files<CR>
-nnoremap <Leader>O :tabnew<CR>:Clap files<CR>
-" nnoremap <Leader>qf <Plug>(coc-fix-current)
+nnoremap <Leader>O :tabnew<CR>:Clap filer<CR>
 nnoremap <Leader>rr :checktime<CR>
-" nnoremap grn <Plug>(coc-rename)
 nnoremap <Leader>t :Clap windows<CR>
-nnoremap <Leader>v :vsp<CR>:Clap files<CR>
+nnoremap <Leader>v :vsp<CR>:Clap filer<CR>
 nnoremap <Leader>/ :Clap providers<CR>
 noremap <leader>1 1gt
 noremap <leader>2 2gt
@@ -213,12 +198,13 @@ noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
 nnoremap <silent> <Leader><Tab> :exe "tabn ".g:lasttab<cr>
+inoremap <c-c> <ESC>
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr>    pumvisible() ? "\<Plug>(completion_confirm_completion)" : "\<cr>"
 
 command! -bar -range=% Reverse <line1>,<line2>g/^/m<line1>-1|nohl
 command! CodeAction lua vim.lsp.buf.code_action()
+command! Json :execute '%!python -m json.tool --sort-keys'
 
 " functions
 function! LspStatus() abort
