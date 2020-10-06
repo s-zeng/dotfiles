@@ -3,72 +3,6 @@ local nvim_lsp = require('nvim_lsp')
 
 lsp_status.register_progress()
 
-require'nvim-treesitter.configs'.setup {
-    ensure_installed = "all",     -- one of "all", "language", or a list of languages
-    refactor = {
-        navigation = {
-            enable = true,
-            keymaps = {
-                goto_definition = "gnd",
-                list_definitions = "gnD",
-                goto_next_usage = "<a-*>",
-                goto_previous_usage = "<a-#>",
-            },
-        },
-    },
-    highlight = {
-        enable = true,              -- false will disable the whole extension
-    },
-    textobjects = {
-        select = {
-            enable = true,
-            keymaps = {
-                -- You can use the capture groups defined in textobjects.scm
-                ["af"] = "@function.outer",
-                ["if"] = "@function.inner",
-                ["ac"] = "@class.outer",
-                ["ic"] = "@class.inner",
-
-                -- Or you can define your own textobjects like this
-                ["iF"] = {
-                    python = "(function_definition) @function",
-                    cpp = "(function_definition) @function",
-                    c = "(function_definition) @function",
-                    java = "(method_declaration) @function",
-                },
-            },
-        },
-        swap = {
-            enable = true,
-            swap_next = {
-                ["<leader>a"] = "@parameter.inner",
-            },
-            swap_previous = {
-                ["<leader>A"] = "@parameter.inner",
-            },
-        },
-        move = {
-            enable = true,
-            goto_next_start = {
-                ["]]"] = "@function.outer",
-                ["]m"] = "@class.outer",
-            },
-            goto_next_end = {
-                ["]["] = "@function.outer",
-                ["]M"] = "@class.outer",
-            },
-            goto_previous_start = {
-                ["[["] = "@function.outer",
-                ["[m"] = "@class.outer",
-            },
-            goto_previous_end = {
-                ["[]"] = "@function.outer",
-                ["[M"] = "@class.outer",
-            },
-        },
-    },
-}
-
 local attach_hook = function(client)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     require'completion'.on_attach(client)
@@ -80,7 +14,7 @@ local attach_hook = function(client)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>s', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>k', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>K', '<cmd>lua vim.lsp.buf.help()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>F', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)

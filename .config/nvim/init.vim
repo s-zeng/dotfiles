@@ -1,5 +1,5 @@
 " neovim config
-" might work with regular vim, but probably not.
+" uses a ton of neovim only stuff so incompatible with normal vim
 
 " speed set
 set guioptions=M
@@ -7,19 +7,22 @@ set guioptions=M
 call plug#begin(stdpath('data') . '/plugged')
 
 " general
-Plug 'Konfekt/FastFold'                      " speeds up insert mode
-Plug 'jreybert/vimagit', {'on': 'Magit'}     " git client
-Plug 'junegunn/rainbow_parentheses.vim'      " gives different colors to nested parentheses
-Plug 'liuchengxu/vim-clap', {'on': 'Clap'}   " fzf with floating windows
-Plug 'liuchengxu/vista.vim', {'on': 'Vista'} " tagbar + lsp integration
-Plug 'neovim/nvim-lspconfig'                 " nvim lsp
-Plug 'nvim-lua/completion-nvim'              " better lsp completions
-Plug 'nvim-lua/diagnostic-nvim'              " better lsp diagnostics
-Plug 'nvim-lua/lsp-status.nvim'              " lsp statusline
-Plug 'nvim-treesitter/nvim-treesitter'       " good syntax highlighting (better than polyglot)
-Plug 'tmsvg/pear-tree'                       " autopairs
-Plug 'tpope/vim-commentary'                  " commenter
-Plug 'tpope/vim-surround'                    " bracket and quotes utils
+Plug 'jreybert/vimagit', {'on': 'Magit'}           " git client
+Plug 'junegunn/rainbow_parentheses.vim'            " gives different colors to nested parentheses
+Plug 'liuchengxu/vim-clap', {'on': 'Clap'}         " fzf with floating windows
+Plug 'liuchengxu/vista.vim', {'on': 'Vista'}       " tagbar + lsp integration
+Plug 'neovim/nvim-lspconfig'                       " nvim lsp
+Plug 'norcalli/nvim-colorizer.lua'                 " colorizer
+Plug 'nvim-lua/completion-nvim'                    " better lsp completions
+Plug 'nvim-lua/diagnostic-nvim'                    " better lsp diagnostics
+Plug 'nvim-lua/lsp-status.nvim'                    " lsp statusline
+Plug 'nvim-lua/lsp_extensions.nvim'                " lsp inline hints
+Plug 'nvim-treesitter/nvim-treesitter'             " good syntax highlighting (better than polyglot)
+Plug 'nvim-treesitter/nvim-treesitter-textobjects' " treesitter textobjects
+Plug 'tmsvg/pear-tree'                             " autopairs
+Plug 'tpope/vim-commentary'                        " commenter
+Plug 'tpope/vim-surround'                          " bracket and quotes utils
+" Plug 'vigoux/treesitter-context.nvim'              " shows context at all times (needs work)
 
 " colorschemes
 Plug 'lifepillar/vim-gruvbox8'
@@ -38,8 +41,8 @@ Plug 'tpope/vim-sexp-mappings-for-regular-people', {'for': ['clojure', 'scheme',
 call plug#end()
 
 " source lua
-luafile ~/.config/nvim/scripts.lua
-
+luafile ~/.config/nvim/treesitter.lua
+luafile ~/.config/nvim/lsp.lua
 
 " sets
 set autoindent
@@ -47,12 +50,13 @@ set backspace=2
 set completeopt=menuone,noinsert,noselect
 set cursorline
 set expandtab
-set foldexpr=nvim_treesitter#foldexpr()
+" set foldexpr=nvim_treesitter#foldexpr()
 set foldlevel=99
-set foldmethod=expr
+set foldmethod=indent
 set hidden
 set hlsearch
 set inccommand=split
+set lazyredraw
 set mouse=a
 set nowrap
 set number
@@ -65,6 +69,7 @@ set shortmess+=c
 set shortmess+=c
 set showmatch
 set sidescrolloff=5
+set smartcase
 set splitbelow
 set splitright
 set tabstop=4
@@ -93,9 +98,10 @@ set statusline+=\ %t\                     " short file name
 set statusline+=%=                        " right align
 set statusline+=%#CursorLine#             " colour
 set statusline+=%{LspStatus()}
+" set statusline+=\ %{nvim_treesitter#statusline(30)}
 set statusline+=\ %y\                     " file type
 set statusline+=%#CursorIM#               " colour
-" set statusline+=\ %{nvim_treesitter#statusline(30)}
+" set statusline+=\ %{v:lua.get_ts_statusline(30)}
 set statusline+=\ %3l:%-2c\               " line + column
 set statusline+=%#Function#                 " colour
 set statusline+=\ %3p%%\                  " percentage
@@ -128,10 +134,12 @@ let loaded_man               = 0
 let loaded_pkgbuild_plugin   = 0
 let loaded_tutor_mode_plugin = 0
 let mapleader                = " "
+
 "
 " color
 set termguicolors
 color gruvbox8
+lua require'colorizer'.setup()
 
 " aus
 au BufNewFile,BufRead *.ghci set filetype=haskell
@@ -146,9 +154,15 @@ au TermEnter * setlocal scrolloff=0
 au TermLeave * setlocal scrolloff=999999
 au TermOpen * setlocal nonumber norelativenumber nospell
 autocmd CompleteDone * silent! pclose!
+autocmd CursorHold <buffer> lua vim.lsp.util.show_line_diagnostics()
+autocmd CursorHoldI <buffer> lua vim.lsp.util.show_line_diagnostics()
 autocmd FileType json syntax match Comment +\/\/.\+$+
 autocmd FileType lisp,clojure,scheme,racket set lisp
 autocmd FileType lisp,clojure,scheme,racket RainbowParentheses
+augroup highlight_yank
+    autocmd!
+    au TextYankPost * silent! lua return (not vim.v.event.visual) and require'vim.highlight'.on_yank{timeout=300}
+augroup END
 
 " keymaps
 inoremap kj <ESC>
@@ -175,6 +189,7 @@ nnoremap L $
 
 " leader maps
 nnoremap <Leader><Leader> :Clap quickfix<CR>
+nnoremap <Leader>a :CodeAction<CR>
 nnoremap <Leader>b :Clap buffers<CR>
 nnoremap <Leader>c :noh<CR>
 nnoremap <Leader>d :lcd %:p:h<CR>
@@ -185,6 +200,7 @@ nnoremap <Leader>o :Clap files<CR>
 nnoremap <Leader>O :tabnew<CR>:Clap filer<CR>
 nnoremap <Leader>rr :checktime<CR>
 nnoremap <Leader>t :Clap windows<CR>
+nnoremap <Leader>T <cmd>lua require'lsp_extensions'.inlay_hints()<CR>
 nnoremap <Leader>v :vsp<CR>:Clap filer<CR>
 nnoremap <Leader>/ :Clap providers<CR>
 noremap <leader>1 1gt
@@ -205,6 +221,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 command! -bar -range=% Reverse <line1>,<line2>g/^/m<line1>-1|nohl
 command! CodeAction lua vim.lsp.buf.code_action()
 command! Json :execute '%!python -m json.tool --sort-keys'
+command! Vimrc :vsp ~/.config/nvim/init.vim
 
 " functions
 function! LspStatus() abort
