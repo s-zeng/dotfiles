@@ -1,57 +1,11 @@
 " neovim config
 " uses a ton of neovim only stuff so incompatible with normal vim
 
-" speed set
-set guioptions=M
-
-call plug#begin(stdpath('data') . '/plugged')
-
-" general
-Plug 'jreybert/vimagit', {'on': 'Magit'}           " git client
-Plug 'junegunn/goyo.vim', {'on': 'Goyo'}           " prose writing
-Plug 'junegunn/limelight.vim', {'on': 'Goyo'}      " prose writing
-Plug 'junegunn/rainbow_parentheses.vim'            " gives different colors to nested parentheses
-Plug 'liuchengxu/vista.vim', {'on': 'Vista'}       " tagbar + lsp integration
-Plug 'neovim/nvim-lspconfig'                       " nvim lsp
-Plug 'norcalli/nvim-colorizer.lua'                 " colorizer
-Plug 'nvim-lua/completion-nvim'                    " better lsp completions
-Plug 'nvim-lua/diagnostic-nvim'                    " better lsp diagnostics
-Plug 'nvim-lua/lsp-status.nvim'                    " lsp statusline
-Plug 'nvim-lua/lsp_extensions.nvim'                " lsp inline hints
-Plug 'nvim-lua/plenary.nvim'                       " lua functions library
-Plug 'nvim-lua/popup.nvim'                         " lua popup window library
-Plug 'nvim-treesitter/nvim-treesitter'             " good syntax highlighting (better than polyglot)
-Plug 'nvim-treesitter/nvim-treesitter-textobjects' " treesitter textobjects
-" Plug 's-zeng/telescope.nvim'                       " local fork until my pr can be merged: https://github.com/nvim-lua/telescope.nvim/pull/168
-Plug '~/repos/telescope.nvim'                      " local fork until my pr can be merged: https://github.com/nvim-lua/telescope.nvim/pull/168
-Plug 'tmsvg/pear-tree'                             " autopairs
-Plug 'tpope/vim-commentary'                        " commenter
-Plug 'tpope/vim-surround'                          " bracket and quotes utils
-" Plug 'vigoux/treesitter-context.nvim'              " shows context at all times (needs work)
-
-" colorschemes
-Plug 'lifepillar/vim-gruvbox8'
-
-" haskell (until treesitter supports it)
-Plug 'neovimhaskell/haskell-vim'
-
-" latex
-Plug 'lervag/vimtex'
-
-" all lisp languages
-Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release', 'for': ['clojure', 'scheme', 'racket', 'lisp']}
-Plug 'guns/vim-sexp', {'for': ['clojure', 'scheme', 'racket', 'lisp']}
-Plug 'tpope/vim-sexp-mappings-for-regular-people', {'for': ['clojure', 'scheme', 'racket', 'lisp']}
-
-call plug#end()
-
 " mapleader
 let mapleader = " "
 
 " source lua
-luafile ~/.config/nvim/lsp.lua
-luafile ~/.config/nvim/telescope.lua
-luafile ~/.config/nvim/treesitter.lua
+lua require('init')
 
 " sets
 set autoindent
@@ -82,6 +36,7 @@ set smartcase
 set splitbelow
 set splitright
 set tabstop=4
+set termguicolors
 set timeout
 set timeoutlen=300
 set updatetime=300
@@ -107,29 +62,24 @@ set statusline+=\ %t\                     " short file name
 set statusline+=%=                        " right align
 set statusline+=%#CursorLine#             " colour
 set statusline+=%{LspStatus()}
-" set statusline+=\ %{nvim_treesitter#statusline(30)}
 set statusline+=\ %y\                     " file type
 set statusline+=%#CursorIM#               " colour
-" set statusline+=\ %{v:lua.get_ts_statusline(30)}
 set statusline+=\ %3l:%-2c\               " line + column
 set statusline+=%#Function#                 " colour
 set statusline+=\ %3p%%\                  " percentage
 
 " lets
-let g:fastfold_fold_command_suffixes  = ['x','X','a','A','o','O','c','C']
-let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
-let g:fastfold_savehook               = 1
-let g:netrw_banner                    = 0
-let g:netrw_browse_split              = 2
-let g:netrw_browse_split              = 4
-let g:netrw_liststyle                 = 3
-let g:netrw_winsize                   = 15
-let g:pear_tree_ft_disabled           = ['TelescopePrompt']
-let g:pear_tree_smart_backspace       = 1
-let g:pear_tree_smart_closers         = 1
-let g:pear_tree_smart_openers         = 1
-let g:tex_flavor                      = "latex"
-let g:vista_default_executive         = 'nvim_lsp'
+let g:netrw_banner              = 0
+let g:netrw_browse_split        = 2
+let g:netrw_browse_split        = 4
+let g:netrw_liststyle           = 3
+let g:netrw_winsize             = 15
+let g:pear_tree_ft_disabled     = ['TelescopePrompt']
+let g:pear_tree_smart_backspace = 1
+let g:pear_tree_smart_closers   = 1
+let g:pear_tree_smart_openers   = 1
+let g:tex_flavor                = "latex"
+let g:vista_default_executive   = 'nvim_lsp'
 let g:vista_executive_for = {
   \ 'vimwiki': 'markdown',
   \ 'pandoc': 'markdown',
@@ -139,12 +89,6 @@ let g:vista_executive_for = {
 let loaded_2html_plugin      = 0
 let loaded_pkgbuild_plugin   = 0
 let loaded_tutor_mode_plugin = 0
-
-"
-" color
-set termguicolors
-color gruvbox8
-lua require'colorizer'.setup()
 
 " aus
 au BufNewFile,BufRead *.ghci set filetype=haskell
@@ -163,7 +107,6 @@ autocmd CursorHold <buffer> lua vim.lsp.util.show_line_diagnostics()
 autocmd CursorHoldI <buffer> lua vim.lsp.util.show_line_diagnostics()
 autocmd FileType json syntax match Comment +\/\/.\+$+
 autocmd FileType lisp,clojure,scheme,racket set lisp
-autocmd FileType lisp,clojure,scheme,racket RainbowParentheses
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 augroup highlight_yank
