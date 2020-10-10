@@ -27,22 +27,15 @@ local attach_hook = function(client)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', ']c', ':NextDiagnosticCycle<CR>', opts)
 end
 
--- add pyright support
--- at least until https://github.com/neovim/nvim-lspconfig/pull/303 is merged
+-- add pylance support
+-- technically against pylance license lol
+-- based off of https://github.com/neovim/nvim-lspconfig/pull/303
 local configs = require 'nvim_lsp/configs'
 local util = require 'nvim_lsp/util'
 
-local server_name = "pyright"
-
-local installer = util.npm_installer {
-    server_name = server_name;
-    packages = {server_name};
-    binaries = {server_name};
-}
-
-configs[server_name] = {
+configs["pylance"] = {
     default_config = {
-        cmd = {"pyright-langserver", "--stdio"};
+        cmd = {"pylance-language-server"}; -- requires aur/pylance-language-server
         filetypes = {"python"};
         root_dir = util.root_pattern(".git", "setup.py",  "setup.cfg", "pyproject.toml", "requirements.txt");
         settings = {
@@ -59,15 +52,12 @@ configs[server_name] = {
     };
     docs = {
         description = [[
-        https://github.com/microsoft/pyright
-        `pyright`, a static type checker and language server for python
+        https://github.com/microsoft/pylance-release
+        `pylance`, a static type checker and language server for python
         ]];
     };
 }
-
-configs[server_name].install = installer.install
-configs[server_name].install_info = installer.info
--- end pr 303 block
+-- end pylance
 
 local default_config_servers = {
     'clangd',
@@ -79,7 +69,7 @@ local default_config_servers = {
     'jdtls',
     'jsonls',
     'metals',
-    'pyright',
+    'pylance',
     'sumneko_lua',
     'texlab',
     'tsserver',

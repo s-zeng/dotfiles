@@ -8,8 +8,9 @@ call plug#begin(stdpath('data') . '/plugged')
 
 " general
 Plug 'jreybert/vimagit', {'on': 'Magit'}           " git client
+Plug 'junegunn/goyo.vim', {'on': 'Goyo'}           " prose writing
+Plug 'junegunn/limelight.vim', {'on': 'Goyo'}      " prose writing
 Plug 'junegunn/rainbow_parentheses.vim'            " gives different colors to nested parentheses
-Plug 'liuchengxu/vim-clap', {'on': 'Clap'}         " fzf with floating windows
 Plug 'liuchengxu/vista.vim', {'on': 'Vista'}       " tagbar + lsp integration
 Plug 'neovim/nvim-lspconfig'                       " nvim lsp
 Plug 'norcalli/nvim-colorizer.lua'                 " colorizer
@@ -17,8 +18,12 @@ Plug 'nvim-lua/completion-nvim'                    " better lsp completions
 Plug 'nvim-lua/diagnostic-nvim'                    " better lsp diagnostics
 Plug 'nvim-lua/lsp-status.nvim'                    " lsp statusline
 Plug 'nvim-lua/lsp_extensions.nvim'                " lsp inline hints
+Plug 'nvim-lua/plenary.nvim'                       " lua functions library
+Plug 'nvim-lua/popup.nvim'                         " lua popup window library
 Plug 'nvim-treesitter/nvim-treesitter'             " good syntax highlighting (better than polyglot)
 Plug 'nvim-treesitter/nvim-treesitter-textobjects' " treesitter textobjects
+" Plug 's-zeng/telescope.nvim'                       " local fork until my pr can be merged: https://github.com/nvim-lua/telescope.nvim/pull/168
+Plug '~/repos/telescope.nvim'                      " local fork until my pr can be merged: https://github.com/nvim-lua/telescope.nvim/pull/168
 Plug 'tmsvg/pear-tree'                             " autopairs
 Plug 'tpope/vim-commentary'                        " commenter
 Plug 'tpope/vim-surround'                          " bracket and quotes utils
@@ -40,9 +45,13 @@ Plug 'tpope/vim-sexp-mappings-for-regular-people', {'for': ['clojure', 'scheme',
 
 call plug#end()
 
+" mapleader
+let mapleader = " "
+
 " source lua
-luafile ~/.config/nvim/treesitter.lua
 luafile ~/.config/nvim/lsp.lua
+luafile ~/.config/nvim/telescope.lua
+luafile ~/.config/nvim/treesitter.lua
 
 " sets
 set autoindent
@@ -107,9 +116,6 @@ set statusline+=%#Function#                 " colour
 set statusline+=\ %3p%%\                  " percentage
 
 " lets
-let g:clap_disable_run_rooter         = v:true
-let g:clap_layout                     = { 'relative': 'editor' }
-let g:clap_project_root_markers       = []
 let g:fastfold_fold_command_suffixes  = ['x','X','a','A','o','O','c','C']
 let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
 let g:fastfold_savehook               = 1
@@ -118,6 +124,7 @@ let g:netrw_browse_split              = 2
 let g:netrw_browse_split              = 4
 let g:netrw_liststyle                 = 3
 let g:netrw_winsize                   = 15
+let g:pear_tree_ft_disabled           = ['TelescopePrompt']
 let g:pear_tree_smart_backspace       = 1
 let g:pear_tree_smart_closers         = 1
 let g:pear_tree_smart_openers         = 1
@@ -130,10 +137,8 @@ let g:vista_executive_for = {
 \ }
 
 let loaded_2html_plugin      = 0
-let loaded_man               = 0
 let loaded_pkgbuild_plugin   = 0
 let loaded_tutor_mode_plugin = 0
-let mapleader                = " "
 
 "
 " color
@@ -159,6 +164,8 @@ autocmd CursorHoldI <buffer> lua vim.lsp.util.show_line_diagnostics()
 autocmd FileType json syntax match Comment +\/\/.\+$+
 autocmd FileType lisp,clojure,scheme,racket set lisp
 autocmd FileType lisp,clojure,scheme,racket RainbowParentheses
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
 augroup highlight_yank
     autocmd!
     au TextYankPost * silent! lua return (not vim.v.event.visual) and require'vim.highlight'.on_yank{timeout=300}
@@ -188,21 +195,10 @@ nnoremap H 0
 nnoremap L $
 
 " leader maps
-nnoremap <Leader><Leader> :Clap quickfix<CR>
-nnoremap <Leader>a :CodeAction<CR>
-nnoremap <Leader>b :Clap buffers<CR>
 nnoremap <Leader>c :noh<CR>
 nnoremap <Leader>d :lcd %:p:h<CR>
-nnoremap <Leader>g :Clap grep2<CR>
-nnoremap <Leader>h :Clap help_tags<CR>
-nnoremap <Leader>m :Clap marks<CR>
-nnoremap <Leader>o :Clap files<CR>
-nnoremap <Leader>O :tabnew<CR>:Clap filer<CR>
 nnoremap <Leader>rr :checktime<CR>
-nnoremap <Leader>t :Clap windows<CR>
 nnoremap <Leader>T <cmd>lua require'lsp_extensions'.inlay_hints()<CR>
-nnoremap <Leader>v :vsp<CR>:Clap filer<CR>
-nnoremap <Leader>/ :Clap providers<CR>
 noremap <leader>1 1gt
 noremap <leader>2 2gt
 noremap <leader>3 3gt
