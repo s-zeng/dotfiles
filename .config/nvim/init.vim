@@ -159,8 +159,8 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 command! -bar -range=% Reverse <line1>,<line2>g/^/m<line1>-1|nohl
 command! CodeAction lua vim.lsp.buf.code_action()
-command! Json :execute '%!python -m json.tool --sort-keys'
-command! Vimrc :vsp ~/.config/nvim/init.vim
+command! Json execute '%!python -m json.tool --sort-keys'
+command! Vimrc vsp ~/.config/nvim/init.vim
 
 " functions
 function! LspStatus() abort
