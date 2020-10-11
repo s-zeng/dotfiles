@@ -1,11 +1,9 @@
 " neovim config
-" uses a ton of neovim only stuff so incompatible with normal vim
+" has some neovim-only stuff so probably won't work with vim
+" run `:lua require('update')` to grab and update plugins with packer.nvim
 
 " mapleader
 let mapleader = " "
-
-" source lua
-lua require('init')
 
 " sets
 set autoindent
@@ -13,7 +11,6 @@ set backspace=2
 set completeopt=menuone,noinsert,noselect
 set cursorline
 set expandtab
-" set foldexpr=nvim_treesitter#foldexpr()
 set foldlevel=99
 set foldmethod=indent
 set hidden
@@ -28,7 +25,6 @@ set relativenumber
 set scrolloff=999999
 set shada='20,<50,s10
 set shiftwidth=4
-set shortmess+=c
 set shortmess+=c
 set showmatch
 set sidescrolloff=5
@@ -50,6 +46,7 @@ set statusline+=%#DiffText#%{(mode()[0]=='t')?'\ \ \ TERM\ \ ':''}
 set statusline+=%#DiffDelete#%{(mode()[0]=='R')?'\ \ RPLACE\ ':''}
 set statusline+=%#Search#%{(mode()[0]=='v')?'\ \ VISUAL\ ':''}
 set statusline+=%#Search#%{(mode()[0]=='V')?'\ \ V-LINE\ ':''}
+set statusline+=%#Search#%{(mode()==\"\\\<C-V>\")?'\ \ VBLOCK\ ':''}
 set statusline+=%#Visual#                 " colour
 set statusline+=%{&paste?'\ PASTE\ ':''}
 set statusline+=%{&spell?'\ SPELL\ ':''}
@@ -80,15 +77,10 @@ let g:pear_tree_smart_closers   = 1
 let g:pear_tree_smart_openers   = 1
 let g:tex_flavor                = "latex"
 let g:vista_default_executive   = 'nvim_lsp'
-let g:vista_executive_for = {
-  \ 'vimwiki': 'markdown',
-  \ 'pandoc': 'markdown',
-  \ 'markdown': 'toc',
-\ }
-
-let loaded_2html_plugin      = 0
-let loaded_pkgbuild_plugin   = 0
-let loaded_tutor_mode_plugin = 0
+let g:vista_executive_for       = { 'vimwiki': 'markdown', 'pandoc': 'markdown', 'markdown': 'toc' }
+let loaded_2html_plugin         = 0
+let loaded_pkgbuild_plugin      = 0
+let loaded_tutor_mode_plugin    = 0
 
 " aus
 au BufNewFile,BufRead *.ghci set filetype=haskell
@@ -107,6 +99,7 @@ autocmd CursorHold <buffer> lua vim.lsp.util.show_line_diagnostics()
 autocmd CursorHoldI <buffer> lua vim.lsp.util.show_line_diagnostics()
 autocmd FileType json syntax match Comment +\/\/.\+$+
 autocmd FileType lisp,clojure,scheme,racket set lisp
+autocmd FileType lisp,clojure,scheme,racket RainbowParentheses
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 augroup highlight_yank
@@ -158,9 +151,7 @@ inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 command! -bar -range=% Reverse <line1>,<line2>g/^/m<line1>-1|nohl
-command! CodeAction lua vim.lsp.buf.code_action()
 command! Json execute '%!python -m json.tool --sort-keys'
-command! Vimrc vsp ~/.config/nvim/init.vim
 
 " functions
 function! LspStatus() abort
