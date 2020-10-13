@@ -3,31 +3,40 @@
 " config that you can find in .config/nvim/init.vim
 
 " speed set
-set guioptions=M
+" set guioptions=M
+set background=dark
 
 " sets
 set autoindent
-set background=dark
-set backspace=2
+set backspace=indent,eol,start
+set completeopt=menuone,noinsert,noselect
 set cursorline
 set expandtab
 set foldlevel=99
 set foldmethod=indent
 set formatoptions+=t
-set guifont=Fira\ Code\ Regular:h14
+set gdefault
 set hidden
 set hlsearch
+set ignorecase
+set incsearch
 set laststatus=2
+set lazyredraw
 set mouse=a
+set nobackup
+set noswapfile
 set nowrap
 set number
 set pastetoggle=<F2>
 set relativenumber
-set scrolloff=10
+set scrolloff=999999
 set shiftwidth=4
 set shortmess+=c
+set shortmess+=c
 set showmatch
+set showmode
 set sidescrolloff=5
+set smartcase
 set smarttab
 set splitbelow
 set splitright
@@ -36,7 +45,10 @@ set termguicolors
 set timeout
 set timeoutlen=300
 set updatetime=300
+set virtualedit=block
+set visualbell t_vb=
 set wildmenu
+set wildmode=longest,list
 
 " statusline
 set statusline=
@@ -75,7 +87,8 @@ let mapleader            = " "
 
 " color
 syntax enable
-color gruvbox " you'll need to manually install gruvbox-community/gruvbox theme file into .vim/colors
+silent! color gruvbox8
+" silent! color gruvbox " you'll need to manually install gruvbox-community/gruvbox theme file into .vim/colors
 
 " aus
 au Filetype tex set tw=80 formatoptions+=wn2 spell
