@@ -1,9 +1,7 @@
 " neovim config
+"
 " has some neovim-only stuff so probably won't work with vim
-" run `:lua require('update')` to grab and update plugins with packer.nvim
-
-" mapleader
-let mapleader = " "
+" run my `:PackUp` command to grab and update plugins with packer.nvim
 
 " sets
 set autoindent
@@ -13,10 +11,12 @@ set cursorline
 set expandtab
 set foldlevel=99
 set foldmethod=indent
+set guifont=JetBrainsMono\ Nerd\ Font\ Mono:h13
 set hidden
 set hlsearch
 set inccommand=split
 set lazyredraw
+set linebreak
 set mouse=a
 set nowrap
 set number
@@ -28,6 +28,7 @@ set shiftwidth=4
 set shortmess+=c
 set showmatch
 set sidescrolloff=5
+set signcolumn=number
 set smartcase
 set splitbelow
 set splitright
@@ -36,6 +37,7 @@ set termguicolors
 set timeout
 set timeoutlen=300
 set updatetime=300
+set virtualedit=block
 
 " statusline
 set statusline=
@@ -66,6 +68,11 @@ set statusline+=%#Function#                 " colour
 set statusline+=\ %3p%%\                  " percentage
 
 " lets
+let g:loaded_2html_plugin       = 0
+let g:loaded_pkgbuild_plugin    = 0
+let g:loaded_tutor_mode_plugin  = 0
+let g:mapleader                 = " "
+let g:maplocalleader            = ","
 let g:netrw_banner              = 0
 let g:netrw_browse_split        = 2
 let g:netrw_browse_split        = 4
@@ -78,9 +85,6 @@ let g:pear_tree_smart_openers   = 1
 let g:tex_flavor                = "latex"
 let g:vista_default_executive   = 'nvim_lsp'
 let g:vista_executive_for       = { 'vimwiki': 'markdown', 'pandoc': 'markdown', 'markdown': 'toc' }
-let loaded_2html_plugin         = 0
-let loaded_pkgbuild_plugin      = 0
-let loaded_tutor_mode_plugin    = 0
 
 " aus
 au BufNewFile,BufRead *.ghci set filetype=haskell
@@ -108,50 +112,58 @@ augroup highlight_yank
 augroup END
 
 " keymaps
-inoremap kj <ESC>
-nnoremap <F8> :Lex<CR>
-nnoremap <F9> :Vista!!<CR>
-nnoremap <F10> :10sp term://fish<CR>i
-nnoremap <F12> :make<CR>
-tnoremap <Esc> <C-\><C-n>
-nnoremap <C-h> <c-w>h
-nnoremap <C-j> <c-w>j
-nnoremap <C-k> <c-w>k
-nnoremap <C-l> <c-w>l
 inoremap <C-h> <c-w>h
 inoremap <C-j> <c-w>j
 inoremap <C-k> <c-w>k
 inoremap <C-l> <c-w>l
+inoremap <c-c> <ESC>
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap kj <ESC>
+nnoremap <C-h> <c-w>h
+nnoremap <C-j> <c-w>j
+nnoremap <C-k> <c-w>k
+nnoremap <C-l> <c-w>l
+nnoremap <F10> :10sp term://fish<CR>i
+nnoremap <F12> :make<CR>
+nnoremap <F8> :LuaTreeToggle<CR>
+nnoremap <F9> :Vista!!<CR>
+nnoremap H 0
+nnoremap L $
+nnoremap ` :call Float()<CR>
+nnoremap gj j
+nnoremap gk k
+nnoremap j gj
+nnoremap k gk
+nnoremap <F1> <nop>
+nnoremap Q <nop>
+nnoremap K <nop>
 tnoremap <C-h> <c-w>h
 tnoremap <C-j> <c-w>j
 tnoremap <C-k> <c-w>k
 tnoremap <C-l> <c-w>l
-nnoremap ` :call Float()<CR>
-nnoremap H 0
-nnoremap L $
+tnoremap <Esc> <C-\><C-n>
 
 " leader maps
-nnoremap <Leader>c :noh<CR>
+nnoremap <Leader>c :noh<CR>hl
 nnoremap <Leader>d :lcd %:p:h<CR>
-nnoremap <Leader>rr :checktime<CR>
-nnoremap <Leader>T <cmd>lua require'lsp_extensions'.inlay_hints()<CR>
-noremap <leader>1 1gt
-noremap <leader>2 2gt
-noremap <leader>3 3gt
-noremap <leader>4 4gt
-noremap <leader>5 5gt
-noremap <leader>6 6gt
-noremap <leader>7 7gt
-noremap <leader>8 8gt
-noremap <leader>9 9gt
-noremap <leader>0 :tablast<cr>
-nnoremap <silent> <Leader><Tab> :exe "tabn ".g:lasttab<cr>
-inoremap <c-c> <ESC>
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+nnoremap <Leader>r :checktime<CR>
+nnoremap <silent> <Leader>t<Tab> :exe "tabn ".g:lasttab<cr>
+noremap <leader>t0 :tablast<cr>
+noremap <leader>t1 1gt
+noremap <leader>t2 2gt
+noremap <leader>t3 3gt
+noremap <leader>t4 4gt
+noremap <leader>t5 5gt
+noremap <leader>t6 6gt
+noremap <leader>t7 7gt
+noremap <leader>t8 8gt
+noremap <leader>t9 9gt
 
 command! -bar -range=% Reverse <line1>,<line2>g/^/m<line1>-1|nohl
 command! Json execute '%!python -m json.tool --sort-keys'
+command! PackUp lua require('update')
+command! -nargs=0 LuaTreeToggle call s:load_luatree()
 
 " functions
 function! LspStatus() abort
@@ -160,6 +172,12 @@ function! LspStatus() abort
     endif
 
     return ''
+endfunction
+
+function! s:load_luatree() abort
+  packadd nvim-tree.lua
+  lua require"tree".on_enter()
+  LuaTreeToggle
 endfunction
 
 function! Float()
@@ -210,3 +228,4 @@ function! Float()
     " autocmd BufLeave * ++once :call nvim_win_close(s:float_term_border_win, v:true)
     autocmd TermClose * ++once :call nvim_win_close(s:float_term_border_win, v:true)
 endfunction
+

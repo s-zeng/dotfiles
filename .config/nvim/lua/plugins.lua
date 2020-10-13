@@ -28,6 +28,15 @@ local plugins = {
         'junegunn/rainbow_parentheses.vim',
     },
     {
+        -- sab == /ab<CR>
+        'justinmk/vim-sneak'
+    },
+    {
+        'kyazdani42/nvim-tree.lua',
+        requires = {'kyazdani42/nvim-web-devicons'},
+        opt = true
+    },
+    {
         -- latex plugin
         'lervag/vimtex',
         ft={'tex'}
@@ -41,6 +50,11 @@ local plugins = {
         -- tagbar w/ lsp support
         'liuchengxu/vista.vim',
         cmd = {'Vista'}
+    },
+    {
+        -- emacs guide key. as seen in spacemacs, spacevim
+        'liuchengxu/vim-which-key',
+        config = 'require [[config/whichkey]]'
     },
     {
         -- nvim built-in lsp + lua plugins built off it
@@ -77,6 +91,10 @@ local plugins = {
     {
         -- comment shortcut
         'tpope/vim-commentary'
+    },
+    {
+        -- repeatable plugin maps
+        'tpope/vim-repeat'
     },
     {
         -- s-expression manipulations
