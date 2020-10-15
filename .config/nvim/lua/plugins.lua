@@ -61,6 +61,8 @@ local plugins = {
         'neovim/nvim-lspconfig',
         config = 'require [[config/lsp]]',
         requires = {
+            -- 'hrsh7th/vim-vsnip',
+            -- 'hrsh7th/vim-vsnip-integ',
             'nvim-lua/completion-nvim',
             'nvim-lua/diagnostic-nvim',
             'nvim-lua/lsp-status.nvim',
@@ -79,9 +81,9 @@ local plugins = {
     },
     {
         -- treesitter in neovim. replaces polyglot + adds cool ast-based manipulations/text objects
-        'nvim-treesitter/nvim-treesitter',
+        'nvim-treesitter/nvim-treesitter-textobjects',
         config = 'require [[config/treesitter]]',
-        requires = {'nvim-treesitter/nvim-treesitter-textobjects'}
+        requires = {'nvim-treesitter/nvim-treesitter'}
     },
     {
         -- autopairs
@@ -117,6 +119,36 @@ local plugins = {
         'wbthomason/packer.nvim',
         opt = true
     },
+    {
+        -- dhall support
+        'vmchale/dhall-vim'
+    },
+}
+
+local light = {
+    {
+        -- here cause it's a pain to recompile
+        'eraserhd/parinfer-rust',
+        run = 'cargo build --release',
+        ft = {'clojure', 'scheme', 'racket', 'lisp'},
+    },
+    {
+        -- colorscheme
+        'lifepillar/vim-gruvbox8',
+        config = 'vim.cmd [[colorscheme gruvbox8]]'
+    },
+    {
+        -- also a pain to reinstall
+        'nvim-treesitter/nvim-treesitter-textobjects',
+        config = 'require [[config/treesitter]]',
+        requires = {'nvim-treesitter/nvim-treesitter'}
+    },
+    {
+        -- package manager
+        'wbthomason/packer.nvim',
+        opt = true
+    },
 }
 
 return plugins
+-- return light

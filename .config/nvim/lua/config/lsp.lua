@@ -60,11 +60,22 @@ configs["pylance"] = {
 }
 -- end pylance
 
+-- add dhall
+configs["dhall"] = {
+    default_config = {
+        cmd = {"dhall-lsp-server"};
+        filetypes = {"dhall"};
+        root_dir = util.path.dirname;
+    };
+}
+--
+
 local default_config_servers = {
     'clangd',
     'clojure_lsp',
     'cmake',
     'cssls',
+    'dhall',
     'hls',
     'html',
     'jdtls',

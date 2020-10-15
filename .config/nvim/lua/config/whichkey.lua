@@ -248,32 +248,6 @@ call which_key#register('g', "g:which_key_g")
     let g:which_key_z['z'] = ['call feedkeys("zz", "n")', 'smart scroll']
     nnoremap zz zz
 call which_key#register('z', "g:which_key_z")
-
-nnoremap <silent><nowait> [cw] :<c-u>WhichKey '<lt>c-w>'<CR>
-nmap <c-w> [cw]
-let g:which_key_cw = {}
-let g:which_key_cw['w'] = ['<C-W>w'     , 'other-window']
-let g:which_key_cw['d'] = ['<C-W>c'     , 'delete-window']
-let g:which_key_cw['-'] = ['<C-W>s'     , 'split-window-below']
-let g:which_key_cw['|'] = ['<C-W>v'     , 'split-window-right']
-let g:which_key_cw['2'] = ['<C-W>v'     , 'layout-double-columns']
-let g:which_key_cw['h'] = ['<C-W>h'     , 'window-left']
-let g:which_key_cw['j'] = ['<C-W>j'     , 'window-below']
-let g:which_key_cw['l'] = ['<C-W>l'     , 'window-right']
-let g:which_key_cw['k'] = ['<C-W>k'     , 'window-up']
-let g:which_key_cw['H'] = ['<C-W>5<'    , 'expand-window-left']
-let g:which_key_cw['J'] = [':resize +5'  , 'expand-window-below']
-let g:which_key_cw['L'] = ['<C-W>5>'    , 'expand-window-right']
-let g:which_key_cw['K'] = [':resize -5'  , 'expand-window-up']
-let g:which_key_cw['='] = ['<C-W>='     , 'balance-window']
-let g:which_key_cw['s'] = ['<C-W>s'     , 'split-window-below']
-let g:which_key_cw['v'] = ['<C-W>v'     , 'split-window-below']
-" let g:which_key_cw['?'] = ['Windows'    , 'fzf-window']
-call which_key#register('<c-w>', "g:which_key_cw")
-
-autocmd! FileType which_key
-autocmd  FileType which_key set laststatus=0 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-
 ]],
 true
 )

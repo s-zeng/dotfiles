@@ -13,5 +13,4 @@ packer.startup(function()
   end
 end)
 
-vim.cmd [[PackerCompile]]
 vim.cmd [[PackerSync]]

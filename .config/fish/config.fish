@@ -4,6 +4,7 @@ set NODE_PATH /usr/lib/node_modules $NODE_PATH
 set -gx EDITOR nvim
 set -gx PAGER nvim -R
 set -gx BAT_PAGER
+set -gx BAT_THEME gruvbox
 set -gx MANPAGER "nvim -R -c 'set ft=man' -"
 set -gx PROJECT_PATHS ~/repos
 set -gx XDG_CURRENT_DESKTOP sway

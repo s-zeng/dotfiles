@@ -17,7 +17,7 @@ set hlsearch
 set inccommand=split
 set lazyredraw
 set linebreak
-set mouse=a
+set mouse=nvi
 set nowrap
 set number
 set pastetoggle=<F2>
@@ -68,6 +68,7 @@ set statusline+=%#Function#                 " colour
 set statusline+=\ %3p%%\                  " percentage
 
 " lets
+let g:completion_enable_snippet = 'vim-vsnip'
 let g:loaded_2html_plugin       = 0
 let g:loaded_pkgbuild_plugin    = 0
 let g:loaded_tutor_mode_plugin  = 0
@@ -113,12 +114,13 @@ augroup END
 
 " keymaps
 inoremap <C-h> <c-w>h
-inoremap <C-j> <c-w>j
-inoremap <C-k> <c-w>k
+" inoremap <C-j> <c-w>j
+" inoremap <C-k> <c-w>k
 inoremap <C-l> <c-w>l
 inoremap <c-c> <ESC>
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <cr>    pumvisible() ? "\<Plug>(completion_confirm_completion)" : "\<cr>"
 inoremap kj <ESC>
 nnoremap <C-h> <c-w>h
 nnoremap <C-j> <c-w>j
@@ -160,6 +162,11 @@ noremap <leader>t7 7gt
 noremap <leader>t8 8gt
 noremap <leader>t9 9gt
 
+" symbols
+inoremap jjla λ
+inoremap jjfa ∀
+inoremap jjra →
+
 command! -bar -range=% Reverse <line1>,<line2>g/^/m<line1>-1|nohl
 command! Json execute '%!python -m json.tool --sort-keys'
 command! PackUp lua require('update')
@@ -180,7 +187,7 @@ function! s:load_luatree() abort
   LuaTreeToggle
 endfunction
 
-function! Float()
+function! Float(...)
     " Configuration
     let height = float2nr((&lines - 2) * 0.6)
     let row = float2nr((&lines - height) / 2)
@@ -228,4 +235,3 @@ function! Float()
     " autocmd BufLeave * ++once :call nvim_win_close(s:float_term_border_win, v:true)
     autocmd TermClose * ++once :call nvim_win_close(s:float_term_border_win, v:true)
 endfunction
-
