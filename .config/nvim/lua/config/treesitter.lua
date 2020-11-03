@@ -1,7 +1,12 @@
-require'nvim-treesitter.configs'.setup {
-    ensure_installed = "all",     -- one of "all", "language", or a list of languages
+local ts = require'nvim-treesitter.configs'
+
+ts.setup {
+    ensure_installed = "maintained",
     highlight = {
         enable = true,            -- false will disable the whole extension
+    },
+    indent = {
+        enable = true,
     },
     textobjects = {
         select = {
@@ -53,3 +58,5 @@ require'nvim-treesitter.configs'.setup {
     },
 }
 
+-- until https://github.com/nvim-treesitter/nvim-treesitter/issues/602 is resolved
+require "nvim-treesitter.parsers".get_parser_configs().markdown = nil

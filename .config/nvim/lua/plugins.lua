@@ -32,6 +32,7 @@ local plugins = {
         'justinmk/vim-sneak'
     },
     {
+        -- netrw/nerd-tree replacement
         'kyazdani42/nvim-tree.lua',
         requires = {'kyazdani42/nvim-web-devicons'},
         opt = true
@@ -52,7 +53,7 @@ local plugins = {
         cmd = {'Vista'}
     },
     {
-        -- emacs guide key. as seen in spacemacs, spacevim
+        -- emacs guide key/which key functionality. as seen in spacemacs, spacevim
         'liuchengxu/vim-which-key',
         config = 'require [[config/whichkey]]'
     },
@@ -61,18 +62,11 @@ local plugins = {
         'neovim/nvim-lspconfig',
         config = 'require [[config/lsp]]',
         requires = {
-            -- 'hrsh7th/vim-vsnip',
-            -- 'hrsh7th/vim-vsnip-integ',
             'nvim-lua/completion-nvim',
             'nvim-lua/diagnostic-nvim',
             'nvim-lua/lsp-status.nvim',
             'nvim-lua/lsp_extensions.nvim',
         },
-    },
-    {
-        -- haskell highlights
-        'neovimhaskell/haskell-vim',
-        ft={'haskell'}
     },
     {
         -- gives colours to hex codes like #abcdef
@@ -84,6 +78,10 @@ local plugins = {
         'nvim-treesitter/nvim-treesitter-textobjects',
         config = 'require [[config/treesitter]]',
         requires = {'nvim-treesitter/nvim-treesitter'}
+    },
+    {
+        -- language pack
+        'sheerun/vim-polyglot'
     },
     {
         -- autopairs
@@ -119,10 +117,6 @@ local plugins = {
         'wbthomason/packer.nvim',
         opt = true
     },
-    {
-        -- dhall support
-        'vmchale/dhall-vim'
-    },
 }
 
 local light = {
@@ -150,5 +144,19 @@ local light = {
     },
 }
 
+local minimal = {
+    {
+        -- colorscheme
+        'lifepillar/vim-gruvbox8',
+        config = 'vim.cmd [[colorscheme gruvbox8]]'
+    },
+    {
+        -- package manager
+        'wbthomason/packer.nvim',
+        opt = true
+    },
+}
+
 return plugins
 -- return light
+-- return minimal

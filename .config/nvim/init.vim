@@ -68,24 +68,19 @@ set statusline+=%#Function#                 " colour
 set statusline+=\ %3p%%\                  " percentage
 
 " lets
-let g:completion_enable_snippet = 'vim-vsnip'
-let g:loaded_2html_plugin       = 0
-let g:loaded_pkgbuild_plugin    = 0
-let g:loaded_tutor_mode_plugin  = 0
-let g:mapleader                 = " "
-let g:maplocalleader            = ","
-let g:netrw_banner              = 0
-let g:netrw_browse_split        = 2
-let g:netrw_browse_split        = 4
-let g:netrw_liststyle           = 3
-let g:netrw_winsize             = 15
-let g:pear_tree_ft_disabled     = ['TelescopePrompt']
-let g:pear_tree_smart_backspace = 1
-let g:pear_tree_smart_closers   = 1
-let g:pear_tree_smart_openers   = 1
-let g:tex_flavor                = "latex"
-let g:vista_default_executive   = 'nvim_lsp'
-let g:vista_executive_for       = { 'vimwiki': 'markdown', 'pandoc': 'markdown', 'markdown': 'toc' }
+let g:loaded_2html_plugin         = 0
+let g:loaded_pkgbuild_plugin      = 0
+let g:loaded_tutor_mode_plugin    = 0
+let g:mapleader                   = " "
+let g:maplocalleader              = ","
+let g:pear_tree_ft_disabled       = ['TelescopePrompt']
+let g:pear_tree_smart_backspace   = 1
+let g:pear_tree_smart_closers     = 1
+let g:pear_tree_smart_openers     = 1
+let g:pear_tree_repeatable_expand = 0
+let g:tex_flavor                  = "latex"
+let g:vista_default_executive     = 'nvim_lsp'
+let g:vista_executive_for         = { 'vimwiki': 'markdown', 'pandoc': 'markdown', 'markdown': 'toc' }
 
 " aus
 au BufNewFile,BufRead *.ghci set filetype=haskell
@@ -114,8 +109,8 @@ augroup END
 
 " keymaps
 inoremap <C-h> <c-w>h
-" inoremap <C-j> <c-w>j
-" inoremap <C-k> <c-w>k
+inoremap <C-j> <c-w>j
+inoremap <C-k> <c-w>k
 inoremap <C-l> <c-w>l
 inoremap <c-c> <ESC>
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -139,7 +134,8 @@ nnoremap j gj
 nnoremap k gk
 nnoremap <F1> <nop>
 nnoremap Q <nop>
-nnoremap K <nop>
+" append one character
+nnoremap <c-i> :exec "normal a".nr2char(getchar())."\e"<CR>
 tnoremap <C-h> <c-w>h
 tnoremap <C-j> <c-w>j
 tnoremap <C-k> <c-w>k
@@ -151,16 +147,16 @@ nnoremap <Leader>c :noh<CR>hl
 nnoremap <Leader>d :lcd %:p:h<CR>
 nnoremap <Leader>r :checktime<CR>
 nnoremap <silent> <Leader>t<Tab> :exe "tabn ".g:lasttab<cr>
-noremap <leader>t0 :tablast<cr>
-noremap <leader>t1 1gt
-noremap <leader>t2 2gt
-noremap <leader>t3 3gt
-noremap <leader>t4 4gt
-noremap <leader>t5 5gt
-noremap <leader>t6 6gt
-noremap <leader>t7 7gt
-noremap <leader>t8 8gt
-noremap <leader>t9 9gt
+nnoremap <leader>t0 :tablast<cr>
+nnoremap <leader>t1 1gt
+nnoremap <leader>t2 2gt
+nnoremap <leader>t3 3gt
+nnoremap <leader>t4 4gt
+nnoremap <leader>t5 5gt
+nnoremap <leader>t6 6gt
+nnoremap <leader>t7 7gt
+nnoremap <leader>t8 8gt
+nnoremap <leader>t9 9gt
 
 " symbols
 inoremap jjla λ
@@ -169,7 +165,7 @@ inoremap jjra →
 
 command! -bar -range=% Reverse <line1>,<line2>g/^/m<line1>-1|nohl
 command! Json execute '%!python -m json.tool --sort-keys'
-command! PackUp lua require('update')
+command! -nargs=0 PackUp lua require('update')
 command! -nargs=0 LuaTreeToggle call s:load_luatree()
 
 " functions

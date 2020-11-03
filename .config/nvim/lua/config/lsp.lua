@@ -17,6 +17,7 @@ local attach_hook = function(client)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lS', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lk', '<cmd>lua vim.lsp.buf.help()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lF', '<cmd>lua vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ld', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
@@ -40,8 +41,11 @@ configs["pylance"] = {
         filetypes = {"python"};
         root_dir = util.root_pattern(".git", "setup.py",  "setup.cfg", "pyproject.toml", "requirements.txt");
         settings = {
-            analysis = { autoSearchPaths= true; };
-            pyright = { useLibraryCodeForTypes = true; };
+            python = { analysis = {
+                autoSearchPaths= true;
+                useLibraryCodeForTypes = true;
+                typeCheckingMode = "basic";
+            }};
         };
         -- The following before_init function can be removed once https://github.com/neovim/neovim/pull/12638 is merged
         before_init = function(initialize_params)
@@ -82,6 +86,7 @@ local default_config_servers = {
     'jsonls',
     'metals',
     'pylance',
+    'rust_analyzer',
     'sumneko_lua',
     'texlab',
     'tsserver',
