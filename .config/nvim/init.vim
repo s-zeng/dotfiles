@@ -95,8 +95,8 @@ au TermEnter * setlocal scrolloff=0
 au TermLeave * setlocal scrolloff=999999
 au TermOpen * setlocal nonumber norelativenumber nospell
 autocmd CompleteDone * silent! pclose!
-autocmd CursorHold <buffer> lua vim.lsp.util.show_line_diagnostics()
-autocmd CursorHoldI <buffer> lua vim.lsp.util.show_line_diagnostics()
+autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()
+autocmd CursorHoldI <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()
 autocmd FileType json syntax match Comment +\/\/.\+$+
 autocmd FileType lisp,clojure,scheme,racket set lisp
 autocmd FileType lisp,clojure,scheme,racket RainbowParentheses

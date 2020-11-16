@@ -63,7 +63,6 @@ local plugins = {
         config = 'require [[config/lsp]]',
         requires = {
             'nvim-lua/completion-nvim',
-            'nvim-lua/diagnostic-nvim',
             'nvim-lua/lsp-status.nvim',
             'nvim-lua/lsp_extensions.nvim',
         },

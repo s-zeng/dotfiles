@@ -1,12 +1,11 @@
 local lsp_status = require('lsp-status')
-local nvim_lsp = require('nvim_lsp')
+local nvim_lsp = require('lspconfig')
 
 lsp_status.register_progress()
 
 local attach_hook = function(client)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     require'completion'.on_attach(client)
-    require'diagnostic'.on_attach(client)
     require'lsp-status'.on_attach(client)
 
     local opts = { noremap=true, silent=true }
@@ -24,16 +23,16 @@ local attach_hook = function(client)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>le', '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'g0', '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gW', '<cmd>lua vim.lsp.buf.workplace_symbol()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '[c', ':PrevDiagnosticCycle<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', ']c', ':NextDiagnosticCycle<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '[c', ':<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', ']c', ':<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lt', "<cmd>lua require'lsp_extensions'.inlay_hints()<CR>", opts)
 end
 
 -- add pylance support
 -- technically against pylance license lol
 -- based off of https://github.com/neovim/nvim-lspconfig/pull/303
-local configs = require 'nvim_lsp/configs'
-local util = require 'nvim_lsp/util'
+local configs = require 'lspconfig/configs'
+local util = require 'lspconfig/util'
 
 configs["pylance"] = {
     default_config = {
@@ -82,7 +81,7 @@ local default_config_servers = {
     'dhall',
     'hls',
     'html',
-    'jdtls',
+    -- 'jdtls',
     'jsonls',
     'metals',
     'pylance',
