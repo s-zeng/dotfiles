@@ -1,7 +1,7 @@
 local plugins = {
     {
         'nvim-lua/telescope.nvim',
-        config = 'require [[config/telescope]]',
+        config = 'require [[plugin/telescope]]',
         requires = {'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim'}
     },
     {
@@ -10,32 +10,10 @@ local plugins = {
         run = 'cargo build --release',
         ft = {'clojure', 'scheme', 'racket', 'lisp'},
     },
-    -- {
-    --     -- indent guides
-    --     'glepnir/indent-guides.nvim',
-    --     config = [[require('indent_guides').options = {
-    --         indent_levels = 30;
-    --         indent_guide_size = 1;
-    --         indent_start_level = 1;
-    --         indent_space_guides = true;
-    --         indent_tab_guides = true;
-    --         indent_pretty_guides = false;
-    --         indent_soft_pattern = '\\s';
-    --         exclude_filetypes = {'help','dashboard','terminal'};
-    --         even_colors = { fg = "NONE" , bg = "#4c4846" };
-    --         odd_colors = { fg = "NONE" , bg = "#3c3836" };
-    --     };]]
-    -- },
     {
         -- magit git client for vim
         'jreybert/vimagit',
         cmd = {'Magit'}
-    },
-    {
-        -- prose writing focus mode
-        'junegunn/goyo.vim',
-        cmd = {'Goyo'},
-        requires = {'junegunn/limelight.vim'}
     },
     {
         -- sab == /ab<CR>
@@ -45,7 +23,7 @@ local plugins = {
         -- netrw/nerd-tree replacement
         'kyazdani42/nvim-tree.lua',
         requires = {'kyazdani42/nvim-web-devicons'},
-        opt = true
+        -- cmd = {'LuaTreeToggle'}
     },
     {
         -- latex plugin
@@ -54,7 +32,7 @@ local plugins = {
     },
     {
         -- colorscheme
-        'lifepillar/vim-gruvbox8',
+        'lifepillar/gruvbox8',
         config = 'vim.cmd [[colorscheme gruvbox8]]'
     },
     {
@@ -63,14 +41,9 @@ local plugins = {
         cmd = {'Vista'}
     },
     {
-        -- emacs guide key/which key functionality. as seen in spacemacs, spacevim
-        'liuchengxu/vim-which-key',
-        config = 'require [[config/whichkey]]'
-    },
-    {
         -- nvim built-in lsp + lua plugins built off it
         'neovim/nvim-lspconfig',
-        config = 'require [[config/lsp]]',
+        config = 'require [[plugin/lsp]]',
         requires = {
             'nvim-lua/completion-nvim',
             'nvim-lua/lsp-status.nvim',
@@ -85,7 +58,7 @@ local plugins = {
     {
         -- treesitter in neovim. replaces polyglot + adds cool ast-based manipulations/text objects
         'nvim-treesitter/nvim-treesitter-textobjects',
-        config = 'require [[config/treesitter]]',
+        config = 'require [[plugin/treesitter]]',
         requires = {'nvim-treesitter/nvim-treesitter'}
     },
     {
@@ -97,10 +70,6 @@ local plugins = {
         -- context.vim w/ treesitter
         'romgrk/nvim-treesitter-context',
         requires = {'nvim-treesitter/nvim-treesitter'},
-    },
-    {
-        -- language pack
-        'sheerun/vim-polyglot'
     },
     {
         -- autopairs
@@ -153,7 +122,7 @@ local light = {
     {
         -- also a pain to reinstall
         'nvim-treesitter/nvim-treesitter-textobjects',
-        config = 'require [[config/treesitter]]',
+        config = 'require [[plugin/treesitter]]',
         requires = {'nvim-treesitter/nvim-treesitter'}
     },
     {
