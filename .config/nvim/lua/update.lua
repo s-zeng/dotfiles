@@ -1,8 +1,4 @@
-local api = vim.api
-local fn = vim.fn
-local luv = vim.loop
-
-api.nvim_command('packadd packer.nvim')
+vim.cmd('packadd packer.nvim')
 
 local packer = require('packer')
 local plugins = require('plugins')
@@ -13,4 +9,4 @@ packer.startup(function()
   end
 end)
 
-vim.cmd [[PackerSync]]
+vim.cmd("PackerSync")

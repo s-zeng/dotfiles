@@ -32,7 +32,7 @@ function float()
   local bot = "╰" .. string.rep("─", width + 2) .. "╯"
 
   local lines = {top}
-  for _=1, height-3, 1 do
+  for _=1, height, 1 do
     table.insert(lines, mid)
   end
   table.insert(lines, bot)
