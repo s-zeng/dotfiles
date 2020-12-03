@@ -1,5 +1,6 @@
 " neovim config
 "
+"
 " has some neovim-only stuff so probably won't work with vim
 " run my `:PackUp` command to grab and update plugins with packer.nvim
 
@@ -68,6 +69,8 @@ set statusline+=%#Function#                 " colour
 set statusline+=\ %3p%%\                  " percentage
 
 " lets
+let g:gruvbox_filetype_hi_groups  = 0
+let g:gruvbox_material_palette    = "original"
 let g:loaded_2html_plugin         = 0
 let g:loaded_pkgbuild_plugin      = 0
 let g:loaded_tutor_mode_plugin    = 0
@@ -99,7 +102,7 @@ autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()
 autocmd CursorHoldI <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()
 autocmd FileType json syntax match Comment +\/\/.\+$+
 autocmd FileType lisp,clojure,scheme,racket set lisp
-autocmd FileType lisp,clojure,scheme,racket RainbowParentheses
+" autocmd FileType lisp,clojure,scheme,racket RainbowParentheses
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 augroup highlight_yank

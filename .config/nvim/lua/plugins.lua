@@ -1,8 +1,6 @@
 local plugins = {
     {
-        -- pure lua fzf-style lists/finders
-        -- using s-zeng/telescope.nvim until my pr is merged
-        '~/repos/telescope.nvim',
+        'nvim-lua/telescope.nvim',
         config = 'require [[config/telescope]]',
         requires = {'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim'}
     },
@@ -12,6 +10,22 @@ local plugins = {
         run = 'cargo build --release',
         ft = {'clojure', 'scheme', 'racket', 'lisp'},
     },
+    -- {
+    --     -- indent guides
+    --     'glepnir/indent-guides.nvim',
+    --     config = [[require('indent_guides').options = {
+    --         indent_levels = 30;
+    --         indent_guide_size = 1;
+    --         indent_start_level = 1;
+    --         indent_space_guides = true;
+    --         indent_tab_guides = true;
+    --         indent_pretty_guides = false;
+    --         indent_soft_pattern = '\\s';
+    --         exclude_filetypes = {'help','dashboard','terminal'};
+    --         even_colors = { fg = "NONE" , bg = "#4c4846" };
+    --         odd_colors = { fg = "NONE" , bg = "#3c3836" };
+    --     };]]
+    -- },
     {
         -- magit git client for vim
         'jreybert/vimagit',
@@ -22,10 +36,6 @@ local plugins = {
         'junegunn/goyo.vim',
         cmd = {'Goyo'},
         requires = {'junegunn/limelight.vim'}
-    },
-    {
-        -- rainbow brackets
-        'junegunn/rainbow_parentheses.vim',
     },
     {
         -- sab == /ab<CR>
@@ -77,6 +87,16 @@ local plugins = {
         'nvim-treesitter/nvim-treesitter-textobjects',
         config = 'require [[config/treesitter]]',
         requires = {'nvim-treesitter/nvim-treesitter'}
+    },
+    {
+        -- rainbow parentheses w/ treesitter
+        'p00f/nvim-ts-rainbow',
+        requires = {'nvim-treesitter/nvim-treesitter'}
+    },
+    {
+        -- context.vim w/ treesitter
+        'romgrk/nvim-treesitter-context',
+        requires = {'nvim-treesitter/nvim-treesitter'},
     },
     {
         -- language pack

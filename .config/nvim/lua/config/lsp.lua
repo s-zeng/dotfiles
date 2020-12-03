@@ -23,10 +23,18 @@ local attach_hook = function(client)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>le', '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'g0', '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gW', '<cmd>lua vim.lsp.buf.workplace_symbol()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '[c', ':<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', ']c', ':<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '[c', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', ']c', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lt', "<cmd>lua require'lsp_extensions'.inlay_hints()<CR>", opts)
 end
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = false,
+    signs = true,
+    update_in_insert = true,
+  }
+)
 
 -- add pylance support
 -- technically against pylance license lol
@@ -46,13 +54,6 @@ configs["pylance"] = {
                 typeCheckingMode = "basic";
             }};
         };
-        -- The following before_init function can be removed once https://github.com/neovim/neovim/pull/12638 is merged
-        before_init = function(initialize_params)
-            initialize_params['workspaceFolders'] = {{
-                name = 'workspace',
-                uri = initialize_params['rootUri']
-            }}
-        end
     };
     docs = {
         description = [[
@@ -84,9 +85,9 @@ local default_config_servers = {
     -- 'jdtls',
     'jsonls',
     'metals',
-    'pylance',
+    -- 'pylance',
+    'pyright',
     'rust_analyzer',
-    'sumneko_lua',
     'texlab',
     'tsserver',
     'vimls',
@@ -99,3 +100,8 @@ for _, lsp in ipairs(default_config_servers) do
         capabilities=lsp_status.capabilities,
     }
 end
+nvim_lsp['sumneko_lua'].setup {
+    cmd = {"lua-language-server"},
+    on_attach = attach_hook,
+    capabilities=lsp_status.capabilities,
+}
