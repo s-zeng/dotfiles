@@ -1,6 +1,6 @@
 local statusline = {
   "%#DiffAdd#%{(mode()[0]=='n')?'  NORMAL ':''}",
-  "%#DiffAdd#%{(mode()[0]=='c')?'  COMMAND ':''}",
+  "%#DiffAdd#%{(mode()[0]=='c')?'   CMD   ':''}",
   "%#DiffText#%{(mode()[0]=='i')?'  INSERT ':''}",
   "%#DiffText#%{(mode()[0]=='t')?'   TERM  ':''}",
   "%#DiffDelete#%{(mode()[0]=='R')?'  RPLACE ':''}",
@@ -18,7 +18,7 @@ local statusline = {
   " %t ",
   "%=",
   "%#CursorLine#",
-  require('lsp-status').status(),
+  [[%{luaeval('#vim.lsp.buf_get_clients() > 0') ? luaeval("require('lsp-status').status()") : ''}]],
   " %y ",
   "%#CursorIM#",
   " %3l:%-2c ",

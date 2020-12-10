@@ -1,22 +1,25 @@
 require('telescope').setup{
   defaults = {
-      use_less = true
+    use_less = false,
+    file_previewer = require'telescope.previewers'.vim_buffer_cat.new, -- For buffer previewer use `require'telescope.previewers'.vim_buffer_cat.new`
+    grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new, -- For buffer previewer use `require'telescope.previewers'.vim_buffer_vimgrep.new`
+    qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new, -- For buffer previewer use `require'telescope.previewers'.vim_buffer_qflist.new`
   }
 }
 
 
 local opts = { noremap=true }
-vim.api.nvim_set_keymap('n', '<leader><leader>', "<cmd>lua require('telescope.builtin').builtin{}<CR>", opts)
-vim.api.nvim_set_keymap('n', '<leader>/', "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find{}<CR>", opts)
-vim.api.nvim_set_keymap('n', '<leader>b', "<cmd>lua require('telescope.builtin').buffers{}<CR>", opts)
-vim.api.nvim_set_keymap('n', '<leader>g', "<cmd>lua require('telescope.builtin').live_grep{}<CR>", opts)
-vim.api.nvim_set_keymap('n', '<leader>G', "<cmd>lua require('telescope.builtin').grep_string{}<CR>", opts)
-vim.api.nvim_set_keymap('n', '<leader>h', "<cmd>lua require('telescope.builtin').help_tags{}<CR>", opts)
-vim.api.nvim_set_keymap('n', '<leader>o', "<cmd>lua require('telescope.builtin').find_files{}<CR>", opts)
-vim.api.nvim_set_keymap('n', '<leader>O', ":tabnew<CR><cmd>lua require('telescope.builtin').find_files{}<CR>", opts)
-vim.api.nvim_set_keymap('n', '<leader>v', ":vsp<CR><cmd>lua require('telescope.builtin').find_files{}<CR>", opts)
-vim.api.nvim_set_keymap('n', '<leader><Up>', "<cmd>lua require('telescope.builtin').command_history{}<CR>", opts)
-vim.api.nvim_set_keymap('n', '<leader>Q', "<cmd>lua require('telescope.builtin').commands{}<CR>", opts)
-vim.api.nvim_set_keymap('n', '<leader>q', "<cmd>lua require('telescope.builtin').quickfix{}<CR>", opts)
-vim.api.nvim_set_keymap('n', '<leader>a', "<cmd>lua require('telescope.builtin').lsp_code_actions{}<CR>", opts)
--- nnoremap <Leader>m :Clap marks<CR>
+vim.api.nvim_set_keymap('n', '<leader><leader>', "<cmd>Telescope builtin<CR>", opts)
+vim.api.nvim_set_keymap('n', '<leader>/', "<cmd>Telescope current_buffer_fuzzy_find<CR>", opts)
+vim.api.nvim_set_keymap('n', '<leader>b', "<cmd>Telescope buffers<CR>", opts)
+vim.api.nvim_set_keymap('n', '<leader>g', "<cmd>Telescope live_grep<CR>", opts)
+vim.api.nvim_set_keymap('n', '<leader>G', "<cmd>Telescope grep_string<CR>", opts)
+vim.api.nvim_set_keymap('n', '<leader>h', "<cmd>Telescope help_tags<CR>", opts)
+vim.api.nvim_set_keymap('n', '<leader>o', "<cmd>Telescope find_files<CR>", opts)
+vim.api.nvim_set_keymap('n', '<leader>O', ":tabnew<CR><cmd>Telescope find_files<CR>", opts)
+vim.api.nvim_set_keymap('n', '<leader>v', ":vsp<CR><cmd>Telescope find_files<CR>", opts)
+vim.api.nvim_set_keymap('n', '<leader><Up>', "<cmd>Telescope command_history<CR>", opts)
+vim.api.nvim_set_keymap('n', '<leader>Q', "<cmd>Telescope commands<CR>", opts)
+vim.api.nvim_set_keymap('n', '<leader>q', "<cmd>Telescope quickfix<CR>", opts)
+vim.api.nvim_set_keymap('n', '<leader>a', "<cmd>Telescope lsp_code_actions<CR>", opts)
+vim.api.nvim_set_keymap('n', '<leader>m', "<cmd>Telescope marks<CR>", opts)

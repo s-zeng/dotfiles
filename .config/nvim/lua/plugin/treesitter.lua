@@ -1,5 +1,8 @@
 local ts = require'nvim-treesitter.configs'
 
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+parser_config.typescript.used_by = "javascriptflow"
+
 ts.setup {
     ensure_installed = "maintained",
     highlight = {
@@ -9,7 +12,7 @@ ts.setup {
         enable = true,
     },
     rainbow = {
-        enable = true,
+        enable = false,
     },
     incremental_selection = {
         enable = true,

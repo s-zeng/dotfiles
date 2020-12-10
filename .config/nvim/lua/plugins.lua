@@ -11,10 +11,6 @@ local plugins = {
     ft = {'clojure', 'scheme', 'racket', 'lisp'},
   },
   {
-    'glepnir/dashboard-nvim',
-    config = 'require [[plugin/dashboard]]',
-  },
-  {
     -- magit git client for vim
     'jreybert/vimagit',
     cmd = {'Magit'}
@@ -27,7 +23,6 @@ local plugins = {
     -- netrw/nerd-tree replacement
     'kyazdani42/nvim-tree.lua',
     requires = {'kyazdani42/nvim-web-devicons'},
-    -- cmd = {'LuaTreeToggle'}
   },
   {
     -- latex plugin
@@ -60,25 +55,24 @@ local plugins = {
     },
   },
   {
+    -- haskell highlighting
+    'neovimhaskell/haskell-vim'
+  },
+  {
     -- gives colours to hex codes like #abcdef
     'norcalli/nvim-colorizer.lua',
     config='require [[colorizer]].setup()',
   },
   {
     -- treesitter in neovim. replaces polyglot + adds cool ast-based manipulations/text objects
-    'nvim-treesitter/nvim-treesitter-textobjects',
+    'nvim-treesitter/nvim-treesitter',
+    commit = "a47c83d12d9ba835c7ec59b2d498078850e4703f",
     config = 'require [[plugin/treesitter]]',
-    requires = {'nvim-treesitter/nvim-treesitter'}
-  },
-  {
-    -- rainbow parentheses w/ treesitter
-    'p00f/nvim-ts-rainbow',
-    requires = {'nvim-treesitter/nvim-treesitter'}
-  },
-  {
-    -- context.vim w/ treesitter
-    'romgrk/nvim-treesitter-context',
-    requires = {'nvim-treesitter/nvim-treesitter'},
+    requires = {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+      'p00f/nvim-ts-rainbow',
+      'romgrk/nvim-treesitter-context'
+    },
   },
   {
     -- autopairs
@@ -88,6 +82,10 @@ local plugins = {
   {
     -- comment shortcut
     'tpope/vim-commentary'
+  },
+  {
+    -- end helper 
+    'tpope/vim-endwise'
   },
   {
     -- repeatable plugin maps
@@ -107,12 +105,14 @@ local plugins = {
   {
     -- delimiters helper
     'tpope/vim-surround',
-    event = 'InsertEnter *'
   },
   {
     -- package manager
     'wbthomason/packer.nvim',
     opt = true
+  },
+  {
+    'vmchale/dhall-vim'
   },
 }
 
@@ -129,12 +129,6 @@ local light = {
     config = 'vim.cmd [[colorscheme gruvbox8]]'
   },
   {
-    -- also a pain to reinstall
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    config = 'require [[plugin/treesitter]]',
-    requires = {'nvim-treesitter/nvim-treesitter'}
-  },
-  {
     -- package manager
     'wbthomason/packer.nvim',
     opt = true
@@ -142,11 +136,6 @@ local light = {
 }
 
 local minimal = {
-  {
-    -- colorscheme
-    'lifepillar/vim-gruvbox8',
-    config = 'vim.cmd [[colorscheme gruvbox8]]'
-  },
   {
     -- package manager
     'wbthomason/packer.nvim',

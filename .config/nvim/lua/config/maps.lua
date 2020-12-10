@@ -45,6 +45,9 @@ local maps = {
   },
   t = {
     ["<Esc>"] = [[<C-\><C-n>]],
+  },
+  c = {
+    ["w!!"] = {map="w !sudo sponge %", opts={}}
   }
 }
 
