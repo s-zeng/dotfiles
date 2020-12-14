@@ -1,8 +1,5 @@
 local ts = require'nvim-treesitter.configs'
 
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.typescript.used_by = "javascriptflow"
-
 ts.setup {
     ensure_installed = "maintained",
     highlight = {
@@ -72,6 +69,3 @@ ts.setup {
         },
     },
 }
-
--- until https://github.com/nvim-treesitter/nvim-treesitter/issues/602 is resolved
-require "nvim-treesitter.parsers".get_parser_configs().markdown = nil

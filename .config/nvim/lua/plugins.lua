@@ -1,8 +1,8 @@
 local plugins = {
   {
-    'nvim-lua/telescope.nvim',
+    'nvim-telescope/telescope.nvim',
     config = 'require [[plugin/telescope]]',
-    requires = {'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim'}
+    requires = {'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim', 'nvim-telescope/telescope-symbols.nvim', 'kyazdani42/nvim-web-devicons'}
   },
   {
     -- lisp auto-brackets; write lisp like python!
@@ -21,7 +21,8 @@ local plugins = {
   },
   {
     -- netrw/nerd-tree replacement
-    'kyazdani42/nvim-tree.lua',
+    -- using my fork until my pr is merged
+    's-zeng/nvim-tree.lua',
     requires = {'kyazdani42/nvim-web-devicons'},
   },
   {
@@ -66,7 +67,7 @@ local plugins = {
   {
     -- treesitter in neovim. replaces polyglot + adds cool ast-based manipulations/text objects
     'nvim-treesitter/nvim-treesitter',
-    commit = "a47c83d12d9ba835c7ec59b2d498078850e4703f",
+    -- commit = "a47c83d12d9ba835c7ec59b2d498078850e4703f",
     config = 'require [[plugin/treesitter]]',
     requires = {
       'nvim-treesitter/nvim-treesitter-textobjects',
