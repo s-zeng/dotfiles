@@ -11,6 +11,11 @@ local plugins = {
     ft = {'clojure', 'scheme', 'racket', 'lisp'},
   },
   {
+    'hoob3rt/lualine.nvim',
+    config = 'require [[plugin/lualine]]',
+    requires = {'kyazdani42/nvim-web-devicons'}
+  },
+  {
     -- magit git client for vim
     'jreybert/vimagit',
     cmd = {'Magit'}
@@ -22,7 +27,7 @@ local plugins = {
   {
     -- netrw/nerd-tree replacement
     -- using my fork until my pr is merged
-    's-zeng/nvim-tree.lua',
+    'kyazdani42/nvim-tree.lua',
     requires = {'kyazdani42/nvim-web-devicons'},
   },
   {
@@ -74,6 +79,9 @@ local plugins = {
       'p00f/nvim-ts-rainbow',
       'romgrk/nvim-treesitter-context'
     },
+  },
+  {
+    'Nymphium/vim-koka',
   },
   {
     -- autopairs

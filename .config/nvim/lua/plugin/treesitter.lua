@@ -9,7 +9,7 @@ ts.setup {
         enable = true,
     },
     rainbow = {
-        enable = false,
+        enable = true,
     },
     incremental_selection = {
         enable = true,

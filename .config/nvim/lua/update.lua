@@ -15,3 +15,4 @@ local plugins = require('plugins')
 packer.startup({plugins, config={display={open_fn=require('packer.util').float}}})
 
 vim.cmd("PackerSync")
+-- vim.cmd("TSUpdate")
