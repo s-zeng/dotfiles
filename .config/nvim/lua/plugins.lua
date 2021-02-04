@@ -10,11 +10,11 @@ local plugins = {
     run = 'cargo build --release',
     ft = {'clojure', 'scheme', 'racket', 'lisp'},
   },
-  {
-    'hoob3rt/lualine.nvim',
-    config = 'require [[plugin/lualine]]',
-    requires = {'kyazdani42/nvim-web-devicons'}
-  },
+  -- {
+  --   'hoob3rt/lualine.nvim',
+  --   config = 'require [[plugin/lualine]]',
+  --   requires = {'kyazdani42/nvim-web-devicons'}
+  -- },
   {
     -- magit git client for vim
     'jreybert/vimagit',
