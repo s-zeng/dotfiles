@@ -1,20 +1,10 @@
 local plugins = {
   {
-    'nvim-telescope/telescope.nvim',
-    config = 'require [[plugin/telescope]]',
-    requires = {'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim', 'nvim-telescope/telescope-symbols.nvim', 'kyazdani42/nvim-web-devicons'}
-  },
-  {
     -- lisp auto-brackets; write lisp like python!
     'eraserhd/parinfer-rust',
     run = 'cargo build --release',
     ft = {'clojure', 'scheme', 'racket', 'lisp'},
   },
-  -- {
-  --   'hoob3rt/lualine.nvim',
-  --   config = 'require [[plugin/lualine]]',
-  --   requires = {'kyazdani42/nvim-web-devicons'}
-  -- },
   {
     -- magit git client for vim
     'jreybert/vimagit',
@@ -36,20 +26,32 @@ local plugins = {
     ft={'tex'}
   },
   {
+    'lukas-reineke/indent-blankline.nvim',
+    branch = 'lua'
+  },
+  {
     -- colorscheme
-    'lifepillar/gruvbox8',
-    config = 'vim.cmd [[colorscheme gruvbox8]]'
+    -- 'lifepillar/gruvbox8',
+    -- config = 'vim.cmd [[colorscheme gruvbox8]]'
+    "npxbr/gruvbox.nvim",
+    requires={"rktjmp/lush.nvim"},
+    config = 'vim.cmd [[colorscheme gruvbox]]'
+  },
+  {
+    'nvim-telescope/telescope.nvim',
+    config = 'require [[plugin/telescope]]',
+    requires = {'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim', 'nvim-telescope/telescope-symbols.nvim', 'kyazdani42/nvim-web-devicons'}
   },
   {
     -- tagbar w/ lsp support
     'liuchengxu/vista.vim',
     cmd = {'Vista'}
   },
-  {
-    -- emacs guide key/which key functionality. as seen in spacemacs, spacevim
-    'liuchengxu/vim-which-key',
-    config = 'require [[plugin/whichkey]]'
-  },
+  -- {
+  --   -- emacs guide key/which key functionality. as seen in spacemacs, spacevim
+  --   'liuchengxu/vim-which-key',
+  --   config = 'require [[plugin/whichkey]]'
+  -- },
   {
     -- nvim built-in lsp + lua plugins built off it
     'neovim/nvim-lspconfig',
@@ -58,6 +60,7 @@ local plugins = {
       'nvim-lua/completion-nvim',
       'nvim-lua/lsp-status.nvim',
       'nvim-lua/lsp_extensions.nvim',
+      'onsails/lspkind-nvim',
     },
   },
   {
@@ -72,7 +75,6 @@ local plugins = {
   {
     -- treesitter in neovim. replaces polyglot + adds cool ast-based manipulations/text objects
     'nvim-treesitter/nvim-treesitter',
-    -- commit = "a47c83d12d9ba835c7ec59b2d498078850e4703f",
     config = 'require [[plugin/treesitter]]',
     requires = {
       'nvim-treesitter/nvim-treesitter-textobjects',
@@ -93,7 +95,7 @@ local plugins = {
     'tpope/vim-commentary'
   },
   {
-    -- end helper 
+    -- end helper
     'tpope/vim-endwise'
   },
   {

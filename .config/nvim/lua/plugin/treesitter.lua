@@ -7,6 +7,8 @@ ts.setup {
     },
     indent = {
         enable = true,
+        -- https://www.reddit.com/r/neovim/comments/l3mpiv/i_just_discovered_treesitter_was_the_reason_my/
+        disable = {"python"}
     },
     rainbow = {
         enable = true,

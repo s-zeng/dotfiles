@@ -1,6 +1,7 @@
 local gvars = {
   gruvbox_filetype_hi_groups  = 0;
   gruvbox_material_palette    = "original";
+  indentLine_char             = '┃';
   loaded_2html_plugin         = 0;
   loaded_pkgbuild_plugin      = 0;
   loaded_tutor_mode_plugin    = 0;

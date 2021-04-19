@@ -134,3 +134,5 @@ nvim_lsp['yamlls'].setup {
     end
   },
 }
+
+require('lspkind').init()

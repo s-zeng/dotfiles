@@ -19,9 +19,11 @@ local statusline = {
   "%=",
   "%#CursorLine#",
   [[%{luaeval('#vim.lsp.buf_get_clients() > 0') ? luaeval("require('lsp-status').status()") : ''}]],
-  " %y ",
+  "%y ",
   "%#CursorIM#",
-  " %3l:%-2c ",
+  -- " %3l:%-2c ",
+  -- "%#Comment#",
+  " %l/%L ",
   "%#Function#",
   " %3p%% ",
 }
