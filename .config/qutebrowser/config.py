@@ -11,7 +11,7 @@ c.aliases = {
     "w": "session-save",
     "wq": "quit --save",
     "wqa": "quit --save",
-    "pass": "spawn --userscript qute-lastpass",
+    "pass": "spawn --userscript qute-pass",
     "getbib": "spawn --userscript getbib",
     "json": "spawn --userscript format_json",
     "read": "spawn --userscript readability",
@@ -24,3 +24,4 @@ config.bind('<Ctrl-R>', 'config-cycle content.user_stylesheets "~/.config/qutebr
 config.bind('cn', 'config-cycle content.user_stylesheets "~/.config/qutebrowser/css/gruvbox-all-sites.css" ""')
 
 
+config.load_autoconfig(False)

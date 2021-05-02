@@ -6,6 +6,10 @@ local plugins = {
     ft = {'clojure', 'scheme', 'racket', 'lisp'},
   },
   {
+    'folke/which-key.nvim',
+    -- config = 'require [[plugin/whichkey]]',
+  },
+  {
     -- magit git client for vim
     'jreybert/vimagit',
     cmd = {'Magit'}
@@ -47,11 +51,6 @@ local plugins = {
     'liuchengxu/vista.vim',
     cmd = {'Vista'}
   },
-  -- {
-  --   -- emacs guide key/which key functionality. as seen in spacemacs, spacevim
-  --   'liuchengxu/vim-which-key',
-  --   config = 'require [[plugin/whichkey]]'
-  -- },
   {
     -- nvim built-in lsp + lua plugins built off it
     'neovim/nvim-lspconfig',

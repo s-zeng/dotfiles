@@ -1,14 +1,18 @@
 # exec wal -R -l
 include "$HOME/.cache/wal/colors-sway"
 
-set $wallpaper "/home/kronicmage/Pictures/Wallpapers/forest.png"
-output "*" background $wallpaper fill
+set $wallpaper1 "/home/kronicmage/Pictures/Wallpapers/screen1.jpg"
+set $wallpaper2 "/home/kronicmage/Pictures/Wallpapers/screen2.jpg"
+set $wallpaper3 "/home/kronicmage/Pictures/Wallpapers/screen3.jpg"
 client.focused $color0 $foreground $foreground $foreground $foreground
 # client.focused_inactive $color0 $background $foreground $color7 $background
 # client.unfocused $color0 $background $foreground $color7 $background
 # client.urgent $color0 $background $foreground $color7 $background
 # client.placeholder $color0 $background $foreground $color7 $background
 # client.background $bg
+
+set $screenshot grim ~/Pictures/scrn-$(date +"%Y-%m-%d-%H-%M-%S").png
+set $screenclip slurp | grim -g - ~/Pictures/scrn-$(date +"%Y-%m-%d-%H-%M-%S").png
 
 
 #
@@ -24,6 +28,9 @@ client.focused $color0 $foreground $foreground $foreground $foreground
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
+
+bindsym $mod+p exec $screenshot
+bindsym $mod+Shift+p exec $screenclip
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -45,6 +52,7 @@ floating_modifier $mod
 
 # start a terminal
 # bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Space exec kitty
 bindsym $mod+Return exec kitty
 
 # kill focused window
@@ -60,24 +68,12 @@ bindsym $mod+d exec --no-startup-id rofi -show run -font "Source Code Pro for Po
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-# bindsym $mod+j focus left
-# bindsym $mod+k focus down
-# bindsym $mod+l focus up
-# bindsym $mod+semicolon focus right
-
-# alternatively, you can use the cursor keys:
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # move focused window
-# bindsym $mod+Shift+j move left
-# bindsym $mod+Shift+k move down
-# bindsym $mod+Shift+l move up
-# bindsym $mod+Shift+semicolon move right
-
-# alternatively, you can use the cursor keys:
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
@@ -101,7 +97,7 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+bindsym $mod+Shift+Return focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -152,7 +148,6 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your sway session.' -b 'Yes, exit sway' 'swaymsg exit'"
 bindsym $mod+Shift+s exec "swaynag -t warning -m 'You pressed the shutdown shortcut. Do you really want to shutdown? This will end your sway session.' -b 'Yes, exit sway' 'poweroff'"
-bindsym $mod+p exec grim ~/Pictures/$(date +'%Y-%m-%d-%H%M%S.png')
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -177,7 +172,7 @@ exec --no-startup-id ~/bin/nm-applet.sh &
 exec --no-startup-id ~/bin/blueberry.sh &
 exec --no-startup-id redshift 
 exec --no-startup-id /usr/lib/kdeconnectd
-exec --no-startup-id kdeconnect-indicator
+# exec --no-startup-id kdeconnect-indicator
 exec --no-startup-id mako
 # exec --no-startup-id ~/bin/mopidy.sh &
 # exec_always --no-startup-id ~/bin/polybar.sh &
@@ -266,8 +261,18 @@ for_window [class="Discord"] floating enable
 
 # output DP-2 transform 270
 output eDP-1 pos 0,0
-output DP-2 transform 90 position 3840,-300
-output DP-1 pos 1920,0
+# output DP-2 transform 90 position 3840,-300
+output DP-2 pos 1920,0
+output HDMI-A-1 pos 3840,0
+
+output eDP-1 background $wallpaper1 fill
+output DP-2 background $wallpaper2 fill
+output HDMI-A-1 background $wallpaper3 fill
+
+workspace 1 output eDP-1
+workspace 2 output DP-2
+workspace 3 output DP-2
+workspace 4 output HDMI-A-1
 
 input "2:10:TPPS/2_Elan_TrackPoint" {
     tap enabled
@@ -277,6 +282,12 @@ input "1739:0:Synaptics_TM3289-021" {
     tap enabled
 }
 
+# bar {
+#     # swaybar_command waybar
+#     position top
+#     status_command i3status
+# }
+#
 bar {
     # swaybar_command waybar
     position top
