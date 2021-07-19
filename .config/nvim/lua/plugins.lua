@@ -31,7 +31,10 @@ local plugins = {
   },
   {
     'lukas-reineke/indent-blankline.nvim',
-    branch = 'lua'
+  },
+  {
+    'mfussenegger/nvim-dap',
+    config = 'require [[plugin/dap]]'
   },
   {
     -- colorscheme
