@@ -10,7 +10,8 @@ set -gx PROJECT_PATHS ~/repos
 set -gx XDG_CURRENT_DESKTOP sway
 alias g++14 "g++ -std=c++14 -Wall -g"
 alias alpha-client "tezos-client -A rpcalpha.tzbeta.net -P 443 -S"
-alias ls exa
+alias ls "exa --icons --across"
+alias tree "exa --tree"
 source ~/.cache/wal/colors.fish
 # theme_gruvbox dark hard
 

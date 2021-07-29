@@ -77,6 +77,7 @@ local plugins = {
   {
     -- treesitter in neovim. replaces polyglot + adds cool ast-based manipulations/text objects
     'nvim-treesitter/nvim-treesitter',
+    branch = [[0.5-compat]],
     config = 'require [[plugin/treesitter]]',
     requires = {
       'nvim-treesitter/nvim-treesitter-textobjects',
