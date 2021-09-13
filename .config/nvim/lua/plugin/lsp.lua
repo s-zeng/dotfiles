@@ -5,8 +5,11 @@ lsp_status.register_progress()
 
 local attach_hook = function(status_callback)
   return function(client)
+    vim.g["coq_settings"] = { auto_start = 'shut-up' }
+    -- require("coq")
+
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    require'completion'.on_attach(client)
+    -- require'completion'.on_attach(client)
     status_callback(client)
 
     local opts = { noremap=true, silent=true }

@@ -1,4 +1,5 @@
 local plugins = {
+  { "beauwilliams/focus.nvim", config = function() require("focus").setup() end },
   {
     -- lisp auto-brackets; write lisp like python!
     'eraserhd/parinfer-rust',
@@ -8,6 +9,10 @@ local plugins = {
   {
     'folke/which-key.nvim',
     -- config = 'require [[plugin/whichkey]]',
+  },
+  {
+    'ggandor/lightspeed.nvim',
+    keys = {'s', 'S'}
   },
   {
     -- magit git client for vim
@@ -59,7 +64,8 @@ local plugins = {
     'neovim/nvim-lspconfig',
     config = 'require [[plugin/lsp]]',
     requires = {
-      'nvim-lua/completion-nvim',
+      {'ms-jpq/coq_nvim', branch = 'coq'},
+      {'ms-jpq/coq.artifacts', branch = 'artifacts'},
       'nvim-lua/lsp-status.nvim',
       'nvim-lua/lsp_extensions.nvim',
       'onsails/lspkind-nvim',

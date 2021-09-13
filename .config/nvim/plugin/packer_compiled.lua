@@ -69,13 +69,22 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
-  ["completion-nvim"] = {
+  ["coq.artifacts"] = {
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/completion-nvim"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/coq.artifacts"
+  },
+  coq_nvim = {
+    loaded = true,
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/coq_nvim"
   },
   ["dhall-vim"] = {
     loaded = true,
     path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/dhall-vim"
+  },
+  ["focus.nvim"] = {
+    config = { "\27LJ\1\0023\0\0\2\0\3\0\0064\0\0\0%\1\1\0>\0\2\0027\0\2\0>\0\1\1G\0\1\0\nsetup\nfocus\frequire\0" },
+    loaded = true,
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/focus.nvim"
   },
   ["gruvbox.nvim"] = {
     config = { "vim.cmd [[colorscheme gruvbox]]" },
@@ -89,6 +98,12 @@ _G.packer_plugins = {
   ["indent-blankline.nvim"] = {
     loaded = true,
     path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim"
+  },
+  ["lightspeed.nvim"] = {
+    keys = { { "", "s" }, { "", "S" } },
+    loaded = false,
+    needs_bufread = false,
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/opt/lightspeed.nvim"
   },
   ["lsp-status.nvim"] = {
     loaded = true,
@@ -252,6 +267,10 @@ time([[Config for nvim-colorizer.lua]], false)
 time([[Config for gruvbox.nvim]], true)
 vim.cmd [[colorscheme gruvbox]]
 time([[Config for gruvbox.nvim]], false)
+-- Config for: focus.nvim
+time([[Config for focus.nvim]], true)
+try_loadstring("\27LJ\1\0023\0\0\2\0\3\0\0064\0\0\0%\1\1\0>\0\2\0027\0\2\0>\0\1\1G\0\1\0\nsetup\nfocus\frequire\0", "config", "focus.nvim")
+time([[Config for focus.nvim]], false)
 -- Config for: telescope.nvim
 time([[Config for telescope.nvim]], true)
 require [[plugin/telescope]]
@@ -266,6 +285,12 @@ time([[Defining lazy-load commands]], true)
 pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Magit lua require("packer.load")({'vimagit'}, { cmd = "Magit", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]])
 pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Vista lua require("packer.load")({'vista.vim'}, { cmd = "Vista", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]])
 time([[Defining lazy-load commands]], false)
+
+-- Keymap lazy-loads
+time([[Defining lazy-load keymaps]], true)
+vim.cmd [[noremap <silent> S <cmd>lua require("packer.load")({'lightspeed.nvim'}, { keys = "S", prefix = "" }, _G.packer_plugins)<cr>]]
+vim.cmd [[noremap <silent> s <cmd>lua require("packer.load")({'lightspeed.nvim'}, { keys = "s", prefix = "" }, _G.packer_plugins)<cr>]]
+time([[Defining lazy-load keymaps]], false)
 
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
@@ -283,9 +308,15 @@ vim.cmd [[au InsertEnter * ++once lua require("packer.load")({'pear-tree'}, { ev
 time([[Defining lazy-load event autocommands]], false)
 vim.cmd("augroup END")
 vim.cmd [[augroup filetypedetect]]
+time([[Sourcing ftdetect script at: /home/kronicmage/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/cls.vim]], true)
+vim.cmd [[source /home/kronicmage/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/cls.vim]]
+time([[Sourcing ftdetect script at: /home/kronicmage/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/cls.vim]], false)
 time([[Sourcing ftdetect script at: /home/kronicmage/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/tex.vim]], true)
 vim.cmd [[source /home/kronicmage/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/tex.vim]]
 time([[Sourcing ftdetect script at: /home/kronicmage/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/tex.vim]], false)
+time([[Sourcing ftdetect script at: /home/kronicmage/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/tikz.vim]], true)
+vim.cmd [[source /home/kronicmage/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/tikz.vim]]
+time([[Sourcing ftdetect script at: /home/kronicmage/.local/share/nvim/site/pack/packer/opt/vimtex/ftdetect/tikz.vim]], false)
 vim.cmd("augroup END")
 if should_profile then save_profiles() end
 

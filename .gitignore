@@ -9,3 +9,4 @@ state_nvim.vim
 tags
 .config/coc/extensions/package.json
 .metals/
+.config/nvim/after/
