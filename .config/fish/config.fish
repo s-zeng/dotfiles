@@ -8,6 +8,7 @@ set -gx BAT_THEME gruvbox
 set -gx MANPAGER "nvim -R -c 'set ft=man' -"
 set -gx PROJECT_PATHS ~/repos
 set -gx XDG_CURRENT_DESKTOP sway
+set -gx OPENAI_API_KEY "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"
 alias g++14 "g++ -std=c++14 -Wall -g"
 alias alpha-client "tezos-client -A rpcalpha.tzbeta.net -P 443 -S"
 alias ls "exa --icons --across"

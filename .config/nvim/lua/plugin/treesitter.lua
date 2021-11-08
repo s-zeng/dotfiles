@@ -1,19 +1,20 @@
 local ts = require'nvim-treesitter.configs'
 
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.haskell = {
-  install_info = {
-    url = "~/repos/tree-sitter-haskell", -- local path or git repo
-    files = {"src/parser.c", "src/scanner.cc"}
-  },
-  filetype = "hs", -- if filetype does not agrees with parser name
-  used_by = {"haskell"} -- additional filetypes that use this parser
-}
+-- local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+-- parser_config.haskell = {
+--   install_info = {
+--     url = "~/repos/tree-sitter-haskell", -- local path or git repo
+--     files = {"src/parser.c", "src/scanner.cc"}
+--   },
+--   filetype = "hs", -- if filetype does not agrees with parser name
+--   used_by = {"haskell"} -- additional filetypes that use this parser
+-- }
 
 ts.setup {
     ensure_installed = "maintained",
     highlight = {
         enable = true,            -- false will disable the whole extension
+        disable = {"haskell"}
     },
     indent = {
         enable = true,

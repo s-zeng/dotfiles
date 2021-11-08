@@ -1,5 +1,9 @@
 local plugins = {
-  { "beauwilliams/focus.nvim", config = function() require("focus").setup() end },
+  {
+    -- automatically resizes splits to be smaller when unfocused and bigger when focused
+    "beauwilliams/focus.nvim",
+    config = function() require("focus").setup() end
+  },
   {
     -- lisp auto-brackets; write lisp like python!
     'eraserhd/parinfer-rust',
@@ -7,25 +11,40 @@ local plugins = {
     ft = {'clojure', 'scheme', 'racket', 'lisp'},
   },
   {
+    -- emacs style which-key
     'folke/which-key.nvim',
-    -- config = 'require [[plugin/whichkey]]',
+    config = function()
+      require("which-key").setup {}
+    end
   },
   {
+    -- modern vim-sneak with a bit of easy-motion
     'ggandor/lightspeed.nvim',
     keys = {'s', 'S'}
+  },
+  {
+    -- openai codex completion
+    'jameshiew/nvim-magic',
+   	config = function()
+	  	require('nvim-magic').setup()
+	  end,
+	  requires = {
+	  	'nvim-lua/plenary.nvim',
+	  	'MunifTanjim/nui.nvim'
+	  }
   },
   {
     -- magit git client for vim
     'jreybert/vimagit',
     cmd = {'Magit'}
   },
-  {
-    -- sab == /ab<CR>
-    'justinmk/vim-sneak'
-  },
+  -- {
+  --   -- keeps ratios of splits when resizing terminal
+  --   'kwkarlwang/bufresize.nvim',
+  --   config = function () require("bufresize").setup() end
+  -- },
   {
     -- netrw/nerd-tree replacement
-    -- using my fork until my pr is merged
     'kyazdani42/nvim-tree.lua',
     requires = {'kyazdani42/nvim-web-devicons'},
   },
@@ -35,21 +54,22 @@ local plugins = {
     ft={'tex'}
   },
   {
+    -- indentation guides
     'lukas-reineke/indent-blankline.nvim',
   },
   {
+    -- debug client
     'mfussenegger/nvim-dap',
     config = 'require [[plugin/dap]]'
   },
   {
     -- colorscheme
-    -- 'lifepillar/gruvbox8',
-    -- config = 'vim.cmd [[colorscheme gruvbox8]]'
     "npxbr/gruvbox.nvim",
     requires={"rktjmp/lush.nvim"},
     config = 'vim.cmd [[colorscheme gruvbox]]'
   },
   {
+    -- nvim lua fzf type thing
     'nvim-telescope/telescope.nvim',
     config = 'require [[plugin/telescope]]',
     requires = {'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim', 'nvim-telescope/telescope-symbols.nvim', 'kyazdani42/nvim-web-devicons'}
@@ -92,6 +112,7 @@ local plugins = {
     },
   },
   {
+    -- koka highlighting
     'Nymphium/vim-koka',
   },
   {
@@ -132,6 +153,7 @@ local plugins = {
     opt = true
   },
   {
+    -- dhall highlighting
     'vmchale/dhall-vim'
   },
 }

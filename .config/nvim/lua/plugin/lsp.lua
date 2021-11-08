@@ -113,6 +113,9 @@ for _, lsp in ipairs(default_config_servers) do
   nvim_lsp[lsp].setup {
     on_attach = attach_hook(lsp_status.on_attach),
     capabilities=lsp_status.capabilities,
+    flags = {
+      debounce_text_changes = 500,
+    }
   }
 end
 nvim_lsp['sumneko_lua'].setup {
@@ -120,10 +123,16 @@ nvim_lsp['sumneko_lua'].setup {
   on_attach = attach_hook(lsp_status.on_attach),
   capabilities=lsp_status.capabilities,
   root_dir = util.path.dirname;
+    flags = {
+      debounce_text_changes = 500,
+    }
 }
 nvim_lsp['clangd'].setup {
   on_attach = attach_hook(lsp_status.extensions.clangd.setup),
   capabilities=lsp_status.capabilities,
+    flags = {
+      debounce_text_changes = 500,
+    }
 }
 nvim_lsp['yamlls'].setup {
   on_attach = attach_hook(lsp_status.on_attach),
@@ -138,6 +147,9 @@ nvim_lsp['yamlls'].setup {
       }
     end
   },
+    flags = {
+      debounce_text_changes = 500,
+    }
 }
 
 require('lspkind').init()

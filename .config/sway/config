@@ -262,12 +262,14 @@ for_window [class="Discord"] floating enable
 
 # output DP-2 transform 270
 # output HDMI-A-1 pos 1920,0
+# output eDP-1 pos 1920,0
+# output HDMI-A-1 pos 0,0
 # output eDP-1 pos 0,0
-output eDP-1 pos 1920,0
-output HDMI-A-1 pos 0,0
-# output DP-2 transform 90 position 3840,-300
+output eDP-1 position 0,0
+output DP-1 position 0,-1080
+output DP-2 transform 270 pos 1920,-960 scale 1
+# output DP-1 position 3840,0
 # output DP-2 pos 1920,0
-# output DP-1 pos 1920,0
 # output DP-2 pos 3840,0
 # output HDMI-A-1 pos 3840,0
 

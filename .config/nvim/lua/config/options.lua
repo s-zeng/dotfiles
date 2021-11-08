@@ -3,7 +3,8 @@ local options = {
   backspace="indent,eol,start";
   completeopt="menuone,noinsert,noselect";
   foldlevel=99;
-  foldmethod="expr";
+  -- foldmethod="expr";
+  foldmethod="indent";
   foldexpr="nvim_treesitter#foldexpr()";
   guifont="JetBrainsMono Nerd Font Mono:h13";
   hidden=true;
@@ -24,7 +25,7 @@ local options = {
   termguicolors=true;
   timeout=true;
   timeoutlen=300;
-  updatetime=300;
+  -- updatetime=300;
   virtualedit="block";
 }
 
