@@ -12,6 +12,7 @@ local options = {
   hidden=true;
   hlsearch=true;
   inccommand="split";
+  laststatus = 3;
   lazyredraw=true;
   linebreak=true;
   mouse="nvi";
