@@ -44,8 +44,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/home/kronicmage/.cache/nvim/packer_hererocks/2.0.5/share/lua/5.1/?.lua;/home/kronicmage/.cache/nvim/packer_hererocks/2.0.5/share/lua/5.1/?/init.lua;/home/kronicmage/.cache/nvim/packer_hererocks/2.0.5/lib/luarocks/rocks-5.1/?.lua;/home/kronicmage/.cache/nvim/packer_hererocks/2.0.5/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/home/kronicmage/.cache/nvim/packer_hererocks/2.0.5/lib/lua/5.1/?.so"
+local package_path_str = "/home/kronicmage/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/home/kronicmage/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/home/kronicmage/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/home/kronicmage/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/home/kronicmage/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -57,7 +57,7 @@ end
 time([[Luarocks path setup]], false)
 time([[try_loadstring definition]], true)
 local function try_loadstring(s, component, name)
-  local success, result = pcall(loadstring(s))
+  local success, result = pcall(loadstring(s), name, _G.packer_plugins[name])
   if not success then
     vim.schedule(function()
       vim.api.nvim_notify('packer.nvim: Error running ' .. component .. ' for ' .. name .. ': ' .. result, vim.log.levels.ERROR, {})
@@ -71,186 +71,265 @@ time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
   ["coq.artifacts"] = {
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/coq.artifacts"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/coq.artifacts",
+    url = "https://github.com/ms-jpq/coq.artifacts"
   },
   coq_nvim = {
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/coq_nvim"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/coq_nvim",
+    url = "https://github.com/ms-jpq/coq_nvim"
   },
   ["dhall-vim"] = {
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/dhall-vim"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/dhall-vim",
+    url = "https://github.com/vmchale/dhall-vim"
   },
   ["focus.nvim"] = {
-    config = { "\27LJ\1\0023\0\0\2\0\3\0\0064\0\0\0%\1\1\0>\0\2\0027\0\2\0>\0\1\1G\0\1\0\nsetup\nfocus\frequire\0" },
+    config = { "\27LJ\2\n3\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\nfocus\frequire\0" },
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/focus.nvim"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/focus.nvim",
+    url = "https://github.com/beauwilliams/focus.nvim"
   },
   ["gruvbox.nvim"] = {
     config = { "vim.cmd [[colorscheme gruvbox]]" },
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/gruvbox.nvim"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/gruvbox.nvim",
+    url = "https://github.com/npxbr/gruvbox.nvim"
   },
   ["haskell-vim"] = {
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/haskell-vim"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/haskell-vim",
+    url = "https://github.com/neovimhaskell/haskell-vim"
   },
   ["indent-blankline.nvim"] = {
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
+    url = "https://github.com/lukas-reineke/indent-blankline.nvim"
   },
   ["lightspeed.nvim"] = {
     keys = { { "", "s" }, { "", "S" } },
     loaded = false,
     needs_bufread = false,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/opt/lightspeed.nvim"
+    only_cond = false,
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/opt/lightspeed.nvim",
+    url = "https://github.com/ggandor/lightspeed.nvim"
   },
   ["lsp-status.nvim"] = {
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/lsp-status.nvim"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/lsp-status.nvim",
+    url = "https://github.com/nvim-lua/lsp-status.nvim"
   },
   ["lsp_extensions.nvim"] = {
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/lsp_extensions.nvim"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/lsp_extensions.nvim",
+    url = "https://github.com/nvim-lua/lsp_extensions.nvim"
   },
   ["lspkind-nvim"] = {
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/lspkind-nvim"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/lspkind-nvim",
+    url = "https://github.com/onsails/lspkind-nvim"
   },
   ["lush.nvim"] = {
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/lush.nvim"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/lush.nvim",
+    url = "https://github.com/rktjmp/lush.nvim"
+  },
+  ["nui.nvim"] = {
+    loaded = true,
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/nui.nvim",
+    url = "https://github.com/MunifTanjim/nui.nvim"
   },
   ["nvim-colorizer.lua"] = {
     config = { "require [[colorizer]].setup()" },
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua",
+    url = "https://github.com/norcalli/nvim-colorizer.lua"
   },
   ["nvim-dap"] = {
     config = { "require [[plugin/dap]]" },
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/nvim-dap"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/nvim-dap",
+    url = "https://github.com/mfussenegger/nvim-dap"
   },
   ["nvim-lspconfig"] = {
     config = { "require [[plugin/lsp]]" },
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
+    url = "https://github.com/neovim/nvim-lspconfig"
+  },
+  ["nvim-magic"] = {
+    config = { "\27LJ\2\n8\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\15nvim-magic\frequire\0" },
+    loaded = true,
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/nvim-magic",
+    url = "https://github.com/jameshiew/nvim-magic"
   },
   ["nvim-tree.lua"] = {
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/nvim-tree.lua"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
+    url = "https://github.com/kyazdani42/nvim-tree.lua"
   },
   ["nvim-treesitter"] = {
     config = { "require [[plugin/treesitter]]" },
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
+    url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
   ["nvim-treesitter-context"] = {
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/nvim-treesitter-context"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/nvim-treesitter-context",
+    url = "https://github.com/romgrk/nvim-treesitter-context"
   },
   ["nvim-treesitter-textobjects"] = {
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/nvim-treesitter-textobjects"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/nvim-treesitter-textobjects",
+    url = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
   },
   ["nvim-ts-rainbow"] = {
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/nvim-ts-rainbow"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/nvim-ts-rainbow",
+    url = "https://github.com/p00f/nvim-ts-rainbow"
   },
   ["nvim-web-devicons"] = {
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/nvim-web-devicons"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
+    url = "https://github.com/kyazdani42/nvim-web-devicons"
   },
   ["packer.nvim"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/opt/packer.nvim"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/opt/packer.nvim",
+    url = "https://github.com/wbthomason/packer.nvim"
   },
   ["parinfer-rust"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/opt/parinfer-rust"
+    only_cond = false,
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/opt/parinfer-rust",
+    url = "https://github.com/s-zeng/parinfer-rust"
   },
   ["pear-tree"] = {
     loaded = false,
     needs_bufread = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/opt/pear-tree"
+    only_cond = false,
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/opt/pear-tree",
+    url = "https://github.com/tmsvg/pear-tree"
   },
   ["plenary.nvim"] = {
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/plenary.nvim"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/plenary.nvim",
+    url = "https://github.com/nvim-lua/plenary.nvim"
   },
   ["popup.nvim"] = {
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/popup.nvim"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/popup.nvim",
+    url = "https://github.com/nvim-lua/popup.nvim"
   },
   ["telescope-symbols.nvim"] = {
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/telescope-symbols.nvim"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/telescope-symbols.nvim",
+    url = "https://github.com/nvim-telescope/telescope-symbols.nvim"
   },
   ["telescope.nvim"] = {
     config = { "require [[plugin/telescope]]" },
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/telescope.nvim"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/telescope.nvim",
+    url = "https://github.com/nvim-telescope/telescope.nvim"
   },
   ["vim-commentary"] = {
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/vim-commentary"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/vim-commentary",
+    url = "https://github.com/tpope/vim-commentary"
   },
   ["vim-endwise"] = {
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/vim-endwise"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/vim-endwise",
+    url = "https://github.com/tpope/vim-endwise"
   },
   ["vim-koka"] = {
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/vim-koka"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/vim-koka",
+    url = "https://github.com/Nymphium/vim-koka"
   },
   ["vim-repeat"] = {
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/vim-repeat"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/vim-repeat",
+    url = "https://github.com/tpope/vim-repeat"
   },
   ["vim-sexp"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/opt/vim-sexp"
+    only_cond = false,
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/opt/vim-sexp",
+    url = "https://github.com/guns/vim-sexp"
   },
   ["vim-sexp-mappings-for-regular-people"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/opt/vim-sexp-mappings-for-regular-people"
-  },
-  ["vim-sneak"] = {
-    loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/vim-sneak"
+    only_cond = false,
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/opt/vim-sexp-mappings-for-regular-people",
+    url = "https://github.com/tpope/vim-sexp-mappings-for-regular-people"
   },
   ["vim-surround"] = {
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/vim-surround"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/vim-surround",
+    url = "https://github.com/tpope/vim-surround"
   },
   vimagit = {
     commands = { "Magit" },
     loaded = false,
     needs_bufread = false,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/opt/vimagit"
+    only_cond = false,
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/opt/vimagit",
+    url = "https://github.com/jreybert/vimagit"
   },
   vimtex = {
     loaded = false,
     needs_bufread = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/opt/vimtex"
+    only_cond = false,
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/opt/vimtex",
+    url = "https://github.com/lervag/vimtex"
   },
   ["vista.vim"] = {
     commands = { "Vista" },
     loaded = false,
     needs_bufread = false,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/opt/vista.vim"
+    only_cond = false,
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/opt/vista.vim",
+    url = "https://github.com/liuchengxu/vista.vim"
   },
   ["which-key.nvim"] = {
+    config = { "\27LJ\2\n;\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\14which-key\frequire\0" },
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/which-key.nvim"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/which-key.nvim",
+    url = "https://github.com/folke/which-key.nvim"
   }
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: nvim-lspconfig
+time([[Config for nvim-lspconfig]], true)
+require [[plugin/lsp]]
+time([[Config for nvim-lspconfig]], false)
+-- Config for: nvim-magic
+time([[Config for nvim-magic]], true)
+try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\15nvim-magic\frequire\0", "config", "nvim-magic")
+time([[Config for nvim-magic]], false)
+-- Config for: focus.nvim
+time([[Config for focus.nvim]], true)
+try_loadstring("\27LJ\2\n3\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\nfocus\frequire\0", "config", "focus.nvim")
+time([[Config for focus.nvim]], false)
+-- Config for: telescope.nvim
+time([[Config for telescope.nvim]], true)
+require [[plugin/telescope]]
+time([[Config for telescope.nvim]], false)
+-- Config for: gruvbox.nvim
+time([[Config for gruvbox.nvim]], true)
+vim.cmd [[colorscheme gruvbox]]
+time([[Config for gruvbox.nvim]], false)
+-- Config for: which-key.nvim
+time([[Config for which-key.nvim]], true)
+try_loadstring("\27LJ\2\n;\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\14which-key\frequire\0", "config", "which-key.nvim")
+time([[Config for which-key.nvim]], false)
 -- Config for: nvim-treesitter
 time([[Config for nvim-treesitter]], true)
 require [[plugin/treesitter]]
@@ -263,27 +342,11 @@ time([[Config for nvim-dap]], false)
 time([[Config for nvim-colorizer.lua]], true)
 require [[colorizer]].setup()
 time([[Config for nvim-colorizer.lua]], false)
--- Config for: gruvbox.nvim
-time([[Config for gruvbox.nvim]], true)
-vim.cmd [[colorscheme gruvbox]]
-time([[Config for gruvbox.nvim]], false)
--- Config for: focus.nvim
-time([[Config for focus.nvim]], true)
-try_loadstring("\27LJ\1\0023\0\0\2\0\3\0\0064\0\0\0%\1\1\0>\0\2\0027\0\2\0>\0\1\1G\0\1\0\nsetup\nfocus\frequire\0", "config", "focus.nvim")
-time([[Config for focus.nvim]], false)
--- Config for: telescope.nvim
-time([[Config for telescope.nvim]], true)
-require [[plugin/telescope]]
-time([[Config for telescope.nvim]], false)
--- Config for: nvim-lspconfig
-time([[Config for nvim-lspconfig]], true)
-require [[plugin/lsp]]
-time([[Config for nvim-lspconfig]], false)
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
-pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Magit lua require("packer.load")({'vimagit'}, { cmd = "Magit", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]])
-pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Vista lua require("packer.load")({'vista.vim'}, { cmd = "Vista", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]])
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Magit lua require("packer.load")({'vimagit'}, { cmd = "Magit", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Vista lua require("packer.load")({'vista.vim'}, { cmd = "Vista", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
 time([[Defining lazy-load commands]], false)
 
 -- Keymap lazy-loads
@@ -296,11 +359,12 @@ vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
-vim.cmd [[au FileType scheme ++once lua require("packer.load")({'vim-sexp-mappings-for-regular-people', 'vim-sexp', 'parinfer-rust'}, { ft = "scheme" }, _G.packer_plugins)]]
-vim.cmd [[au FileType clojure ++once lua require("packer.load")({'vim-sexp-mappings-for-regular-people', 'vim-sexp', 'parinfer-rust'}, { ft = "clojure" }, _G.packer_plugins)]]
-vim.cmd [[au FileType lisp ++once lua require("packer.load")({'vim-sexp-mappings-for-regular-people', 'vim-sexp', 'parinfer-rust'}, { ft = "lisp" }, _G.packer_plugins)]]
+vim.cmd [[au FileType clojure ++once lua require("packer.load")({'vim-sexp', 'parinfer-rust', 'vim-sexp-mappings-for-regular-people'}, { ft = "clojure" }, _G.packer_plugins)]]
+vim.cmd [[au FileType lisp ++once lua require("packer.load")({'vim-sexp', 'parinfer-rust', 'vim-sexp-mappings-for-regular-people'}, { ft = "lisp" }, _G.packer_plugins)]]
+vim.cmd [[au FileType racket ++once lua require("packer.load")({'vim-sexp', 'parinfer-rust', 'vim-sexp-mappings-for-regular-people'}, { ft = "racket" }, _G.packer_plugins)]]
+vim.cmd [[au FileType dune ++once lua require("packer.load")({'parinfer-rust'}, { ft = "dune" }, _G.packer_plugins)]]
 vim.cmd [[au FileType tex ++once lua require("packer.load")({'vimtex'}, { ft = "tex" }, _G.packer_plugins)]]
-vim.cmd [[au FileType racket ++once lua require("packer.load")({'vim-sexp-mappings-for-regular-people', 'vim-sexp', 'parinfer-rust'}, { ft = "racket" }, _G.packer_plugins)]]
+vim.cmd [[au FileType scheme ++once lua require("packer.load")({'vim-sexp', 'parinfer-rust', 'vim-sexp-mappings-for-regular-people'}, { ft = "scheme" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)
@@ -323,5 +387,6 @@ if should_profile then save_profiles() end
 end)
 
 if not no_errors then
+  error_msg = error_msg:gsub('"', '\\"')
   vim.api.nvim_command('echohl ErrorMsg | echom "Error in packer_compiled: '..error_msg..'" | echom "Please check your config for correctness" | echohl None')
 end

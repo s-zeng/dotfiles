@@ -1,17 +1,7 @@
 local ts = require'nvim-treesitter.configs'
 
--- local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
--- parser_config.haskell = {
---   install_info = {
---     url = "~/repos/tree-sitter-haskell", -- local path or git repo
---     files = {"src/parser.c", "src/scanner.cc"}
---   },
---   filetype = "hs", -- if filetype does not agrees with parser name
---   used_by = {"haskell"} -- additional filetypes that use this parser
--- }
-
 ts.setup {
-    ensure_installed = "maintained",
+    ensure_installed = "all",
     highlight = {
         enable = true,            -- false will disable the whole extension
         disable = {"haskell"}
@@ -42,14 +32,6 @@ ts.setup {
                 ["if"] = "@function.inner",
                 ["ac"] = "@class.outer",
                 ["ic"] = "@class.inner",
-
-                -- Or you can define your own textobjects like this
-                ["iF"] = {
-                    python = "(function_definition) @function",
-                    cpp = "(function_definition) @function",
-                    c = "(function_definition) @function",
-                    java = "(method_declaration) @function",
-                },
             },
         },
         swap = {

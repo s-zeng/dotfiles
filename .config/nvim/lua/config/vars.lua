@@ -1,4 +1,5 @@
 local gvars = {
+  coq_settings                = { auto_start = "shut-up", keymap = {jump_to_mark = "<c-m>"}};
   gruvbox_filetype_hi_groups  = 0;
   gruvbox_material_palette    = "original";
   indentLine_char             = '┃';

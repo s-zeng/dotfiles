@@ -4,12 +4,10 @@ local nvim_lsp = require('lspconfig')
 lsp_status.register_progress()
 
 local attach_hook = function(status_callback)
-  return function(client)
+  return function(client, bufnr)
     vim.g["coq_settings"] = { auto_start = 'shut-up' }
-    -- require("coq")
 
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    -- require'completion'.on_attach(client)
     status_callback(client)
 
     local opts = { noremap=true, silent=true }
@@ -27,10 +25,10 @@ local attach_hook = function(status_callback)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>le', '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'g0', '<cmd>lua vim.lsp.buf.document_symbol()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gW', '<cmd>lua vim.lsp.buf.workplace_symbol()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '[c', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', ']c', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>E', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '[c', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', ']c', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>E', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lt', "<cmd>lua require'lsp_extensions'.inlay_hints()<CR>", opts)
   end
 end
@@ -49,60 +47,19 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 local configs = require 'lspconfig/configs'
 local util = require 'lspconfig/util'
 
-configs["pylance"] = {
-  default_config = {
-    cmd = {"pylance-language-server"}; -- requires aur/pylance-language-server
-    filetypes = {"python"};
-    root_dir = util.root_pattern(".git", "setup.py",  "setup.cfg", "pyproject.toml", "requirements.txt");
-    settings = {
-      python = { analysis = {
-        autoSearchPaths= true;
-        useLibraryCodeForTypes = true;
-        typeCheckingMode = "basic";
-      }};
-    };
-    -- TODO: Temp bug fix, see https://github.com/neovim/neovim/issues/13448
-    handlers = {
-      ['client/registerCapability'] = function(_, _, _, _)
-        return {
-          result = nil;
-          error = nil;
-        }
-      end
-    };
-  };
-  docs = {
-    description = [[
-    https://github.com/microsoft/pylance-release
-    `pylance`, a static type checker and language server for python
-    ]];
-  };
-}
--- end pylance
-
--- add dhall
-configs["dhall"] = {
-  default_config = {
-    cmd = {"dhall-lsp-server"};
-    filetypes = {"dhall"};
-    root_dir = util.path.dirname;
-  };
-}
---
-
 local default_config_servers = {
   'bashls',
   'clojure_lsp',
   'cmake',
   'cssls',
-  'dhall',
+  'dhall_lsp_server',
   'dockerls',
   'hls',
   'html',
-  -- 'jdtls',
   'jsonls',
   'metals',
-  'pylance',
+  'ocamllsp',
+  'pyright',
   'rust_analyzer',
   'texlab',
   'tsserver',

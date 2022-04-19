@@ -6,9 +6,9 @@ local plugins = {
   },
   {
     -- lisp auto-brackets; write lisp like python!
-    'eraserhd/parinfer-rust',
+    's-zeng/parinfer-rust',
     run = 'cargo build --release',
-    ft = {'clojure', 'scheme', 'racket', 'lisp'},
+    ft = {'clojure', 'scheme', 'racket', 'lisp', 'dune'},
   },
   {
     -- emacs style which-key
@@ -103,7 +103,6 @@ local plugins = {
   {
     -- treesitter in neovim. replaces polyglot + adds cool ast-based manipulations/text objects
     'nvim-treesitter/nvim-treesitter',
-    branch = [[0.5-compat]],
     config = 'require [[plugin/treesitter]]',
     requires = {
       'nvim-treesitter/nvim-treesitter-textobjects',
