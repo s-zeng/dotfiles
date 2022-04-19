@@ -1,25 +1,24 @@
 local autocmds = {
-  {cond="BufNewFile,BufRead", ft="*.ghci", action="set filetype=haskell"},
-  {cond="Filetype", ft="markdown", action="set tw=80 formatoptions+=wn2 spell shiftwidth=2 tabstop=2"},
-  {cond="Filetype", ft="ruby", action="set shiftwidth=2 tabstop=2"},
-  {cond="Filetype", ft="lua", action="set shiftwidth=2 tabstop=2"},
-  {cond="Filetype", ft="scheme", action="set lispwords+=match lispwords-=if"},
-  {cond="Filetype", ft="tex", action="set tw=80 formatoptions+=wn2 spell"},
-  {cond="TabLeave", ft="*", action="let g:lasttab = tabpagenr()"},
-  {cond="TermClose", ft="*", action=[[exe "bd! " . expand('<abuf>')]]},
-  {cond="TermClose", ft="*", action="setlocal number relativenumber"},
-  {cond="TermEnter", ft="*", action="setlocal scrolloff=0"},
-  {cond="TermLeave", ft="*", action="setlocal scrolloff=999999"},
-  {cond="TermOpen", ft="*", action="setlocal nonumber norelativenumber nospell"},
-  {cond="CompleteDone", ft="*", action="silent! pclose!"},
-  {cond="CursorHold", ft="<buffer>", action="lua vim.lsp.diagnostic.show_line_diagnostics()"},
-  {cond="CursorHoldI", ft="<buffer>", action="lua vim.lsp.diagnostic.show_line_diagnostics()"},
-  {cond="FileType", ft="json", action=[[syntax match Comment +\/\/.\+$+]]},
-  {cond="FileType", ft="lisp,clojure,scheme,racket", action="set lisp"},
-  {cond="TextYankPost", ft="*", action="silent! lua return (not vim.v.event.visual) and require'vim.highlight'.on_yank{timeout=300}"},
+  {cond="BufNewFile, BufRead", cmd ={pattern="*.ghci", command="set filetype=haskell"}},
+  {cond="Filetype", cmd ={ pattern="markdown", command="set tw=80 formatoptions+=wn2 spell shiftwidth=2 tabstop=2"}},
+  {cond="Filetype", cmd ={ pattern="ruby", command="set shiftwidth=2 tabstop=2"}},
+  {cond="Filetype", cmd ={ pattern="lua", command="set shiftwidth=2 tabstop=2"}},
+  {cond="Filetype", cmd ={ pattern="scheme", command="set lispwords+=match lispwords-=if"}},
+  {cond="Filetype", cmd ={ pattern="tex", command="set tw=80 formatoptions+=wn2 spell"}},
+  {cond="TabLeave", cmd ={ pattern="*", command="let g:lasttab = tabpagenr()"}},
+  {cond="TermClose", cmd ={ pattern="*", command=[[exe "bd! " . expand('<abuf>')]]}},
+  {cond="TermClose", cmd ={ pattern="*", command="setlocal number relativenumber"}},
+  {cond="TermEnter", cmd ={ pattern="*", command="setlocal scrolloff=0"}},
+  {cond="TermLeave", cmd ={ pattern="*", command="setlocal scrolloff=999999"}},
+  {cond="TermOpen", cmd ={ pattern="*", command="setlocal nonumber norelativenumber nospell"}},
+  {cond="CompleteDone", cmd ={ pattern="*", command="silent! pclose!"}},
+  {cond="CursorHold", cmd ={ pattern="<buffer>", callback = vim.lsp.diagnostic.show_line_diagnostics}},
+  {cond="CursorHoldI", cmd ={ pattern="<buffer>", callback =vim.lsp.diagnostic.show_line_diagnostics}},
+  {cond="FileType", cmd ={ pattern="json", command=[[syntax match Comment +\/\/.\+$+]]}},
+  {cond="FileType", cmd ={ pattern="lisp,clojure,scheme,racket", command="set lisp"}},
+  {cond="TextYankPost", cmd ={ pattern="*", command="silent! lua return (not vim.v.event.visual) and require'vim.highlight'.on_yank{timeout=300}"}},
 }
 
--- TODO: wait on https://github.com/neovim/neovim/pull/12378
 for i, cmd in ipairs(autocmds) do
-  vim.cmd(table.concat({"autocmd", cmd.cond, cmd.ft, cmd.action}, " "))
+  vim.api.nvim_create_autocmd(cmd.cond, cmd.cmd)
 end
