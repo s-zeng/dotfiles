@@ -13,7 +13,7 @@ local plugins = {
   {
     -- emacs style which-key
     'folke/which-key.nvim',
-    config = function()
+    config = function ()
       require("which-key").setup {}
     end
   },
@@ -25,9 +25,7 @@ local plugins = {
   {
     -- openai codex completion
     'jameshiew/nvim-magic',
-   	config = function()
-	  	require('nvim-magic').setup()
-	  end,
+   	config = function () require('nvim-magic').setup() end,
 	  requires = {
 	  	'nvim-lua/plenary.nvim',
 	  	'MunifTanjim/nui.nvim'
@@ -58,21 +56,24 @@ local plugins = {
     'lukas-reineke/indent-blankline.nvim',
   },
   {
+    "luukvbaal/stabilize.nvim",
+    config = function() require("stabilize").setup() end
+  },
+  {
     -- debug client
     'mfussenegger/nvim-dap',
     config = 'require [[plugin/dap]]'
   },
   {
     -- colorscheme
-    "npxbr/gruvbox.nvim",
-    requires={"rktjmp/lush.nvim"},
+    "ellisonleao/gruvbox.nvim",
     config = 'vim.cmd [[colorscheme gruvbox]]'
   },
   {
     -- nvim lua fzf type thing
     'nvim-telescope/telescope.nvim',
     config = 'require [[plugin/telescope]]',
-    requires = {'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim', 'nvim-telescope/telescope-symbols.nvim', 'kyazdani42/nvim-web-devicons'}
+    requires = {'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-symbols.nvim', 'kyazdani42/nvim-web-devicons', 'nvim-telescope/telescope-ui-select.nvim'}
   },
   {
     -- tagbar w/ lsp support

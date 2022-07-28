@@ -94,7 +94,7 @@ _G.packer_plugins = {
     config = { "vim.cmd [[colorscheme gruvbox]]" },
     loaded = true,
     path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/gruvbox.nvim",
-    url = "https://github.com/npxbr/gruvbox.nvim"
+    url = "https://github.com/ellisonleao/gruvbox.nvim"
   },
   ["haskell-vim"] = {
     loaded = true,
@@ -128,11 +128,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/lspkind-nvim",
     url = "https://github.com/onsails/lspkind-nvim"
-  },
-  ["lush.nvim"] = {
-    loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/lush.nvim",
-    url = "https://github.com/rktjmp/lush.nvim"
   },
   ["nui.nvim"] = {
     loaded = true,
@@ -219,15 +214,21 @@ _G.packer_plugins = {
     path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
-  ["popup.nvim"] = {
+  ["stabilize.nvim"] = {
+    config = { "\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14stabilize\frequire\0" },
     loaded = true,
-    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/popup.nvim",
-    url = "https://github.com/nvim-lua/popup.nvim"
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/stabilize.nvim",
+    url = "https://github.com/luukvbaal/stabilize.nvim"
   },
   ["telescope-symbols.nvim"] = {
     loaded = true,
     path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/telescope-symbols.nvim",
     url = "https://github.com/nvim-telescope/telescope-symbols.nvim"
+  },
+  ["telescope-ui-select.nvim"] = {
+    loaded = true,
+    path = "/home/kronicmage/.local/share/nvim/site/pack/packer/start/telescope-ui-select.nvim",
+    url = "https://github.com/nvim-telescope/telescope-ui-select.nvim"
   },
   ["telescope.nvim"] = {
     config = { "require [[plugin/telescope]]" },
@@ -306,38 +307,42 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: nvim-lspconfig
-time([[Config for nvim-lspconfig]], true)
-require [[plugin/lsp]]
-time([[Config for nvim-lspconfig]], false)
--- Config for: which-key.nvim
-time([[Config for which-key.nvim]], true)
-try_loadstring("\27LJ\2\n;\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\14which-key\frequire\0", "config", "which-key.nvim")
-time([[Config for which-key.nvim]], false)
 -- Config for: nvim-magic
 time([[Config for nvim-magic]], true)
 try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\15nvim-magic\frequire\0", "config", "nvim-magic")
 time([[Config for nvim-magic]], false)
+-- Config for: which-key.nvim
+time([[Config for which-key.nvim]], true)
+try_loadstring("\27LJ\2\n;\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\14which-key\frequire\0", "config", "which-key.nvim")
+time([[Config for which-key.nvim]], false)
+-- Config for: stabilize.nvim
+time([[Config for stabilize.nvim]], true)
+try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14stabilize\frequire\0", "config", "stabilize.nvim")
+time([[Config for stabilize.nvim]], false)
 -- Config for: focus.nvim
 time([[Config for focus.nvim]], true)
 try_loadstring("\27LJ\2\n3\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\nfocus\frequire\0", "config", "focus.nvim")
 time([[Config for focus.nvim]], false)
--- Config for: nvim-colorizer.lua
-time([[Config for nvim-colorizer.lua]], true)
-require [[colorizer]].setup()
-time([[Config for nvim-colorizer.lua]], false)
--- Config for: gruvbox.nvim
-time([[Config for gruvbox.nvim]], true)
-vim.cmd [[colorscheme gruvbox]]
-time([[Config for gruvbox.nvim]], false)
 -- Config for: nvim-treesitter
 time([[Config for nvim-treesitter]], true)
 require [[plugin/treesitter]]
 time([[Config for nvim-treesitter]], false)
+-- Config for: gruvbox.nvim
+time([[Config for gruvbox.nvim]], true)
+vim.cmd [[colorscheme gruvbox]]
+time([[Config for gruvbox.nvim]], false)
+-- Config for: nvim-colorizer.lua
+time([[Config for nvim-colorizer.lua]], true)
+require [[colorizer]].setup()
+time([[Config for nvim-colorizer.lua]], false)
 -- Config for: nvim-dap
 time([[Config for nvim-dap]], true)
 require [[plugin/dap]]
 time([[Config for nvim-dap]], false)
+-- Config for: nvim-lspconfig
+time([[Config for nvim-lspconfig]], true)
+require [[plugin/lsp]]
+time([[Config for nvim-lspconfig]], false)
 -- Config for: telescope.nvim
 time([[Config for telescope.nvim]], true)
 require [[plugin/telescope]]
@@ -359,12 +364,12 @@ vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
+vim.cmd [[au FileType clojure ++once lua require("packer.load")({'parinfer-rust', 'vim-sexp', 'vim-sexp-mappings-for-regular-people'}, { ft = "clojure" }, _G.packer_plugins)]]
 vim.cmd [[au FileType dune ++once lua require("packer.load")({'parinfer-rust'}, { ft = "dune" }, _G.packer_plugins)]]
-vim.cmd [[au FileType scheme ++once lua require("packer.load")({'parinfer-rust', 'vim-sexp', 'vim-sexp-mappings-for-regular-people'}, { ft = "scheme" }, _G.packer_plugins)]]
+vim.cmd [[au FileType lisp ++once lua require("packer.load")({'parinfer-rust', 'vim-sexp', 'vim-sexp-mappings-for-regular-people'}, { ft = "lisp" }, _G.packer_plugins)]]
 vim.cmd [[au FileType racket ++once lua require("packer.load")({'parinfer-rust', 'vim-sexp', 'vim-sexp-mappings-for-regular-people'}, { ft = "racket" }, _G.packer_plugins)]]
 vim.cmd [[au FileType tex ++once lua require("packer.load")({'vimtex'}, { ft = "tex" }, _G.packer_plugins)]]
-vim.cmd [[au FileType lisp ++once lua require("packer.load")({'parinfer-rust', 'vim-sexp', 'vim-sexp-mappings-for-regular-people'}, { ft = "lisp" }, _G.packer_plugins)]]
-vim.cmd [[au FileType clojure ++once lua require("packer.load")({'parinfer-rust', 'vim-sexp', 'vim-sexp-mappings-for-regular-people'}, { ft = "clojure" }, _G.packer_plugins)]]
+vim.cmd [[au FileType scheme ++once lua require("packer.load")({'parinfer-rust', 'vim-sexp', 'vim-sexp-mappings-for-regular-people'}, { ft = "scheme" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)

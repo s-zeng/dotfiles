@@ -7,6 +7,8 @@ require('telescope').setup{
   }
 }
 
+require("telescope").load_extension("ui-select")
+
 
 local opts = { noremap=true }
 vim.api.nvim_set_keymap('n', '<leader><leader>', "<cmd>Telescope builtin<CR>", opts)
@@ -21,6 +23,5 @@ vim.api.nvim_set_keymap('n', '<leader>v', ":vsp<CR><cmd>Telescope find_files<CR>
 vim.api.nvim_set_keymap('n', '<leader><Up>', "<cmd>Telescope command_history<CR>", opts)
 vim.api.nvim_set_keymap('n', '<leader>Q', "<cmd>Telescope commands<CR>", opts)
 vim.api.nvim_set_keymap('n', '<leader>q', "<cmd>Telescope quickfix<CR>", opts)
-vim.api.nvim_set_keymap('n', '<leader>a', "<cmd>Telescope lsp_code_actions<CR>", opts)
 vim.api.nvim_set_keymap('n', '<leader>m', "<cmd>Telescope marks<CR>", opts)
 vim.api.nvim_set_keymap('n', '<leader>i', "<cmd>Telescope symbols<CR>", opts)

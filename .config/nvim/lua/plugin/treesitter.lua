@@ -4,7 +4,7 @@ ts.setup {
     ensure_installed = "all",
     highlight = {
         enable = true,            -- false will disable the whole extension
-        disable = {"haskell"}
+        -- disable = {"haskell"}
     },
     indent = {
         enable = true,

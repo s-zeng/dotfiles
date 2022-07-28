@@ -12,6 +12,7 @@ local maps = {
     ["<c-l>"] = "<c-w>l",
     ["<leader>>"] = "0i     <ESC>A",
     ["<leader><"] = "V3<<",
+    ["<leader>a"] = "<cmd>lua vim.lsp.buf.code_action()<CR>",
     ["<leader>c"] = ":noh<CR>hl",
     ["<leader>d"] = ":lcd %:p:h<CR>",
     ["<leader>lc"] = ":COQnow -s<CR>",
