@@ -12,9 +12,10 @@ local maps = {
     ["<c-l>"] = "<c-w>l",
     ["<leader>>"] = "0i     <ESC>A",
     ["<leader><"] = "V3<<",
-    ["<leader>a"] = "<cmd>lua vim.lsp.buf.code_action()<CR>",
     ["<leader>c"] = ":noh<CR>hl",
     ["<leader>d"] = ":lcd %:p:h<CR>",
+    ["<leader>O"] = ":tabnew<CR>",
+    ["<leader>v"] = ":vsp<CR>",
     ["<leader>lc"] = ":COQnow -s<CR>",
     ["<leader>r"] = ":checktime<CR>",
     ["<leader>t0"] = ":tablast<cr>",
@@ -59,9 +60,9 @@ local maps = {
 for mode, mappings in pairs(maps) do
   for keys, mapping in pairs(mappings) do
     if (type(mapping) == "table") then
-      vim.api.nvim_set_keymap(mode, keys, mapping.map, mapping.opts)
+      vim.keymap.set(mode, keys, mapping.map, mapping.opts)
     else
-      vim.api.nvim_set_keymap(mode, keys, mapping, {noremap=true})
+      vim.keymap.set(mode, keys, mapping, {noremap=true})
     end
   end
 end

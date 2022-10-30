@@ -44,6 +44,7 @@ local plugins = {
   {
     -- netrw/nerd-tree replacement
     'kyazdani42/nvim-tree.lua',
+    config = function () require("nvim-tree").setup() end,
     requires = {'kyazdani42/nvim-web-devicons'},
   },
   {
@@ -73,12 +74,26 @@ local plugins = {
     -- nvim lua fzf type thing
     'nvim-telescope/telescope.nvim',
     config = 'require [[plugin/telescope]]',
-    requires = {'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-symbols.nvim', 'kyazdani42/nvim-web-devicons', 'nvim-telescope/telescope-ui-select.nvim'}
+    requires = {
+      'kyazdani42/nvim-web-devicons',
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope-fzy-native.nvim',
+      'nvim-telescope/telescope-symbols.nvim',
+      'nvim-telescope/telescope-ui-select.nvim',
+    }
   },
   {
     -- tagbar w/ lsp support
     'liuchengxu/vista.vim',
     cmd = {'Vista'}
+  },
+  {
+  'MrcJkb/haskell-tools.nvim',
+    requires = {
+    'neovim/nvim-lspconfig',
+    'nvim-lua/plenary.nvim',
+    'nvim-telescope/telescope.nvim', -- optional
+    },
   },
   {
     -- nvim built-in lsp + lua plugins built off it
